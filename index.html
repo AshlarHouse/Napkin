@@ -26,7 +26,6 @@
       --red-light:    #fff0f3;
       --green:        #008A05;
       --green-light:  #ebfaeb;
-      --orange:       #C13515;
       --radius-card:  20px;
       --radius-badge: 40px;
       --radius-input: 40px;
@@ -50,11 +49,19 @@
       overflow-x: hidden;
       opacity: 0;
       pointer-events: none;
-      transition: opacity 280ms ease;
+      transition: opacity 260ms ease, transform 300ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      transform: translateY(0);
+      -webkit-overflow-scrolling: touch;
     }
     .screen.active {
       opacity: 1;
       pointer-events: auto;
+      transform: translateY(0);
+    }
+    /* Slide-up entrance: set this before adding .active */
+    .screen.will-slide-up {
+      transform: translateY(28px);
+      opacity: 0;
     }
 
     /* ── PASSWORD GATE ───────────────────────────────────── */
@@ -139,7 +146,7 @@
     .home-inner {
       max-width: 480px;
       margin: 0 auto;
-      padding: 56px 20px 40px;
+      padding: 56px 20px 80px; /* 80px bottom = footer height + gap */
     }
     .home-topbar .wordmark { display: block; }
     .home-greeting {
@@ -155,7 +162,6 @@
       color: var(--text-dim);
       margin-top: 4px;
     }
-
     .market-banner {
       background: var(--bg);
       border-left: 3px solid var(--red);
@@ -168,7 +174,6 @@
       font-weight: 500;
       color: var(--text);
     }
-
     .section-heading {
       font-size: 22px;
       font-weight: 600;
@@ -202,6 +207,41 @@
       border-color: var(--text);
       color: #fff;
     }
+
+    /* ── HOME FOOTER (fixed to bottom of screen-home) ────── */
+    .home-footer {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 48px;
+      background: var(--bg);
+      border-top: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 20px;
+      z-index: 10;
+    }
+    .home-footer.centered {
+      justify-content: center;
+    }
+    .footer-text {
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+    .btn-refresh {
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 44px;
+      min-width: 44px;
+      padding: 0;
+      transition: color 150ms;
+    }
+    .btn-refresh:hover { color: var(--text-dim); }
 
     /* ── CARD DECK SCREEN ────────────────────────────────── */
     #screen-deck {
@@ -243,14 +283,13 @@
       font-size: 13px;
       font-weight: 400;
       color: var(--text-dim);
-      margin-top: 0;
       margin-bottom: 12px;
     }
 
-    /* Card stack */
+    /* ── CARD STACK ──────────────────────────────────────── */
     .card-stack-area {
       width: 100%;
-      padding: 0 20px;
+      padding: 0 20px 28px; /* bottom padding lets ghost cards breathe */
       position: relative;
       display: flex;
       align-items: flex-start;
@@ -259,31 +298,37 @@
     .card-stack {
       position: relative;
       width: 100%;
-      max-width: 400px;
+      max-width: 390px;
     }
+
+    /* Ghost cards: absolutely fill same space as active card slot */
     .ghost-cards {
       position: absolute;
-      top: 0; left: 0; right: 0;
+      top: 0; left: 0; right: 0; bottom: 0;
+      pointer-events: none;
     }
     .ghost-card {
       position: absolute;
-      top: 0; left: 0; right: 0;
+      top: 0; left: 0; right: 0; bottom: 0;
       background: var(--bg);
       border-radius: var(--radius-card);
-      height: 420px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.06);
     }
+    /* transform-origin: bottom center so they peek out below the active card */
     .ghost-card-1 {
-      transform: scale(0.97) translateY(6px);
-      opacity: 0.6;
+      transform-origin: bottom center;
+      transform: scale(0.96) translateY(8px);
+      opacity: 0.65;
       z-index: 2;
     }
     .ghost-card-2 {
-      transform: scale(0.94) translateY(12px);
-      opacity: 0.3;
+      transform-origin: bottom center;
+      transform: scale(0.92) translateY(16px);
+      opacity: 0.35;
       z-index: 1;
     }
 
-    /* The active draggable card */
+    /* Active draggable card */
     .active-card {
       position: relative;
       z-index: 3;
@@ -292,18 +337,18 @@
       overflow: hidden;
       cursor: grab;
       user-select: none;
-      transition: box-shadow 150ms;
+      box-shadow: 0 2px 16px rgba(0,0,0,0.10);
       will-change: transform;
+      touch-action: pan-y; /* allow vertical scroll but we override on horizontal drag */
     }
     .active-card:active { cursor: grabbing; }
-    .active-card.dragging { transition: none; }
     .active-card.fly-left {
-      transition: transform 320ms ease, opacity 280ms ease;
+      transition: transform 300ms ease-in, opacity 260ms ease !important;
       transform: translateX(-110vw) rotate(-8deg) !important;
       opacity: 0;
     }
     .active-card.fly-right {
-      transition: transform 320ms ease, opacity 280ms ease;
+      transition: transform 300ms ease-in, opacity 260ms ease !important;
       transform: translateX(110vw) rotate(8deg) !important;
       opacity: 0;
     }
@@ -322,16 +367,20 @@
       height: 100%;
       object-fit: cover;
       display: block;
+      position: relative;
+      z-index: 1;
     }
     .card-photo-placeholder {
-      width: 100%;
-      height: 100%;
+      position: absolute;
+      inset: 0;
       display: flex;
       align-items: center;
       justify-content: center;
       font-size: 13px;
+      font-weight: 400;
       color: var(--text-muted);
       background: var(--bg-soft);
+      z-index: 0;
     }
 
     /* Card info */
@@ -349,7 +398,6 @@
       font-weight: 400;
       color: var(--text-dim);
       line-height: 20px;
-      margin-top: 0;
     }
     .stat-chips {
       display: flex;
@@ -384,7 +432,6 @@
     .badge-takeout { background: var(--green-light); color: var(--green); border: 1px solid var(--green); }
     .badge-closed  { background: var(--bg-soft); color: var(--text-dim); border: 1px solid var(--border); }
     .badge-satonly { background: var(--red-light); color: var(--red); border: 1px solid var(--red); }
-
     .card-note {
       font-size: 14px;
       font-weight: 400;
@@ -434,6 +481,7 @@
     }
     .btn-commit:hover { background: var(--red-hover); }
 
+    /* Empty state */
     .deck-empty {
       display: flex;
       flex-direction: column;
@@ -444,8 +492,9 @@
     .deck-empty p {
       font-size: 15px;
       color: var(--text-dim);
+      text-align: center;
     }
-    .btn-shuffle {
+    .btn-empty-action {
       background: none;
       border: none;
       font-size: 15px;
@@ -457,8 +506,9 @@
       align-items: center;
       gap: 6px;
       min-height: 48px;
+      padding: 4px 0;
     }
-    .btn-shuffle:hover { text-decoration: underline; }
+    .btn-empty-action:hover { text-decoration: underline; }
 
     /* ── COMMIT SCREEN ───────────────────────────────────── */
     #screen-commit {
@@ -556,37 +606,17 @@
       min-height: 48px;
     }
 
-    /* ── FOOTER ──────────────────────────────────────────── */
-    .app-footer {
-      width: 100%;
-      text-align: center;
-      padding: 24px 20px 32px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
+    /* ── RESPONSIVE ──────────────────────────────────────── */
+    @media (max-width: 359px) {
+      .card-info {
+        padding: 10px 12px 12px;
+      }
+      .chip {
+        padding: 8px 14px;
+        font-size: 13px;
+      }
     }
-    .footer-text {
-      font-size: 13px;
-      color: var(--text-muted);
-    }
-    .btn-refresh {
-      background: none;
-      border: none;
-      cursor: pointer;
-      color: var(--text-muted);
-      display: flex;
-      align-items: center;
-      padding: 4px;
-      min-height: 32px;
-      min-width: 32px;
-    }
-    .btn-refresh:hover { color: var(--text-dim); }
 
-    /* ── DIVIDER ─────────────────────────────────────────── */
-    hr.divider { border: none; border-top: 1px solid var(--border); margin: 0; }
-
-    /* ── SVG ICONS ───────────────────────────────────────── */
     svg { flex-shrink: 0; }
   </style>
 </head>
@@ -598,14 +628,14 @@
 <div id="screen-gate" class="screen">
   <div class="gate-inner">
     <span class="wordmark">Napkin</span>
-    <span class="tagline">Napa · Wilson family</span>
+    <span style="display:inline-block;font-size:11px;font-weight:600;color:#6a6a6a;background:#f7f7f7;border:1px solid #dddddd;border-radius:40px;padding:3px 10px;letter-spacing:0.04em;margin-top:6px">BETA TESTING</span>
     <form class="gate-form" id="gate-form" autocomplete="off">
       <input
         id="gate-input"
         class="pill-input"
         type="password"
         placeholder="Password"
-        autocomplete="current-password"
+        autocomplete="off"
       >
       <button type="submit" class="btn-primary">Enter</button>
     </form>
@@ -636,16 +666,17 @@
       <button class="chip" data-craving="sandwiches">Sandwiches</button>
       <button class="chip" data-craving="surprise">Surprise Me</button>
     </div>
-    <div class="app-footer" id="home-footer">
-      <span class="footer-text" id="footer-text"></span>
-      <button class="btn-refresh" id="btn-refresh" title="Refresh local events" style="display:none">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <polyline points="23 4 23 10 17 10"></polyline>
-          <polyline points="1 20 1 14 7 14"></polyline>
-          <path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"></path>
-        </svg>
-      </button>
-    </div>
+  </div>
+  <!-- Footer fixed to bottom of this screen -->
+  <div class="home-footer centered" id="home-footer">
+    <span class="footer-text" id="footer-text">Tap to refresh local events</span>
+    <button class="btn-refresh" id="btn-refresh" aria-label="Refresh local events" style="display:none">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="23 4 23 10 17 10"></polyline>
+        <polyline points="1 20 1 14 7 14"></polyline>
+        <path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"></path>
+      </svg>
+    </button>
   </div>
 </div>
 
@@ -662,12 +693,12 @@
       </button>
       <span class="wordmark">Napkin</span>
     </div>
-    <div class="deck-progress" id="deck-progress">1 of 5</div>
+    <div class="deck-progress" id="deck-progress"></div>
     <div class="card-stack-area">
       <div class="card-stack" id="card-stack">
-        <div class="ghost-cards">
-          <div class="ghost-card ghost-card-2"></div>
-          <div class="ghost-card ghost-card-1"></div>
+        <div class="ghost-cards" id="ghost-cards">
+          <div class="ghost-card ghost-card-2" id="ghost-2"></div>
+          <div class="ghost-card ghost-card-1" id="ghost-1"></div>
         </div>
         <div id="active-card-slot"></div>
       </div>
@@ -677,15 +708,15 @@
       <button class="btn-commit" id="btn-commit">This is it</button>
     </div>
     <div class="deck-empty" id="deck-empty" style="display:none">
-      <p>No more spots right now.</p>
-      <button class="btn-shuffle" id="btn-shuffle-empty">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <p id="deck-empty-msg">No more spots right now.</p>
+      <button class="btn-empty-action" id="btn-empty-action">
+        <svg id="empty-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <polyline points="16 3 21 3 21 8"></polyline>
           <line x1="4" y1="20" x2="21" y2="3"></line>
           <polyline points="21 16 21 21 16 21"></polyline>
           <line x1="15" y1="15" x2="21" y2="21"></line>
         </svg>
-        Shuffle
+        <span id="empty-action-label">Shuffle</span>
       </button>
     </div>
   </div>
@@ -721,6 +752,7 @@
 let spots = [];
 let deck  = [];
 let deckIndex = 0;
+let deckIsNoMatchFallback = false; // true when deck is empty because nothing matched craving
 let selectedSpot = null;
 let selectedCraving = null;
 
@@ -744,21 +776,7 @@ function shuffle(arr) {
   return a;
 }
 
-function priceStr(n) {
-  return '$'.repeat(n);
-}
-
-function dayLabel(day) {
-  return { mon:'Monday',tue:'Tuesday',wed:'Wednesday',thu:'Thursday',fri:'Friday',sat:'Saturday',sun:'Sunday' }[day] || '';
-}
-
-function formatTime(h) {
-  const hr = Math.floor(h);
-  const mn = Math.round((h - hr) * 60);
-  const ampm = hr >= 12 ? 'PM' : 'AM';
-  const display = hr > 12 ? hr - 12 : hr === 0 ? 12 : hr;
-  return mn ? `${display}:${String(mn).padStart(2,'0')} ${ampm}` : `${display} ${ampm}`;
-}
+function priceStr(n) { return '$'.repeat(n); }
 
 // ════════════════════════════════════════════════════════
 //  OPEN-NOW LOGIC
@@ -770,9 +788,7 @@ function isOpenNow(spot) {
   }
   const h = spot.hours[day];
   if (!h) return false;
-  // Two-number window [open, close]
   if (typeof h[0] === 'number') return hour >= h[0] && hour < h[1];
-  // Array of windows [[open,close],...]
   return h.some(w => hour >= w[0] && hour < w[1]);
 }
 
@@ -794,12 +810,14 @@ function getSituationBadges(spot) {
 }
 
 function badgeClass(label) {
-  if (label === 'Line Expected') return 'badge badge-line';
-  if (label === 'Market Morning') return 'badge badge-market';
-  if (label === 'Takeout Ready') return 'badge badge-takeout';
-  if (label === 'Closed Today')  return 'badge badge-closed';
-  if (label === 'Sat Market Only') return 'badge badge-satonly';
-  return 'badge';
+  const map = {
+    'Line Expected':  'badge badge-line',
+    'Market Morning': 'badge badge-market',
+    'Takeout Ready':  'badge badge-takeout',
+    'Closed Today':   'badge badge-closed',
+    'Sat Market Only':'badge badge-satonly',
+  };
+  return map[label] || 'badge';
 }
 
 // ════════════════════════════════════════════════════════
@@ -807,17 +825,34 @@ function badgeClass(label) {
 // ════════════════════════════════════════════════════════
 function filterByCraving(craving) {
   if (craving === 'surprise') return shuffle(spots.filter(isOpenNow));
-  const matched = spots.filter(s => isOpenNow(s) && s.cravingMatch.includes(craving));
-  if (matched.length > 0) return matched;
-  return shuffle(spots.filter(isOpenNow)); // fallback
+  // Return only exact matches — no silent fallback
+  return spots.filter(s => isOpenNow(s) && s.cravingMatch.includes(craving));
 }
 
 // ════════════════════════════════════════════════════════
 //  SCREEN TRANSITIONS
 // ════════════════════════════════════════════════════════
-function showScreen(id) {
-  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
+function showScreen(id, { slideUp = false } = {}) {
+  // Deactivate all screens
+  document.querySelectorAll('.screen').forEach(s => {
+    s.classList.remove('active', 'will-slide-up');
+  });
+
+  const next = document.getElementById(id);
+
+  if (slideUp) {
+    // Prime the starting position
+    next.classList.add('will-slide-up');
+    // Double rAF: first frame commits the class, second frame triggers transition
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        next.classList.remove('will-slide-up');
+        next.classList.add('active');
+      });
+    });
+  } else {
+    next.classList.add('active');
+  }
 }
 
 // ════════════════════════════════════════════════════════
@@ -828,40 +863,37 @@ function setupHome() {
 
   // Greeting
   let greeting;
-  if (hour < 11)       greeting = 'Good morning, Wilson family.';
-  else if (hour < 15)  greeting = "What's for lunch?";
-  else if (hour < 18)  greeting = 'Afternoon, Wilson family.';
-  else                 greeting = 'Dinner time.';
+  if (hour < 11)      greeting = 'Good morning, Wilson family.';
+  else if (hour < 15) greeting = "What's for lunch?";
+  else if (hour < 18) greeting = 'Afternoon, Wilson family.';
+  else                greeting = 'Dinner time.';
   document.getElementById('home-greeting').textContent = greeting;
 
   // Datetime
   const dayNames = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
-  const monthNames = ['January','February','March','April','May','June','July','August','September','October','November','December'];
   const hh = now.getHours();
   const mm = now.getMinutes();
   const ampm = hh >= 12 ? 'PM' : 'AM';
   const h12 = hh > 12 ? hh - 12 : hh === 0 ? 12 : hh;
-  const mmStr = String(mm).padStart(2,'0');
   document.getElementById('home-datetime').textContent =
-    `${dayNames[now.getDay()]} · ${h12}:${mmStr} ${ampm}`;
+    `${dayNames[now.getDay()]} · ${h12}:${String(mm).padStart(2,'0')} ${ampm}`;
 
-  // Saturday 8–noon market banner
-  const month = now.getMonth(); // 0-based
+  // Market banner
+  const month = now.getMonth();
   const isSatMorning = day === 'sat' && hour >= 8 && hour < 12;
   const isTueMorning = day === 'tue' && hour >= 8 && hour < 12 && month >= 3 && month <= 11;
-  const banner = document.getElementById('market-banner');
-  banner.style.display = (isSatMorning || isTueMorning) ? 'block' : 'none';
+  document.getElementById('market-banner').style.display =
+    (isSatMorning || isTueMorning) ? 'block' : 'none';
 
-  // Footer
   setupFooter();
 }
 
 // ════════════════════════════════════════════════════════
 //  EVENT CACHE / FOOTER
 // ════════════════════════════════════════════════════════
+let footerListenerAdded = false;
+
 async function setupFooter() {
-  const footerText = document.getElementById('footer-text');
-  const btnRefresh = document.getElementById('btn-refresh');
   const lastRefresh = localStorage.getItem('napkin_last_refresh');
   const now = Date.now();
   const threeDays = 3 * 24 * 60 * 60 * 1000;
@@ -872,23 +904,48 @@ async function setupFooter() {
 
   updateFooterDisplay();
 
-  btnRefresh.style.display = 'flex';
-  btnRefresh.addEventListener('click', async () => {
-    footerText.textContent = 'Updating…';
-    await fetchEvents();
-    updateFooterDisplay();
-  });
+  if (!footerListenerAdded) {
+    footerListenerAdded = true;
+    document.getElementById('btn-refresh').addEventListener('click', async () => {
+      document.getElementById('footer-text').textContent = 'Updating...';
+      await fetchEvents();
+      updateFooterDisplay();
+    });
+    // Also make the footer text clickable when no cache
+    document.getElementById('footer-text').addEventListener('click', async () => {
+      const ft = document.getElementById('footer-text');
+      if (ft.textContent === 'Tap to refresh local events') {
+        ft.textContent = 'Updating...';
+        await fetchEvents();
+        updateFooterDisplay();
+      }
+    });
+  }
 }
 
 function updateFooterDisplay() {
-  const footerText = document.getElementById('footer-text');
+  const footer    = document.getElementById('home-footer');
+  const footerText= document.getElementById('footer-text');
+  const btnRefresh= document.getElementById('btn-refresh');
   const lastRefresh = localStorage.getItem('napkin_last_refresh');
-  if (!lastRefresh) { footerText.textContent = ''; return; }
-  const diffMs = Date.now() - parseInt(lastRefresh, 10);
+
+  if (!lastRefresh) {
+    footer.classList.add('centered');
+    footerText.textContent = 'Tap to refresh local events';
+    footerText.style.cursor = 'pointer';
+    btnRefresh.style.display = 'none';
+    return;
+  }
+
+  footer.classList.remove('centered');
+  footerText.style.cursor = '';
+  btnRefresh.style.display = 'flex';
+
+  const diffMs   = Date.now() - parseInt(lastRefresh, 10);
   const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
-  if (diffDays === 0) footerText.textContent = 'Updated today';
+  if (diffDays === 0)      footerText.textContent = 'Updated today';
   else if (diffDays === 1) footerText.textContent = 'Updated 1 day ago';
-  else footerText.textContent = `Updated ${diffDays} days ago`;
+  else                     footerText.textContent = `Updated ${diffDays} days ago`;
 }
 
 async function fetchEvents() {
@@ -905,12 +962,10 @@ async function fetchEvents() {
       try {
         const parsed = JSON.parse(data.text);
         localStorage.setItem('napkin_event_cache', JSON.stringify(parsed));
-      } catch (_) { /* non-parseable — store raw */ }
+      } catch (_) {}
     }
     localStorage.setItem('napkin_last_refresh', String(Date.now()));
-  } catch (_) {
-    // Network failure — silently skip, show stale footer
-  }
+  } catch (_) {}
 }
 
 // ════════════════════════════════════════════════════════
@@ -918,18 +973,18 @@ async function fetchEvents() {
 // ════════════════════════════════════════════════════════
 function buildCardEl(spot) {
   const badges = getSituationBadges(spot);
-  const card = document.createElement('div');
-  card.className = 'active-card';
+  const card   = document.createElement('div');
+  card.className  = 'active-card';
   card.dataset.id = spot.id;
 
-  const photoSrc = `photos/${spot.id}.jpg`;
   const badgesHTML = badges.map(b => `<span class="${badgeClass(b)}">${b}</span>`).join('');
-  const noteHTML = spot.note ? `<div class="card-note">${spot.note}</div>` : '';
+  const noteHTML   = spot.note ? `<div class="card-note">${spot.note}</div>` : '';
 
   card.innerHTML = `
     <div class="card-photo">
-      <img src="${photoSrc}" alt="${spot.name}" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-      <div class="card-photo-placeholder" style="display:none">${spot.cuisine}</div>
+      <div class="card-photo-placeholder">${spot.cuisine}</div>
+      <img src="photos/${spot.id}.jpg" alt="${spot.name}"
+           onerror="this.style.display='none'">
     </div>
     <div class="card-info">
       <div class="card-name">${spot.name}</div>
@@ -937,7 +992,7 @@ function buildCardEl(spot) {
       <div class="stat-chips">
         <span class="stat-chip">${spot.speedRating}</span>
         <span class="stat-chip">${priceStr(spot.price)}</span>
-        <span class="stat-chip">${spot.romeOk ? 'Rome OK' : '—'}</span>
+        <span class="stat-chip">${spot.romeOk ? 'Rome OK' : '\u2014'}</span>
       </div>
       ${badges.length ? `<div class="situation-badges">${badgesHTML}</div>` : ''}
       ${noteHTML}
@@ -951,10 +1006,20 @@ function buildCardEl(spot) {
 // ════════════════════════════════════════════════════════
 function openDeck(craving) {
   selectedCraving = craving;
-  deck = filterByCraving(craving);
+  const matched = filterByCraving(craving);
+
+  if (matched.length === 0 && craving !== 'surprise') {
+    // No spots open for this craving — show empty state immediately
+    deck = [];
+    deckIsNoMatchFallback = true;
+  } else {
+    deck = matched;
+    deckIsNoMatchFallback = false;
+  }
+
   deckIndex = 0;
   renderDeck();
-  showScreen('screen-deck');
+  showScreen('screen-deck', { slideUp: true });
 }
 
 function renderDeck() {
@@ -962,33 +1027,45 @@ function renderDeck() {
   const progress= document.getElementById('deck-progress');
   const actions = document.getElementById('deck-actions');
   const empty   = document.getElementById('deck-empty');
-  const ghosts  = document.querySelector('.ghost-cards');
+  const ghosts  = document.getElementById('ghost-cards');
+  const emptyMsg= document.getElementById('deck-empty-msg');
+  const emptyIcon= document.getElementById('empty-icon');
+  const emptyLabel= document.getElementById('empty-action-label');
 
   slot.innerHTML = '';
 
-  if (deckIndex >= deck.length) {
-    actions.style.display  = 'none';
-    empty.style.display    = 'flex';
-    ghosts.style.display   = 'none';
-    progress.textContent   = '';
+  if (deck.length === 0 || deckIndex >= deck.length) {
+    actions.style.display = 'none';
+    empty.style.display   = 'flex';
+    ghosts.style.display  = 'none';
+    progress.textContent  = '';
+
+    // Distinguish: no craving match vs. ran out of cards
+    if (deckIsNoMatchFallback || deck.length === 0) {
+      emptyMsg.textContent   = 'Nothing open right now for that craving.';
+      emptyIcon.style.display= 'none';
+      emptyLabel.textContent = 'Show all open spots';
+      document.getElementById('btn-empty-action').dataset.mode = 'show-all';
+    } else {
+      emptyMsg.textContent   = 'No more spots right now.';
+      emptyIcon.style.display= 'inline';
+      emptyLabel.textContent = 'Shuffle';
+      document.getElementById('btn-empty-action').dataset.mode = 'shuffle';
+    }
     return;
   }
 
-  actions.style.display  = 'flex';
-  empty.style.display    = 'none';
-  ghosts.style.display   = 'block';
+  actions.style.display = 'flex';
+  empty.style.display   = 'none';
+  ghosts.style.display  = 'block';
 
-  const spot = deck[deckIndex];
   const remaining = deck.length - deckIndex;
   progress.textContent = `${deckIndex + 1} of ${deck.length}`;
 
-  // Show/hide ghost cards depending on remaining
-  const g1 = document.querySelector('.ghost-card-1');
-  const g2 = document.querySelector('.ghost-card-2');
-  g1.style.display = remaining > 1 ? 'block' : 'none';
-  g2.style.display = remaining > 2 ? 'block' : 'none';
+  document.getElementById('ghost-1').style.display = remaining > 1 ? 'block' : 'none';
+  document.getElementById('ghost-2').style.display = remaining > 2 ? 'block' : 'none';
 
-  const cardEl = buildCardEl(spot);
+  const cardEl = buildCardEl(deck[deckIndex]);
   slot.appendChild(cardEl);
   attachDragBehavior(cardEl);
 }
@@ -1003,57 +1080,107 @@ function commitCard() {
   openCommitScreen(selectedSpot);
 }
 
+// ════════════════════════════════════════════════════════
+//  DRAG BEHAVIOR — touch + mouse, spring snap-back
+// ════════════════════════════════════════════════════════
 function attachDragBehavior(card) {
   let startX = 0, startY = 0, currentX = 0;
   let dragging = false;
+  let lockAxis = null; // 'h' or 'v'
   const THRESHOLD = 80;
+  const SPRING = 'transform 350ms cubic-bezier(0.175, 0.885, 0.32, 1.275)';
 
   function onStart(x, y) {
-    startX = x; startY = y;
+    startX   = x;
+    startY   = y;
     currentX = 0;
+    lockAxis = null;
     dragging = true;
+    card.style.transition = 'none';
     card.classList.add('dragging');
   }
-  function onMove(x) {
+
+  function onMove(x, y) {
     if (!dragging) return;
-    currentX = x - startX;
-    const rot = currentX * 0.06;
+    const dx = x - startX;
+    const dy = y - startY;
+
+    // Determine axis lock after 5px of movement
+    if (!lockAxis && (Math.abs(dx) > 5 || Math.abs(dy) > 5)) {
+      lockAxis = Math.abs(dx) >= Math.abs(dy) ? 'h' : 'v';
+    }
+    if (lockAxis === 'v') return; // let vertical scroll happen
+
+    currentX = dx;
+    const rot = currentX * 0.05;
     card.style.transform = `translateX(${currentX}px) rotate(${rot}deg)`;
   }
+
   function onEnd() {
     if (!dragging) return;
     dragging = false;
     card.classList.remove('dragging');
+
+    if (lockAxis === 'v') {
+      card.style.transition = '';
+      return;
+    }
+
     if (currentX < -THRESHOLD) {
       card.classList.add('fly-left');
-      setTimeout(skipCard, 330);
+      setTimeout(skipCard, 320);
     } else if (currentX > THRESHOLD) {
       card.classList.add('fly-right');
-      setTimeout(commitCard, 330);
+      setTimeout(commitCard, 320);
     } else {
-      card.style.transform = '';
+      // Spring snap-back
+      card.style.transition = SPRING;
+      card.style.transform  = '';
+      card.addEventListener('transitionend', () => {
+        card.style.transition = '';
+      }, { once: true });
     }
   }
 
-  // Mouse
-  card.addEventListener('mousedown', e => { onStart(e.clientX, e.clientY); });
-  document.addEventListener('mousemove', e => { if (dragging) onMove(e.clientX); });
-  document.addEventListener('mouseup', () => { if (dragging) onEnd(); });
+  // Mouse events
+  card.addEventListener('mousedown', e => {
+    e.preventDefault();
+    onStart(e.clientX, e.clientY);
+  });
+  const onMouseMove = e => onMove(e.clientX, e.clientY);
+  const onMouseUp   = () => { if (dragging) onEnd(); };
+  document.addEventListener('mousemove', onMouseMove);
+  document.addEventListener('mouseup', onMouseUp);
 
-  // Touch
+  // Touch events
   card.addEventListener('touchstart', e => {
     const t = e.touches[0];
     onStart(t.clientX, t.clientY);
   }, { passive: true });
+
   card.addEventListener('touchmove', e => {
     if (!dragging) return;
     const t = e.touches[0];
-    const dy = Math.abs(t.clientY - startY);
     const dx = Math.abs(t.clientX - startX);
-    if (dy > dx) { onEnd(); return; } // vertical scroll intent
-    onMove(t.clientX);
-  }, { passive: true });
+    const dy = Math.abs(t.clientY - startY);
+    // If clearly horizontal, prevent default page scroll
+    if (!lockAxis && dx > dy) {
+      e.preventDefault();
+    }
+    onMove(t.clientX, t.clientY);
+  }, { passive: false });
+
   card.addEventListener('touchend', () => { if (dragging) onEnd(); });
+
+  // Cleanup mouse listeners when card is removed
+  const observer = new MutationObserver(() => {
+    if (!document.contains(card)) {
+      document.removeEventListener('mousemove', onMouseMove);
+      document.removeEventListener('mouseup', onMouseUp);
+      observer.disconnect();
+    }
+  });
+  observer.observe(document.getElementById('active-card-slot'), { childList: true });
 }
 
 // ════════════════════════════════════════════════════════
@@ -1061,11 +1188,11 @@ function attachDragBehavior(card) {
 // ════════════════════════════════════════════════════════
 function openCommitScreen(spot) {
   const badges = getSituationBadges(spot);
-  document.getElementById('commit-name').textContent = spot.name;
+  document.getElementById('commit-name').textContent    = spot.name;
   document.getElementById('commit-cuisine').textContent = spot.cuisine;
   document.getElementById('commit-address').textContent = spot.address;
-  document.getElementById('commit-note').textContent = spot.note || '';
-  document.getElementById('commit-badges').innerHTML =
+  document.getElementById('commit-note').textContent    = spot.note || '';
+  document.getElementById('commit-badges').innerHTML    =
     badges.map(b => `<span class="${badgeClass(b)}">${b}</span>`).join('');
   showScreen('screen-commit');
 }
@@ -1073,6 +1200,7 @@ function openCommitScreen(spot) {
 // ════════════════════════════════════════════════════════
 //  EVENT WIRING
 // ════════════════════════════════════════════════════════
+
 // Password gate
 document.getElementById('gate-form').addEventListener('submit', e => {
   e.preventDefault();
@@ -1085,10 +1213,10 @@ document.getElementById('gate-form').addEventListener('submit', e => {
   } else {
     input.classList.add('error');
     input.classList.remove('shake');
-    void input.offsetWidth; // reflow to restart animation
+    void input.offsetWidth;
     input.classList.add('shake');
     input.value = '';
-    setTimeout(() => input.classList.remove('error'), 2000);
+    setTimeout(() => input.classList.remove('error', 'shake'), 2000);
   }
 });
 
@@ -1098,37 +1226,45 @@ document.getElementById('craving-chips').addEventListener('click', e => {
   if (!chip) return;
   document.querySelectorAll('.chip').forEach(c => c.classList.remove('selected'));
   chip.classList.add('selected');
-  setTimeout(() => openDeck(chip.dataset.craving), 120);
+  setTimeout(() => openDeck(chip.dataset.craving), 100);
 });
 
-// Deck: back
+// Deck: back to home
 document.getElementById('deck-back').addEventListener('click', () => {
   document.querySelectorAll('.chip').forEach(c => c.classList.remove('selected'));
   showScreen('screen-home');
 });
 
-// Deck: skip
+// Deck: skip button
 document.getElementById('btn-skip').addEventListener('click', skipCard);
 
-// Deck: this is it
+// Deck: commit button
 document.getElementById('btn-commit').addEventListener('click', commitCard);
 
-// Deck: shuffle when empty
-document.getElementById('btn-shuffle-empty').addEventListener('click', () => {
-  openDeck('surprise');
+// Deck: empty state action button
+document.getElementById('btn-empty-action').addEventListener('click', () => {
+  const mode = document.getElementById('btn-empty-action').dataset.mode;
+  if (mode === 'show-all') {
+    // Show all currently open spots regardless of craving
+    deck = shuffle(spots.filter(isOpenNow));
+    deckIsNoMatchFallback = false;
+    deckIndex = 0;
+    renderDeck();
+  } else {
+    openDeck('surprise');
+  }
 });
 
-// Commit: back
+// Commit: back to deck
 document.getElementById('commit-back').addEventListener('click', () => {
   showScreen('screen-deck');
-  renderDeck(); // re-render current card
+  renderDeck();
 });
 
-// Commit: let's go (no-op — just confirmation)
+// Commit: let's go — open Apple Maps
 document.getElementById('btn-lets-go').addEventListener('click', () => {
-  // Could open maps or celebrate — for now just stays on commit screen
   if (selectedSpot && selectedSpot.address) {
-    const query = encodeURIComponent(selectedSpot.address);
+    const query = encodeURIComponent(selectedSpot.name + ' ' + selectedSpot.address);
     window.open(`https://maps.apple.com/?q=${query}`, '_blank');
   }
 });
@@ -1144,7 +1280,6 @@ document.getElementById('btn-not-this').addEventListener('click', () => {
 //  BOOT
 // ════════════════════════════════════════════════════════
 async function boot() {
-  // Load spots
   try {
     const res = await fetch('/spots.json');
     spots = await res.json();
@@ -1152,7 +1287,6 @@ async function boot() {
     spots = [];
   }
 
-  // Check auth
   if (sessionStorage.getItem('napkin_auth') === '1') {
     showScreen('screen-home');
     setupHome();
