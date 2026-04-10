@@ -413,25 +413,34 @@
       font-size: 13px;
       color: var(--text-dim);
     }
-    .situation-badges {
+    /* Photo overlay badge row */
+    .photo-badges {
+      position: absolute;
+      bottom: 8px;
+      left: 8px;
+      z-index: 2;
       display: flex;
       flex-wrap: wrap;
-      gap: 6px;
-      margin-top: 8px;
+      gap: 4px;
     }
     .badge {
-      border-radius: var(--radius-badge);
-      font-size: 12px;
+      background: rgba(255, 255, 255, 0.72);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      border-radius: 40px;
+      padding: 4px 10px;
+      font-size: 11px;
       font-weight: 600;
-      padding: 3px 10px;
+      letter-spacing: 0.02em;
       display: inline-flex;
       align-items: center;
     }
-    .badge-line    { background: #222222; color: #ffffff; }
-    .badge-market  { background: #222222; color: #ffffff; }
-    .badge-takeout { background: var(--green-light); color: var(--green); border: 1px solid var(--green); }
-    .badge-closed  { background: var(--bg-soft); color: var(--text-dim); border: 1px solid var(--border); }
-    .badge-satonly { background: var(--red-light); color: var(--red); border: 1px solid var(--red); }
+    .badge-line    { color: #222222; }
+    .badge-market  { color: #008A05; }
+    .badge-takeout { color: #008A05; }
+    .badge-closed  { color: #717171; }
+    .badge-satonly { color: #FF385C; }
     .card-note {
       font-size: 14px;
       font-weight: 400;
@@ -985,6 +994,7 @@ function buildCardEl(spot) {
       <div class="card-photo-placeholder">${spot.cuisine}</div>
       <img src="photos/${spot.id}.jpg" alt="${spot.name}"
            onerror="this.style.display='none'">
+      ${badges.length ? `<div class="photo-badges">${badgesHTML}</div>` : ''}
     </div>
     <div class="card-info">
       <div class="card-name">${spot.name}</div>
@@ -994,7 +1004,6 @@ function buildCardEl(spot) {
         <span class="stat-chip">${priceStr(spot.price)}</span>
         <span class="stat-chip">${spot.romeOk ? 'Rome OK' : '\u2014'}</span>
       </div>
-      ${badges.length ? `<div class="situation-badges">${badgesHTML}</div>` : ''}
       ${noteHTML}
     </div>
   `;
