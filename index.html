@@ -162,17 +162,13 @@
       color: var(--text-dim);
       margin-top: 4px;
     }
-    .market-banner {
-      background: var(--bg);
-      border-left: 3px solid var(--red);
-      border-radius: 8px;
-      padding: 12px 16px;
-      margin: 16px 0;
-    }
-    .market-banner p {
-      font-size: 14px;
-      font-weight: 500;
-      color: var(--text);
+    .home-context {
+      font-size: 13px;
+      font-weight: 400;
+      color: var(--text-dim);
+      font-style: italic;
+      margin-top: 4px;
+      min-height: 18px; /* reserve space even when empty */
     }
     .section-heading {
       font-size: 22px;
@@ -661,9 +657,7 @@
     </div>
     <div class="home-greeting" id="home-greeting"></div>
     <div class="home-datetime" id="home-datetime"></div>
-    <div id="market-banner" class="market-banner" style="display:none">
-      <p>Farmers Market is on downtown.</p>
-    </div>
+    <div class="home-context" id="home-context"></div>
     <div class="section-heading">What are you craving?</div>
     <div class="craving-chips" id="craving-chips">
       <button class="chip" data-craving="burgers">Burgers</button>
@@ -809,7 +803,15 @@ function getSituationBadges(spot) {
   const badges = [];
   if (spot.lineWarning) badges.push('Line Expected');
   if (spot.takeout)     badges.push('Takeout Ready');
-  if (spot.closedDays && spot.closedDays.includes(day)) badges.push('Closed Today');
+  // "Closed Today" only for spots in the deck whose hours today exist
+  // but current time is outside them — spots with null hours are hard-suppressed
+  if (spot.specialRule !== 'saturday_market_only' && spot.hours[day] !== null) {
+    const h = spot.hours[day];
+    const openNow = Array.isArray(h[0])
+      ? h.some(w => hour >= w[0] && hour < w[1])
+      : hour >= h[0] && hour < h[1];
+    if (!openNow) badges.push('Closed Today');
+  }
   if (spot.specialRule === 'saturday_market_only') {
     const isMarketNow = day === 'sat' && hour >= 8 && hour < 12;
     if (isMarketNow) badges.push('Market Morning');
@@ -830,12 +832,119 @@ function badgeClass(label) {
 }
 
 // ════════════════════════════════════════════════════════
+//  HARD SUPPRESSION — spots removed entirely from deck
+// ════════════════════════════════════════════════════════
+function isHardSuppressed(spot) {
+  const { day, hour } = nowParts();
+  // Suppress any spot whose hours for today are null
+  if (spot.specialRule !== 'saturday_market_only' && spot.hours[day] === null) return true;
+  // Dragon Valley is closed 3–4pm daily (gap between services)
+  if (spot.id === 'dragonvalley' && hour >= 15 && hour < 16) return true;
+  return false;
+}
+
+// ════════════════════════════════════════════════════════
+//  RECENCY TRACKING
+// ════════════════════════════════════════════════════════
+function getRecent() {
+  try {
+    const raw = localStorage.getItem('napkin_recent');
+    if (!raw) return [];
+    const parsed = JSON.parse(raw);
+    if (Date.now() - parsed.ts > 48 * 60 * 60 * 1000) {
+      localStorage.removeItem('napkin_recent');
+      return [];
+    }
+    return parsed.ids || [];
+  } catch (_) { return []; }
+}
+
+function addRecent(id) {
+  const ids = getRecent();
+  const updated = [id, ...ids.filter(i => i !== id)].slice(0, 3);
+  localStorage.setItem('napkin_recent', JSON.stringify({ ids: updated, ts: Date.now() }));
+}
+
+// ════════════════════════════════════════════════════════
+//  CONTEXT SCORING
+// ════════════════════════════════════════════════════════
+function contextScore(spot) {
+  const { day, hour } = nowParts();
+  const weekdays = ['mon','tue','wed','thu','fri'];
+  const recent = getRecent();
+  let score = 0;
+
+  // Time of day
+  if (hour >= 6  && hour < 10 && spot.type.includes('breakfast')) score += 3;
+  if (hour >= 11 && hour < 14 && spot.type.includes('lunch'))     score += 2;
+  if (hour >= 17 && hour < 22 && spot.type.includes('dinner'))    score += 3;
+  if (hour >= 14 && hour < 17 && spot.takeout)                    score += 1;
+
+  // Day-specific
+  if (day === 'sat' && hour >= 8 && hour < 12 && spot.id === 'earthsbounty') score += 5;
+  if ((day === 'fri' || day === 'sat') && hour >= 17 && spot.id === 'amami') score += 2;
+  if (weekdays.includes(day) && hour >= 11 && hour < 14) {
+    if (spot.id === 'papajoes' || spot.id === 'dragonvalley') score += 1;
+  }
+
+  // Recency penalty
+  if (recent.includes(spot.id)) score -= 2;
+
+  return score;
+}
+
+function sortByScore(arr) {
+  return [...arr].sort((a, b) => contextScore(b) - contextScore(a));
+}
+
+// ════════════════════════════════════════════════════════
 //  FILTER BY CRAVING
 // ════════════════════════════════════════════════════════
 function filterByCraving(craving) {
-  if (craving === 'surprise') return shuffle(spots.filter(isOpenNow));
-  // Return only exact matches — no silent fallback
-  return spots.filter(s => isOpenNow(s) && s.cravingMatch.includes(craving));
+  const eligible = spots.filter(s => !isHardSuppressed(s) && isOpenNow(s));
+  if (craving === 'surprise') return sortByScore(eligible);
+  // Return only exact craving matches — no silent fallback
+  return sortByScore(eligible.filter(s => s.cravingMatch.includes(craving)));
+}
+
+// ════════════════════════════════════════════════════════
+//  CRAVING CHIP REORDER
+// ════════════════════════════════════════════════════════
+function reorderCravingChips() {
+  const { day, hour } = nowParts();
+  const container = document.getElementById('craving-chips');
+  const chips = [...container.querySelectorAll('.chip')];
+
+  let order;
+  if (day === 'sat' && hour >= 8 && hour < 12) {
+    order = ['burritos','breakfast','sandwiches','burgers','mediterranean','pizza','asian','surprise'];
+  } else if (hour < 11) {
+    order = ['breakfast','burritos','sandwiches','burgers','mediterranean','pizza','asian','surprise'];
+  } else if (hour < 15) {
+    order = ['sandwiches','pizza','burgers','asian','mediterranean','breakfast','burritos','surprise'];
+  } else if (hour >= 17) {
+    order = ['asian','burgers','pizza','mediterranean','sandwiches','burritos','breakfast','surprise'];
+  } else {
+    return; // 3–5pm: no reorder
+  }
+
+  order.forEach(craving => {
+    const chip = chips.find(c => c.dataset.craving === craving);
+    if (chip) container.appendChild(chip);
+  });
+}
+
+// ════════════════════════════════════════════════════════
+//  CONTEXT SUBTEXT
+// ════════════════════════════════════════════════════════
+function getContextSubtext() {
+  const { day, hour } = nowParts();
+  const weekdays = ['mon','tue','wed','thu','fri'];
+  if (day === 'sat' && hour >= 8 && hour < 12)            return "Farmers market is on. Earth's Bounty is there.";
+  if (hour >= 17 && hour < 19)                            return "Happy hour window. Check Amami.";
+  if ((day === 'fri' || day === 'sat') && hour >= 17)     return "Good night for a sit-down.";
+  if (weekdays.includes(day) && hour >= 11 && hour < 14) return "Quick options are up front.";
+  return '';
 }
 
 // ════════════════════════════════════════════════════════
@@ -887,12 +996,11 @@ function setupHome() {
   document.getElementById('home-datetime').textContent =
     `${dayNames[now.getDay()]} · ${h12}:${String(mm).padStart(2,'0')} ${ampm}`;
 
-  // Market banner
-  const month = now.getMonth();
-  const isSatMorning = day === 'sat' && hour >= 8 && hour < 12;
-  const isTueMorning = day === 'tue' && hour >= 8 && hour < 12 && month >= 3 && month <= 11;
-  document.getElementById('market-banner').style.display =
-    (isSatMorning || isTueMorning) ? 'block' : 'none';
+  // Context subtext
+  document.getElementById('home-context').textContent = getContextSubtext();
+
+  // Reorder craving chips by time of day
+  reorderCravingChips();
 
   setupFooter();
 }
@@ -1270,9 +1378,10 @@ document.getElementById('commit-back').addEventListener('click', () => {
   renderDeck();
 });
 
-// Commit: let's go — open Apple Maps
+// Commit: let's go — record recency + open Apple Maps
 document.getElementById('btn-lets-go').addEventListener('click', () => {
-  if (selectedSpot && selectedSpot.address) {
+  if (selectedSpot) {
+    addRecent(selectedSpot.id);
     const query = encodeURIComponent(selectedSpot.name + ' ' + selectedSpot.address);
     window.open(`https://maps.apple.com/?q=${query}`, '_blank');
   }
