@@ -1,0 +1,1176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#FF385C">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <title>Napkin</title>
+  <link rel="manifest" href="/manifest.json">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --text:         #222222;
+      --text-dim:     #6a6a6a;
+      --text-muted:   #b0b0b0;
+      --bg:           #ffffff;
+      --bg-soft:      #f7f7f7;
+      --border:       #dddddd;
+      --red:          #FF385C;
+      --red-hover:    #E31C5F;
+      --red-light:    #fff0f3;
+      --green:        #008A05;
+      --green-light:  #ebfaeb;
+      --orange:       #C13515;
+      --radius-card:  20px;
+      --radius-badge: 40px;
+      --radius-input: 40px;
+    }
+
+    html, body {
+      height: 100%;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 15px;
+      color: var(--text);
+      background: var(--bg);
+      -webkit-font-smoothing: antialiased;
+      overscroll-behavior: none;
+    }
+
+    /* ── SCREENS ─────────────────────────────────────────── */
+    .screen {
+      position: fixed;
+      inset: 0;
+      overflow-y: auto;
+      overflow-x: hidden;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 280ms ease;
+    }
+    .screen.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    /* ── PASSWORD GATE ───────────────────────────────────── */
+    #screen-gate {
+      background: var(--bg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .gate-inner {
+      width: 100%;
+      max-width: 360px;
+      padding: 0 24px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .wordmark {
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--text);
+      letter-spacing: -0.5px;
+    }
+    .tagline {
+      font-size: 14px;
+      font-weight: 400;
+      color: var(--text-dim);
+      margin-top: 4px;
+    }
+    .gate-form {
+      width: 100%;
+      margin-top: 48px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .pill-input {
+      width: 100%;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-input);
+      padding: 14px 20px;
+      font-size: 16px;
+      font-family: inherit;
+      color: var(--text);
+      background: var(--bg);
+      outline: none;
+      transition: border-color 150ms ease;
+    }
+    .pill-input::placeholder { color: var(--text-muted); }
+    .pill-input:focus { border-color: var(--text); }
+    .pill-input.error { border-color: var(--red); }
+
+    @keyframes shake {
+      0%,100% { transform: translateX(0); }
+      20%      { transform: translateX(-8px); }
+      40%      { transform: translateX(8px); }
+      60%      { transform: translateX(-6px); }
+      80%      { transform: translateX(6px); }
+    }
+    .shake { animation: shake 350ms ease; }
+
+    .btn-primary {
+      width: 100%;
+      background: var(--red);
+      color: #fff;
+      border: none;
+      border-radius: var(--radius-badge);
+      padding: 16px 0;
+      font-size: 15px;
+      font-weight: 600;
+      font-family: inherit;
+      cursor: pointer;
+      transition: background 150ms ease;
+      min-height: 52px;
+    }
+    .btn-primary:hover { background: var(--red-hover); }
+
+    /* ── HOME SCREEN ─────────────────────────────────────── */
+    #screen-home {
+      background: var(--bg-soft);
+    }
+    .home-inner {
+      max-width: 480px;
+      margin: 0 auto;
+      padding: 56px 20px 40px;
+    }
+    .home-topbar .wordmark { display: block; }
+    .home-greeting {
+      margin-top: 8px;
+      font-size: 26px;
+      font-weight: 600;
+      color: var(--text);
+      line-height: 1.25;
+    }
+    .home-datetime {
+      font-size: 14px;
+      font-weight: 400;
+      color: var(--text-dim);
+      margin-top: 4px;
+    }
+
+    .market-banner {
+      background: var(--bg);
+      border-left: 3px solid var(--red);
+      border-radius: 8px;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+    .market-banner p {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text);
+    }
+
+    .section-heading {
+      font-size: 22px;
+      font-weight: 600;
+      color: var(--text);
+      margin-top: 24px;
+    }
+    .craving-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 8px;
+    }
+    .chip {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-badge);
+      padding: 10px 20px;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text);
+      font-family: inherit;
+      cursor: pointer;
+      transition: background 150ms, border-color 150ms, color 150ms;
+      min-height: 48px;
+      display: inline-flex;
+      align-items: center;
+    }
+    .chip:hover { border-color: var(--text); }
+    .chip.selected {
+      background: var(--text);
+      border-color: var(--text);
+      color: #fff;
+    }
+
+    /* ── CARD DECK SCREEN ────────────────────────────────── */
+    #screen-deck {
+      background: var(--bg-soft);
+    }
+    .deck-inner {
+      max-width: 480px;
+      margin: 0 auto;
+      padding: 0 0 40px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+    }
+    .deck-topbar {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      padding: 16px 20px;
+    }
+    .btn-back {
+      position: absolute;
+      left: 20px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text);
+      min-height: 48px;
+      min-width: 48px;
+    }
+    .deck-topbar .wordmark { font-size: 20px; }
+    .deck-progress {
+      font-size: 13px;
+      font-weight: 400;
+      color: var(--text-dim);
+      margin-top: 0;
+      margin-bottom: 12px;
+    }
+
+    /* Card stack */
+    .card-stack-area {
+      width: 100%;
+      padding: 0 20px;
+      position: relative;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+    }
+    .card-stack {
+      position: relative;
+      width: 100%;
+      max-width: 400px;
+    }
+    .ghost-cards {
+      position: absolute;
+      top: 0; left: 0; right: 0;
+    }
+    .ghost-card {
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      background: var(--bg);
+      border-radius: var(--radius-card);
+      height: 420px;
+    }
+    .ghost-card-1 {
+      transform: scale(0.97) translateY(6px);
+      opacity: 0.6;
+      z-index: 2;
+    }
+    .ghost-card-2 {
+      transform: scale(0.94) translateY(12px);
+      opacity: 0.3;
+      z-index: 1;
+    }
+
+    /* The active draggable card */
+    .active-card {
+      position: relative;
+      z-index: 3;
+      background: var(--bg);
+      border-radius: var(--radius-card);
+      overflow: hidden;
+      cursor: grab;
+      user-select: none;
+      transition: box-shadow 150ms;
+      will-change: transform;
+    }
+    .active-card:active { cursor: grabbing; }
+    .active-card.dragging { transition: none; }
+    .active-card.fly-left {
+      transition: transform 320ms ease, opacity 280ms ease;
+      transform: translateX(-110vw) rotate(-8deg) !important;
+      opacity: 0;
+    }
+    .active-card.fly-right {
+      transition: transform 320ms ease, opacity 280ms ease;
+      transform: translateX(110vw) rotate(8deg) !important;
+      opacity: 0;
+    }
+
+    /* Card photo */
+    .card-photo {
+      width: 100%;
+      aspect-ratio: 4/3;
+      overflow: hidden;
+      border-radius: var(--radius-card) var(--radius-card) 0 0;
+      background: var(--bg-soft);
+      position: relative;
+    }
+    .card-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .card-photo-placeholder {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      color: var(--text-muted);
+      background: var(--bg-soft);
+    }
+
+    /* Card info */
+    .card-info {
+      padding: 12px 16px 16px;
+    }
+    .card-name {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text);
+      line-height: 20px;
+    }
+    .card-cuisine {
+      font-size: 15px;
+      font-weight: 400;
+      color: var(--text-dim);
+      line-height: 20px;
+      margin-top: 0;
+    }
+    .stat-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 8px;
+    }
+    .stat-chip {
+      border: 1px solid var(--border);
+      background: var(--bg-soft);
+      border-radius: var(--radius-badge);
+      padding: 3px 10px;
+      font-size: 13px;
+      color: var(--text-dim);
+    }
+    .situation-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 8px;
+    }
+    .badge {
+      border-radius: var(--radius-badge);
+      font-size: 12px;
+      font-weight: 600;
+      padding: 3px 10px;
+      display: inline-flex;
+      align-items: center;
+    }
+    .badge-line    { background: #222222; color: #ffffff; }
+    .badge-market  { background: #222222; color: #ffffff; }
+    .badge-takeout { background: var(--green-light); color: var(--green); border: 1px solid var(--green); }
+    .badge-closed  { background: var(--bg-soft); color: var(--text-dim); border: 1px solid var(--border); }
+    .badge-satonly { background: var(--red-light); color: var(--red); border: 1px solid var(--red); }
+
+    .card-note {
+      font-size: 14px;
+      font-weight: 400;
+      color: var(--text-dim);
+      font-style: italic;
+      margin-top: 8px;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    /* Deck action buttons */
+    .deck-actions {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+      justify-content: center;
+      margin-top: 20px;
+      width: 100%;
+      padding: 0 20px;
+    }
+    .btn-skip {
+      background: none;
+      border: none;
+      font-size: 15px;
+      font-weight: 400;
+      color: var(--text-dim);
+      font-family: inherit;
+      cursor: pointer;
+      min-height: 48px;
+      padding: 8px 20px;
+    }
+    .btn-commit {
+      background: var(--red);
+      color: #fff;
+      border: none;
+      border-radius: var(--radius-badge);
+      padding: 14px 32px;
+      font-size: 15px;
+      font-weight: 600;
+      font-family: inherit;
+      cursor: pointer;
+      transition: background 150ms;
+      min-height: 48px;
+    }
+    .btn-commit:hover { background: var(--red-hover); }
+
+    .deck-empty {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 60px 20px 0;
+      gap: 12px;
+    }
+    .deck-empty p {
+      font-size: 15px;
+      color: var(--text-dim);
+    }
+    .btn-shuffle {
+      background: none;
+      border: none;
+      font-size: 15px;
+      font-weight: 400;
+      color: var(--red);
+      font-family: inherit;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      min-height: 48px;
+    }
+    .btn-shuffle:hover { text-decoration: underline; }
+
+    /* ── COMMIT SCREEN ───────────────────────────────────── */
+    #screen-commit {
+      background: var(--bg);
+    }
+    .commit-inner {
+      max-width: 480px;
+      margin: 0 auto;
+      padding: 20px 24px 48px;
+      display: flex;
+      flex-direction: column;
+    }
+    .btn-back-link {
+      background: none;
+      border: none;
+      font-size: 14px;
+      font-weight: 400;
+      color: var(--text-dim);
+      font-family: inherit;
+      cursor: pointer;
+      text-align: left;
+      min-height: 48px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .commit-name {
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--text);
+      text-align: center;
+      margin-top: 32px;
+      line-height: 1.2;
+    }
+    .commit-cuisine {
+      font-size: 15px;
+      font-weight: 400;
+      color: var(--text-dim);
+      text-align: center;
+      margin-top: 8px;
+    }
+    .commit-address {
+      font-size: 14px;
+      font-weight: 400;
+      color: var(--text-dim);
+      text-align: center;
+      margin-top: 16px;
+    }
+    .commit-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      justify-content: center;
+      margin-top: 16px;
+    }
+    .commit-note {
+      font-size: 15px;
+      font-weight: 400;
+      color: var(--text-dim);
+      font-style: italic;
+      text-align: center;
+      max-width: 300px;
+      margin: 24px auto 0;
+    }
+    .commit-actions {
+      margin-top: 32px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+    }
+    .btn-lets-go {
+      width: 100%;
+      background: var(--red);
+      color: #fff;
+      border: none;
+      border-radius: var(--radius-badge);
+      height: 52px;
+      font-size: 15px;
+      font-weight: 600;
+      font-family: inherit;
+      cursor: pointer;
+      transition: background 150ms;
+    }
+    .btn-lets-go:hover { background: var(--red-hover); }
+    .btn-not-this {
+      background: none;
+      border: none;
+      font-size: 14px;
+      font-weight: 400;
+      color: var(--text-dim);
+      font-family: inherit;
+      cursor: pointer;
+      text-decoration: underline;
+      min-height: 48px;
+    }
+
+    /* ── FOOTER ──────────────────────────────────────────── */
+    .app-footer {
+      width: 100%;
+      text-align: center;
+      padding: 24px 20px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+    .footer-text {
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+    .btn-refresh {
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      padding: 4px;
+      min-height: 32px;
+      min-width: 32px;
+    }
+    .btn-refresh:hover { color: var(--text-dim); }
+
+    /* ── DIVIDER ─────────────────────────────────────────── */
+    hr.divider { border: none; border-top: 1px solid var(--border); margin: 0; }
+
+    /* ── SVG ICONS ───────────────────────────────────────── */
+    svg { flex-shrink: 0; }
+  </style>
+</head>
+<body>
+
+<!-- ════════════════════════════════════════
+     SCREEN 1: PASSWORD GATE
+════════════════════════════════════════ -->
+<div id="screen-gate" class="screen">
+  <div class="gate-inner">
+    <span class="wordmark">Napkin</span>
+    <span class="tagline">Napa · Wilson family</span>
+    <form class="gate-form" id="gate-form" autocomplete="off">
+      <input
+        id="gate-input"
+        class="pill-input"
+        type="password"
+        placeholder="Password"
+        autocomplete="current-password"
+      >
+      <button type="submit" class="btn-primary">Enter</button>
+    </form>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════
+     SCREEN 2: HOME
+════════════════════════════════════════ -->
+<div id="screen-home" class="screen">
+  <div class="home-inner">
+    <div class="home-topbar">
+      <span class="wordmark">Napkin</span>
+    </div>
+    <div class="home-greeting" id="home-greeting"></div>
+    <div class="home-datetime" id="home-datetime"></div>
+    <div id="market-banner" class="market-banner" style="display:none">
+      <p>Farmers Market is on downtown.</p>
+    </div>
+    <div class="section-heading">What are you craving?</div>
+    <div class="craving-chips" id="craving-chips">
+      <button class="chip" data-craving="burgers">Burgers</button>
+      <button class="chip" data-craving="mediterranean">Mediterranean</button>
+      <button class="chip" data-craving="pizza">Pizza</button>
+      <button class="chip" data-craving="asian">Japanese / Asian</button>
+      <button class="chip" data-craving="breakfast">Breakfast</button>
+      <button class="chip" data-craving="burritos">Burritos</button>
+      <button class="chip" data-craving="sandwiches">Sandwiches</button>
+      <button class="chip" data-craving="surprise">Surprise Me</button>
+    </div>
+    <div class="app-footer" id="home-footer">
+      <span class="footer-text" id="footer-text"></span>
+      <button class="btn-refresh" id="btn-refresh" title="Refresh local events" style="display:none">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="23 4 23 10 17 10"></polyline>
+          <polyline points="1 20 1 14 7 14"></polyline>
+          <path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"></path>
+        </svg>
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════
+     SCREEN 3: CARD DECK
+════════════════════════════════════════ -->
+<div id="screen-deck" class="screen">
+  <div class="deck-inner">
+    <div class="deck-topbar">
+      <button class="btn-back" id="deck-back" aria-label="Go back">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="15 18 9 12 15 6"></polyline>
+        </svg>
+      </button>
+      <span class="wordmark">Napkin</span>
+    </div>
+    <div class="deck-progress" id="deck-progress">1 of 5</div>
+    <div class="card-stack-area">
+      <div class="card-stack" id="card-stack">
+        <div class="ghost-cards">
+          <div class="ghost-card ghost-card-2"></div>
+          <div class="ghost-card ghost-card-1"></div>
+        </div>
+        <div id="active-card-slot"></div>
+      </div>
+    </div>
+    <div class="deck-actions" id="deck-actions">
+      <button class="btn-skip" id="btn-skip">Skip</button>
+      <button class="btn-commit" id="btn-commit">This is it</button>
+    </div>
+    <div class="deck-empty" id="deck-empty" style="display:none">
+      <p>No more spots right now.</p>
+      <button class="btn-shuffle" id="btn-shuffle-empty">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="16 3 21 3 21 8"></polyline>
+          <line x1="4" y1="20" x2="21" y2="3"></line>
+          <polyline points="21 16 21 21 16 21"></polyline>
+          <line x1="15" y1="15" x2="21" y2="21"></line>
+        </svg>
+        Shuffle
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════
+     SCREEN 4: COMMIT
+════════════════════════════════════════ -->
+<div id="screen-commit" class="screen">
+  <div class="commit-inner">
+    <button class="btn-back-link" id="commit-back">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="15 18 9 12 15 6"></polyline>
+      </svg>
+      Back
+    </button>
+    <div class="commit-name" id="commit-name"></div>
+    <div class="commit-cuisine" id="commit-cuisine"></div>
+    <div class="commit-address" id="commit-address"></div>
+    <div class="commit-badges" id="commit-badges"></div>
+    <div class="commit-note" id="commit-note"></div>
+    <div class="commit-actions">
+      <button class="btn-lets-go" id="btn-lets-go">Let's go</button>
+      <button class="btn-not-this" id="btn-not-this">Not this one</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ════════════════════════════════════════════════════════
+//  STATE
+// ════════════════════════════════════════════════════════
+let spots = [];
+let deck  = [];
+let deckIndex = 0;
+let selectedSpot = null;
+let selectedCraving = null;
+
+// ════════════════════════════════════════════════════════
+//  UTILITIES
+// ════════════════════════════════════════════════════════
+function nowParts() {
+  const now  = new Date();
+  const days = ['sun','mon','tue','wed','thu','fri','sat'];
+  const day  = days[now.getDay()];
+  const hour = now.getHours() + now.getMinutes() / 60;
+  return { now, day, hour };
+}
+
+function shuffle(arr) {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+function priceStr(n) {
+  return '$'.repeat(n);
+}
+
+function dayLabel(day) {
+  return { mon:'Monday',tue:'Tuesday',wed:'Wednesday',thu:'Thursday',fri:'Friday',sat:'Saturday',sun:'Sunday' }[day] || '';
+}
+
+function formatTime(h) {
+  const hr = Math.floor(h);
+  const mn = Math.round((h - hr) * 60);
+  const ampm = hr >= 12 ? 'PM' : 'AM';
+  const display = hr > 12 ? hr - 12 : hr === 0 ? 12 : hr;
+  return mn ? `${display}:${String(mn).padStart(2,'0')} ${ampm}` : `${display} ${ampm}`;
+}
+
+// ════════════════════════════════════════════════════════
+//  OPEN-NOW LOGIC
+// ════════════════════════════════════════════════════════
+function isOpenNow(spot) {
+  const { day, hour } = nowParts();
+  if (spot.specialRule === 'saturday_market_only') {
+    return day === 'sat' && hour >= 8 && hour < 12;
+  }
+  const h = spot.hours[day];
+  if (!h) return false;
+  // Two-number window [open, close]
+  if (typeof h[0] === 'number') return hour >= h[0] && hour < h[1];
+  // Array of windows [[open,close],...]
+  return h.some(w => hour >= w[0] && hour < w[1]);
+}
+
+// ════════════════════════════════════════════════════════
+//  SITUATION BADGES
+// ════════════════════════════════════════════════════════
+function getSituationBadges(spot) {
+  const { day, hour } = nowParts();
+  const badges = [];
+  if (spot.lineWarning) badges.push('Line Expected');
+  if (spot.takeout)     badges.push('Takeout Ready');
+  if (spot.closedDays && spot.closedDays.includes(day)) badges.push('Closed Today');
+  if (spot.specialRule === 'saturday_market_only') {
+    const isMarketNow = day === 'sat' && hour >= 8 && hour < 12;
+    if (isMarketNow) badges.push('Market Morning');
+    else             badges.push('Sat Market Only');
+  }
+  return badges;
+}
+
+function badgeClass(label) {
+  if (label === 'Line Expected') return 'badge badge-line';
+  if (label === 'Market Morning') return 'badge badge-market';
+  if (label === 'Takeout Ready') return 'badge badge-takeout';
+  if (label === 'Closed Today')  return 'badge badge-closed';
+  if (label === 'Sat Market Only') return 'badge badge-satonly';
+  return 'badge';
+}
+
+// ════════════════════════════════════════════════════════
+//  FILTER BY CRAVING
+// ════════════════════════════════════════════════════════
+function filterByCraving(craving) {
+  if (craving === 'surprise') return shuffle(spots.filter(isOpenNow));
+  const matched = spots.filter(s => isOpenNow(s) && s.cravingMatch.includes(craving));
+  if (matched.length > 0) return matched;
+  return shuffle(spots.filter(isOpenNow)); // fallback
+}
+
+// ════════════════════════════════════════════════════════
+//  SCREEN TRANSITIONS
+// ════════════════════════════════════════════════════════
+function showScreen(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
+
+// ════════════════════════════════════════════════════════
+//  HOME SCREEN SETUP
+// ════════════════════════════════════════════════════════
+function setupHome() {
+  const { now, day, hour } = nowParts();
+
+  // Greeting
+  let greeting;
+  if (hour < 11)       greeting = 'Good morning, Wilson family.';
+  else if (hour < 15)  greeting = "What's for lunch?";
+  else if (hour < 18)  greeting = 'Afternoon, Wilson family.';
+  else                 greeting = 'Dinner time.';
+  document.getElementById('home-greeting').textContent = greeting;
+
+  // Datetime
+  const dayNames = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+  const monthNames = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+  const hh = now.getHours();
+  const mm = now.getMinutes();
+  const ampm = hh >= 12 ? 'PM' : 'AM';
+  const h12 = hh > 12 ? hh - 12 : hh === 0 ? 12 : hh;
+  const mmStr = String(mm).padStart(2,'0');
+  document.getElementById('home-datetime').textContent =
+    `${dayNames[now.getDay()]} · ${h12}:${mmStr} ${ampm}`;
+
+  // Saturday 8–noon market banner
+  const month = now.getMonth(); // 0-based
+  const isSatMorning = day === 'sat' && hour >= 8 && hour < 12;
+  const isTueMorning = day === 'tue' && hour >= 8 && hour < 12 && month >= 3 && month <= 11;
+  const banner = document.getElementById('market-banner');
+  banner.style.display = (isSatMorning || isTueMorning) ? 'block' : 'none';
+
+  // Footer
+  setupFooter();
+}
+
+// ════════════════════════════════════════════════════════
+//  EVENT CACHE / FOOTER
+// ════════════════════════════════════════════════════════
+async function setupFooter() {
+  const footerText = document.getElementById('footer-text');
+  const btnRefresh = document.getElementById('btn-refresh');
+  const lastRefresh = localStorage.getItem('napkin_last_refresh');
+  const now = Date.now();
+  const threeDays = 3 * 24 * 60 * 60 * 1000;
+
+  if (!lastRefresh || (now - parseInt(lastRefresh, 10)) > threeDays) {
+    await fetchEvents();
+  }
+
+  updateFooterDisplay();
+
+  btnRefresh.style.display = 'flex';
+  btnRefresh.addEventListener('click', async () => {
+    footerText.textContent = 'Updating…';
+    await fetchEvents();
+    updateFooterDisplay();
+  });
+}
+
+function updateFooterDisplay() {
+  const footerText = document.getElementById('footer-text');
+  const lastRefresh = localStorage.getItem('napkin_last_refresh');
+  if (!lastRefresh) { footerText.textContent = ''; return; }
+  const diffMs = Date.now() - parseInt(lastRefresh, 10);
+  const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+  if (diffDays === 0) footerText.textContent = 'Updated today';
+  else if (diffDays === 1) footerText.textContent = 'Updated 1 day ago';
+  else footerText.textContent = `Updated ${diffDays} days ago`;
+}
+
+async function fetchEvents() {
+  const today = new Date().toISOString().slice(0, 10);
+  const prompt = `What is happening in Napa, CA food and event scene this week that would affect where a local family eats? Check for: current farmers market schedule, any major downtown events, notable restaurant happy hours or weekly specials. Today is ${today}. Return ONLY valid JSON with no markdown formatting and no explanation: { "events": [{"title": string, "relevance": string, "badge": string, "dayMatch": string}], "lastUpdated": string }`;
+  try {
+    const res = await fetch('/.netlify/functions/claude', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ messages: [{ role: 'user', content: prompt }] })
+    });
+    const data = await res.json();
+    if (data.text) {
+      try {
+        const parsed = JSON.parse(data.text);
+        localStorage.setItem('napkin_event_cache', JSON.stringify(parsed));
+      } catch (_) { /* non-parseable — store raw */ }
+    }
+    localStorage.setItem('napkin_last_refresh', String(Date.now()));
+  } catch (_) {
+    // Network failure — silently skip, show stale footer
+  }
+}
+
+// ════════════════════════════════════════════════════════
+//  BUILD CARD HTML
+// ════════════════════════════════════════════════════════
+function buildCardEl(spot) {
+  const badges = getSituationBadges(spot);
+  const card = document.createElement('div');
+  card.className = 'active-card';
+  card.dataset.id = spot.id;
+
+  const photoSrc = `photos/${spot.id}.jpg`;
+  const badgesHTML = badges.map(b => `<span class="${badgeClass(b)}">${b}</span>`).join('');
+  const noteHTML = spot.note ? `<div class="card-note">${spot.note}</div>` : '';
+
+  card.innerHTML = `
+    <div class="card-photo">
+      <img src="${photoSrc}" alt="${spot.name}" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+      <div class="card-photo-placeholder" style="display:none">${spot.cuisine}</div>
+    </div>
+    <div class="card-info">
+      <div class="card-name">${spot.name}</div>
+      <div class="card-cuisine">${spot.cuisine}</div>
+      <div class="stat-chips">
+        <span class="stat-chip">${spot.speedRating}</span>
+        <span class="stat-chip">${priceStr(spot.price)}</span>
+        <span class="stat-chip">${spot.romeOk ? 'Rome OK' : '—'}</span>
+      </div>
+      ${badges.length ? `<div class="situation-badges">${badgesHTML}</div>` : ''}
+      ${noteHTML}
+    </div>
+  `;
+  return card;
+}
+
+// ════════════════════════════════════════════════════════
+//  DECK SCREEN
+// ════════════════════════════════════════════════════════
+function openDeck(craving) {
+  selectedCraving = craving;
+  deck = filterByCraving(craving);
+  deckIndex = 0;
+  renderDeck();
+  showScreen('screen-deck');
+}
+
+function renderDeck() {
+  const slot    = document.getElementById('active-card-slot');
+  const progress= document.getElementById('deck-progress');
+  const actions = document.getElementById('deck-actions');
+  const empty   = document.getElementById('deck-empty');
+  const ghosts  = document.querySelector('.ghost-cards');
+
+  slot.innerHTML = '';
+
+  if (deckIndex >= deck.length) {
+    actions.style.display  = 'none';
+    empty.style.display    = 'flex';
+    ghosts.style.display   = 'none';
+    progress.textContent   = '';
+    return;
+  }
+
+  actions.style.display  = 'flex';
+  empty.style.display    = 'none';
+  ghosts.style.display   = 'block';
+
+  const spot = deck[deckIndex];
+  const remaining = deck.length - deckIndex;
+  progress.textContent = `${deckIndex + 1} of ${deck.length}`;
+
+  // Show/hide ghost cards depending on remaining
+  const g1 = document.querySelector('.ghost-card-1');
+  const g2 = document.querySelector('.ghost-card-2');
+  g1.style.display = remaining > 1 ? 'block' : 'none';
+  g2.style.display = remaining > 2 ? 'block' : 'none';
+
+  const cardEl = buildCardEl(spot);
+  slot.appendChild(cardEl);
+  attachDragBehavior(cardEl);
+}
+
+function skipCard() {
+  deckIndex++;
+  renderDeck();
+}
+
+function commitCard() {
+  selectedSpot = deck[deckIndex];
+  openCommitScreen(selectedSpot);
+}
+
+function attachDragBehavior(card) {
+  let startX = 0, startY = 0, currentX = 0;
+  let dragging = false;
+  const THRESHOLD = 80;
+
+  function onStart(x, y) {
+    startX = x; startY = y;
+    currentX = 0;
+    dragging = true;
+    card.classList.add('dragging');
+  }
+  function onMove(x) {
+    if (!dragging) return;
+    currentX = x - startX;
+    const rot = currentX * 0.06;
+    card.style.transform = `translateX(${currentX}px) rotate(${rot}deg)`;
+  }
+  function onEnd() {
+    if (!dragging) return;
+    dragging = false;
+    card.classList.remove('dragging');
+    if (currentX < -THRESHOLD) {
+      card.classList.add('fly-left');
+      setTimeout(skipCard, 330);
+    } else if (currentX > THRESHOLD) {
+      card.classList.add('fly-right');
+      setTimeout(commitCard, 330);
+    } else {
+      card.style.transform = '';
+    }
+  }
+
+  // Mouse
+  card.addEventListener('mousedown', e => { onStart(e.clientX, e.clientY); });
+  document.addEventListener('mousemove', e => { if (dragging) onMove(e.clientX); });
+  document.addEventListener('mouseup', () => { if (dragging) onEnd(); });
+
+  // Touch
+  card.addEventListener('touchstart', e => {
+    const t = e.touches[0];
+    onStart(t.clientX, t.clientY);
+  }, { passive: true });
+  card.addEventListener('touchmove', e => {
+    if (!dragging) return;
+    const t = e.touches[0];
+    const dy = Math.abs(t.clientY - startY);
+    const dx = Math.abs(t.clientX - startX);
+    if (dy > dx) { onEnd(); return; } // vertical scroll intent
+    onMove(t.clientX);
+  }, { passive: true });
+  card.addEventListener('touchend', () => { if (dragging) onEnd(); });
+}
+
+// ════════════════════════════════════════════════════════
+//  COMMIT SCREEN
+// ════════════════════════════════════════════════════════
+function openCommitScreen(spot) {
+  const badges = getSituationBadges(spot);
+  document.getElementById('commit-name').textContent = spot.name;
+  document.getElementById('commit-cuisine').textContent = spot.cuisine;
+  document.getElementById('commit-address').textContent = spot.address;
+  document.getElementById('commit-note').textContent = spot.note || '';
+  document.getElementById('commit-badges').innerHTML =
+    badges.map(b => `<span class="${badgeClass(b)}">${b}</span>`).join('');
+  showScreen('screen-commit');
+}
+
+// ════════════════════════════════════════════════════════
+//  EVENT WIRING
+// ════════════════════════════════════════════════════════
+// Password gate
+document.getElementById('gate-form').addEventListener('submit', e => {
+  e.preventDefault();
+  const input = document.getElementById('gate-input');
+  if (input.value === 'napavalley') {
+    sessionStorage.setItem('napkin_auth', '1');
+    input.classList.remove('error');
+    showScreen('screen-home');
+    setupHome();
+  } else {
+    input.classList.add('error');
+    input.classList.remove('shake');
+    void input.offsetWidth; // reflow to restart animation
+    input.classList.add('shake');
+    input.value = '';
+    setTimeout(() => input.classList.remove('error'), 2000);
+  }
+});
+
+// Craving chips
+document.getElementById('craving-chips').addEventListener('click', e => {
+  const chip = e.target.closest('.chip');
+  if (!chip) return;
+  document.querySelectorAll('.chip').forEach(c => c.classList.remove('selected'));
+  chip.classList.add('selected');
+  setTimeout(() => openDeck(chip.dataset.craving), 120);
+});
+
+// Deck: back
+document.getElementById('deck-back').addEventListener('click', () => {
+  document.querySelectorAll('.chip').forEach(c => c.classList.remove('selected'));
+  showScreen('screen-home');
+});
+
+// Deck: skip
+document.getElementById('btn-skip').addEventListener('click', skipCard);
+
+// Deck: this is it
+document.getElementById('btn-commit').addEventListener('click', commitCard);
+
+// Deck: shuffle when empty
+document.getElementById('btn-shuffle-empty').addEventListener('click', () => {
+  openDeck('surprise');
+});
+
+// Commit: back
+document.getElementById('commit-back').addEventListener('click', () => {
+  showScreen('screen-deck');
+  renderDeck(); // re-render current card
+});
+
+// Commit: let's go (no-op — just confirmation)
+document.getElementById('btn-lets-go').addEventListener('click', () => {
+  // Could open maps or celebrate — for now just stays on commit screen
+  if (selectedSpot && selectedSpot.address) {
+    const query = encodeURIComponent(selectedSpot.address);
+    window.open(`https://maps.apple.com/?q=${query}`, '_blank');
+  }
+});
+
+// Commit: not this one
+document.getElementById('btn-not-this').addEventListener('click', () => {
+  deckIndex++;
+  renderDeck();
+  showScreen('screen-deck');
+});
+
+// ════════════════════════════════════════════════════════
+//  BOOT
+// ════════════════════════════════════════════════════════
+async function boot() {
+  // Load spots
+  try {
+    const res = await fetch('/spots.json');
+    spots = await res.json();
+  } catch (_) {
+    spots = [];
+  }
+
+  // Check auth
+  if (sessionStorage.getItem('napkin_auth') === '1') {
+    showScreen('screen-home');
+    setupHome();
+  } else {
+    showScreen('screen-gate');
+  }
+}
+
+boot();
+
+// ════════════════════════════════════════════════════════
+//  SERVICE WORKER
+// ════════════════════════════════════════════════════════
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/sw.js').catch(() => {});
+  });
+}
+</script>
+</body>
+</html>
