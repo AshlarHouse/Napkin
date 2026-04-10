@@ -309,6 +309,7 @@
       background: var(--bg);
       border-radius: var(--radius-card);
       box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+      pointer-events: none;
     }
     /* transform-origin: bottom center so they peek out below the active card */
     .ghost-card-1 {
@@ -450,41 +451,66 @@
       text-overflow: ellipsis;
     }
 
-    /* Deck action buttons */
+    /* Deck action buttons — secondary text links */
     .deck-actions {
       display: flex;
-      gap: 16px;
       align-items: center;
       justify-content: center;
-      margin-top: 20px;
+      margin-top: 16px;
       width: 100%;
       padding: 0 20px;
+    }
+    .deck-actions-dot {
+      color: var(--border);
+      padding: 0 8px;
+      font-size: 13px;
+      user-select: none;
     }
     .btn-skip {
       background: none;
       border: none;
-      font-size: 15px;
+      font-size: 13px;
       font-weight: 400;
-      color: var(--text-dim);
+      color: var(--text-muted);
       font-family: inherit;
       cursor: pointer;
       min-height: 48px;
-      padding: 8px 20px;
+      padding: 12px 16px;
     }
+    .btn-skip:hover { text-decoration: underline; }
     .btn-commit {
-      background: var(--red);
-      color: #fff;
+      background: none;
       border: none;
-      border-radius: var(--radius-badge);
-      padding: 14px 32px;
-      font-size: 15px;
-      font-weight: 600;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--red);
       font-family: inherit;
       cursor: pointer;
-      transition: background 150ms;
       min-height: 48px;
+      padding: 12px 16px;
     }
-    .btn-commit:hover { background: var(--red-hover); }
+    .btn-commit:hover { text-decoration: underline; }
+
+    /* Swipe hint */
+    @keyframes hint-left {
+      0%, 100% { opacity: 0.5; transform: translateX(0); }
+      50%       { opacity: 1;   transform: translateX(-4px); }
+    }
+    @keyframes hint-right {
+      0%, 100% { opacity: 0.5; transform: translateX(0); }
+      50%       { opacity: 1;   transform: translateX(4px); }
+    }
+    .swipe-hint {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 32px;
+      margin-top: 12px;
+      height: 24px;
+      pointer-events: none;
+    }
+    .swipe-hint svg:first-child { animation: hint-left  1.5s ease-in-out infinite; }
+    .swipe-hint svg:last-child  { animation: hint-right 1.5s ease-in-out infinite; }
 
     /* Empty state */
     .deck-empty {
@@ -706,8 +732,13 @@
         <div id="active-card-slot"></div>
       </div>
     </div>
+    <div class="swipe-hint" id="swipe-hint" style="display:none">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#b0b0b0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#b0b0b0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+    </div>
     <div class="deck-actions" id="deck-actions">
       <button class="btn-skip" id="btn-skip">Skip</button>
+      <span class="deck-actions-dot" aria-hidden="true">·</span>
       <button class="btn-commit" id="btn-commit">This is it</button>
     </div>
     <div class="deck-empty" id="deck-empty" style="display:none">
@@ -1182,9 +1213,19 @@ function renderDeck() {
   document.getElementById('ghost-1').style.display = remaining > 1 ? 'block' : 'none';
   document.getElementById('ghost-2').style.display = remaining > 2 ? 'block' : 'none';
 
+  const isFirstCard = deckIndex === 0 && !localStorage.getItem('napkin_seen_hint');
   const cardEl = buildCardEl(deck[deckIndex]);
   slot.appendChild(cardEl);
-  attachDragBehavior(cardEl);
+  attachDragBehavior(cardEl, isFirstCard);
+
+  // Show swipe hint on first card of first-ever session
+  const hint = document.getElementById('swipe-hint');
+  if (isFirstCard) {
+    hint.style.display = 'flex';
+    setTimeout(dismissSwipeHint, 4000);
+  } else {
+    hint.style.display = 'none';
+  }
 }
 
 function skipCard() {
@@ -1200,12 +1241,35 @@ function commitCard() {
 // ════════════════════════════════════════════════════════
 //  DRAG BEHAVIOR — touch + mouse, spring snap-back
 // ════════════════════════════════════════════════════════
-function attachDragBehavior(card) {
+function dismissSwipeHint() {
+  const hint = document.getElementById('swipe-hint');
+  if (hint && hint.style.display !== 'none') {
+    hint.style.display = 'none';
+    localStorage.setItem('napkin_seen_hint', '1');
+  }
+}
+
+function attachDragBehavior(card, isFirstCard) {
   let startX = 0, startY = 0, currentX = 0;
   let dragging = false;
-  let lockAxis = null; // 'h' or 'v'
-  const THRESHOLD = 80;
-  const SPRING = 'transform 350ms cubic-bezier(0.175, 0.885, 0.32, 1.275)';
+  let lockAxis = null;
+  const THRESHOLD = 60;
+  const TINT_START = 30;
+  const SPRING = 'transform 350ms cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 350ms ease';
+
+  function setTint(dx) {
+    const abs = Math.abs(dx);
+    if (abs < TINT_START) {
+      card.style.boxShadow = '0 2px 16px rgba(0,0,0,0.10)';
+      return;
+    }
+    const intensity = Math.min((abs - TINT_START) / (THRESHOLD - TINT_START), 1);
+    if (dx > 0) {
+      card.style.boxShadow = `0 2px 16px rgba(0,0,0,0.10), inset 0 0 0 2px rgba(0,138,5,${(intensity * 0.15).toFixed(2)})`;
+    } else {
+      card.style.boxShadow = `0 2px 16px rgba(0,0,0,0.10), inset 0 0 0 2px rgba(255,56,92,${(intensity * 0.15).toFixed(2)})`;
+    }
+  }
 
   function onStart(x, y) {
     startX   = x;
@@ -1215,22 +1279,21 @@ function attachDragBehavior(card) {
     dragging = true;
     card.style.transition = 'none';
     card.classList.add('dragging');
+    if (isFirstCard) dismissSwipeHint();
   }
 
   function onMove(x, y) {
     if (!dragging) return;
     const dx = x - startX;
     const dy = y - startY;
-
-    // Determine axis lock after 5px of movement
     if (!lockAxis && (Math.abs(dx) > 5 || Math.abs(dy) > 5)) {
       lockAxis = Math.abs(dx) >= Math.abs(dy) ? 'h' : 'v';
     }
-    if (lockAxis === 'v') return; // let vertical scroll happen
-
+    if (lockAxis === 'v') return;
     currentX = dx;
     const rot = currentX * 0.05;
     card.style.transform = `translateX(${currentX}px) rotate(${rot}deg)`;
+    setTint(currentX);
   }
 
   function onEnd() {
@@ -1250,16 +1313,17 @@ function attachDragBehavior(card) {
       card.classList.add('fly-right');
       setTimeout(commitCard, 320);
     } else {
-      // Spring snap-back
+      // Spring snap-back — tint fades with the spring
       card.style.transition = SPRING;
       card.style.transform  = '';
+      card.style.boxShadow  = '0 2px 16px rgba(0,0,0,0.10)';
       card.addEventListener('transitionend', () => {
         card.style.transition = '';
       }, { once: true });
     }
   }
 
-  // Mouse events
+  // Mouse
   card.addEventListener('mousedown', e => {
     e.preventDefault();
     onStart(e.clientX, e.clientY);
@@ -1269,7 +1333,7 @@ function attachDragBehavior(card) {
   document.addEventListener('mousemove', onMouseMove);
   document.addEventListener('mouseup', onMouseUp);
 
-  // Touch events
+  // Touch
   card.addEventListener('touchstart', e => {
     const t = e.touches[0];
     onStart(t.clientX, t.clientY);
@@ -1280,16 +1344,13 @@ function attachDragBehavior(card) {
     const t = e.touches[0];
     const dx = Math.abs(t.clientX - startX);
     const dy = Math.abs(t.clientY - startY);
-    // If clearly horizontal, prevent default page scroll
-    if (!lockAxis && dx > dy) {
-      e.preventDefault();
-    }
+    if (!lockAxis && dx > dy) e.preventDefault();
     onMove(t.clientX, t.clientY);
   }, { passive: false });
 
   card.addEventListener('touchend', () => { if (dragging) onEnd(); });
 
-  // Cleanup mouse listeners when card is removed
+  // Cleanup
   const observer = new MutationObserver(() => {
     if (!document.contains(card)) {
       document.removeEventListener('mousemove', onMouseMove);
