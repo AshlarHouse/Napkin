@@ -1,11 +1,642 @@
 [
-  { "id":"gotts","name":"Gott's Roadside","cuisine":"Burgers / American","type":["lunch","dinner"],"price":2,"romeOk":true,"takeout":false,"speedRating":"Medium","hours":{"mon":[11,21],"tue":[11,21],"wed":[11,21],"thu":[11,21],"fri":[11,21],"sat":[11,21],"sun":[11,21]},"address":"644 1st St, Napa · Oxbow","note":"Family friendly, outdoor seating, dogs ok.","lineWarning":false,"closedDays":[],"specialRule":null,"cravingMatch":["burgers"] },
-  { "id":"smallworld","name":"Small World","cuisine":"Middle Eastern","type":["breakfast","lunch","dinner"],"price":1,"romeOk":true,"takeout":true,"speedRating":"Fast","hours":{"mon":[9,20.5],"tue":[9,20.5],"wed":[9,20.5],"thu":[9,20.5],"fri":[9,20.5],"sat":[9,19.5],"sun":null},"address":"932 Coombs St, Napa","note":"Family tradition. Get the lamb gyro.","lineWarning":false,"closedDays":["sun"],"specialRule":null,"cravingMatch":["mediterranean"] },
-  { "id":"papajoes","name":"Papa Joe's Pizza","cuisine":"Pizza","type":["lunch","dinner"],"price":1,"romeOk":true,"takeout":true,"speedRating":"Fast","hours":{"mon":[11,21.5],"tue":[11,21.5],"wed":[11,21.5],"thu":[11,21.5],"fri":[11,22.5],"sat":[11,22.5],"sun":[11,21.5]},"address":"1121 Lincoln Ave, Napa","note":"Best pizza in town. Order ahead.","lineWarning":false,"closedDays":[],"specialRule":null,"cravingMatch":["pizza"] },
-  { "id":"amami","name":"Amami","cuisine":"Japanese / Sushi","type":["lunch","dinner"],"price":3,"romeOk":true,"takeout":false,"speedRating":"Sit-down","hours":{"mon":[[11.5,15],[17,21.5]],"tue":[[11.5,15],[17,21.5]],"wed":[[11.5,15],[17,21.5]],"thu":[[11.5,15],[17,21.5]],"fri":[[11.5,15],[17,22]],"sat":[[11.5,15],[17,22]],"sun":[[11.5,15],[17,21.5]]},"address":"1300 Main St, Napa","note":"Family friendly. Dinner is the move.","lineWarning":false,"closedDays":[],"specialRule":null,"cravingMatch":["asian"] },
-  { "id":"dragonvalley","name":"Dragon Valley","cuisine":"Chinese","type":["lunch","dinner"],"price":1,"romeOk":true,"takeout":true,"speedRating":"Fast","hours":{"mon":[[11,15],[16,21]],"tue":[[11,15],[16,21]],"wed":[[11,15],[16,21]],"thu":[[11,15],[16,21]],"fri":[[11,15],[16,21]],"sat":[[11,15],[16,21]],"sun":[[11,15],[16,21]]},"address":"1675 Trancas St, Napa","note":"Best Chinese in town. Gap 3–4pm daily.","lineWarning":false,"closedDays":[],"specialRule":null,"cravingMatch":["asian"] },
-  { "id":"genova","name":"Genova's Deli","cuisine":"Italian Deli","type":["breakfast","lunch"],"price":1,"romeOk":true,"takeout":true,"speedRating":"Medium","hours":{"mon":[9,18],"tue":[9,18],"wed":[9,18],"thu":[9,18],"fri":[9,18],"sat":[9,18],"sun":[9,17]},"address":"1550 Trancas St, Napa","note":"Always a line. Worth it. Grab a number when you walk in.","lineWarning":true,"closedDays":[],"specialRule":null,"cravingMatch":["sandwiches"] },
-  { "id":"modelbakery","name":"Model Bakery","cuisine":"Bakery / Breakfast","type":["breakfast","lunch"],"price":1,"romeOk":true,"takeout":true,"speedRating":"Medium","hours":{"mon":[6.5,16],"tue":[6.5,16],"wed":[6.5,16],"thu":[6.5,16],"fri":[6.5,16],"sat":[7,16],"sun":[7,16]},"address":"644 1st St, Napa · Oxbow","note":"Always a line. English muffin sandwich is the move.","lineWarning":true,"closedDays":[],"specialRule":null,"cravingMatch":["breakfast"] },
-  { "id":"moulin","name":"Moulin","cuisine":"French Bakery","type":["breakfast","lunch"],"price":2,"romeOk":true,"takeout":true,"speedRating":"Medium","hours":{"mon":[7.5,14.5],"tue":null,"wed":null,"thu":[7.5,14.5],"fri":[7.5,14.5],"sat":[7.5,14.5],"sun":[7.5,14.5]},"address":"1321 1st St, Napa","note":"Always a line. CLOSED Tue and Wed — easy to forget.","lineWarning":true,"closedDays":["tue","wed"],"specialRule":null,"cravingMatch":["breakfast"] },
-  { "id":"earthsbounty","name":"Earth's Bounty","cuisine":"Burritos / Sandwiches","type":["breakfast","lunch"],"price":1,"romeOk":true,"takeout":true,"speedRating":"Fast","hours":{"mon":null,"tue":null,"wed":null,"thu":null,"fri":null,"sat":[8,12],"sun":null},"address":"1100 West St, Napa · Farmers Market","note":"Mom and son vendor. Saturday market only. Burritos and sandwiches made fresh.","lineWarning":false,"closedDays":[],"specialRule":"saturday_market_only","cravingMatch":["burritos","sandwiches"] }
+  {
+    "id": "gotts",
+    "name": "Gott's Roadside",
+    "cuisine": "Burgers / American",
+    "type": [
+      "lunch",
+      "dinner"
+    ],
+    "price": 2,
+    "romeOk": true,
+    "takeout": false,
+    "speedRating": "Medium",
+    "hours": {
+      "mon": [
+        11,
+        21
+      ],
+      "tue": [
+        11,
+        21
+      ],
+      "wed": [
+        11,
+        21
+      ],
+      "thu": [
+        11,
+        21
+      ],
+      "fri": [
+        11,
+        21
+      ],
+      "sat": [
+        11,
+        21
+      ],
+      "sun": [
+        11,
+        21
+      ]
+    },
+    "address": "644 1st St, Napa · Oxbow",
+    "note": "Family friendly, outdoor seating, dogs ok.",
+    "lineWarning": false,
+    "closedDays": [],
+    "specialRule": null,
+    "cravingMatch": [
+      "burgers"
+    ],
+    "photo": "",
+    "delivery": false,
+    "dineIn": true,
+    "familyFriendly": true,
+    "outdoorSeating": true,
+    "neighborhood": "Oxbow",
+    "phone": "",
+    "website": "",
+    "lat": 0,
+    "lng": 0,
+    "priorityScore": 0,
+    "lastVerified": "2026-04-13",
+    "status": "active"
+  },
+  {
+    "id": "smallworld",
+    "name": "Small World",
+    "cuisine": "Middle Eastern",
+    "type": [
+      "breakfast",
+      "lunch",
+      "dinner"
+    ],
+    "price": 1,
+    "romeOk": true,
+    "takeout": true,
+    "speedRating": "Fast",
+    "hours": {
+      "mon": [
+        9,
+        20.5
+      ],
+      "tue": [
+        9,
+        20.5
+      ],
+      "wed": [
+        9,
+        20.5
+      ],
+      "thu": [
+        9,
+        20.5
+      ],
+      "fri": [
+        9,
+        20.5
+      ],
+      "sat": [
+        9,
+        19.5
+      ],
+      "sun": null
+    },
+    "address": "932 Coombs St, Napa",
+    "note": "Family tradition. Get the lamb gyro.",
+    "lineWarning": false,
+    "closedDays": [
+      "sun"
+    ],
+    "specialRule": null,
+    "cravingMatch": [
+      "mediterranean"
+    ],
+    "photo": "smallworld.png",
+    "delivery": false,
+    "dineIn": true,
+    "familyFriendly": true,
+    "outdoorSeating": false,
+    "neighborhood": "Downtown",
+    "phone": "",
+    "website": "",
+    "lat": 0,
+    "lng": 0,
+    "priorityScore": 0,
+    "lastVerified": "2026-04-13",
+    "status": "active"
+  },
+  {
+    "id": "papajoes",
+    "name": "Papa Joe's Pizza",
+    "cuisine": "Pizza",
+    "type": [
+      "lunch",
+      "dinner"
+    ],
+    "price": 1,
+    "romeOk": true,
+    "takeout": true,
+    "speedRating": "Fast",
+    "hours": {
+      "mon": [
+        11,
+        21.5
+      ],
+      "tue": [
+        11,
+        21.5
+      ],
+      "wed": [
+        11,
+        21.5
+      ],
+      "thu": [
+        11,
+        21.5
+      ],
+      "fri": [
+        11,
+        22.5
+      ],
+      "sat": [
+        11,
+        22.5
+      ],
+      "sun": [
+        11,
+        21.5
+      ]
+    },
+    "address": "1121 Lincoln Ave, Napa",
+    "note": "Best pizza in town. Order ahead.",
+    "lineWarning": false,
+    "closedDays": [],
+    "specialRule": null,
+    "cravingMatch": [
+      "pizza"
+    ],
+    "photo": "papajoe.png",
+    "delivery": false,
+    "dineIn": true,
+    "familyFriendly": true,
+    "outdoorSeating": false,
+    "neighborhood": "Downtown",
+    "phone": "",
+    "website": "",
+    "lat": 0,
+    "lng": 0,
+    "priorityScore": 0,
+    "lastVerified": "2026-04-13",
+    "status": "active"
+  },
+  {
+    "id": "amami",
+    "name": "Amami",
+    "cuisine": "Japanese / Sushi",
+    "type": [
+      "lunch",
+      "dinner"
+    ],
+    "price": 3,
+    "romeOk": true,
+    "takeout": false,
+    "speedRating": "Sit-down",
+    "hours": {
+      "mon": [
+        [
+          11.5,
+          15
+        ],
+        [
+          17,
+          21.5
+        ]
+      ],
+      "tue": [
+        [
+          11.5,
+          15
+        ],
+        [
+          17,
+          21.5
+        ]
+      ],
+      "wed": [
+        [
+          11.5,
+          15
+        ],
+        [
+          17,
+          21.5
+        ]
+      ],
+      "thu": [
+        [
+          11.5,
+          15
+        ],
+        [
+          17,
+          21.5
+        ]
+      ],
+      "fri": [
+        [
+          11.5,
+          15
+        ],
+        [
+          17,
+          22
+        ]
+      ],
+      "sat": [
+        [
+          11.5,
+          15
+        ],
+        [
+          17,
+          22
+        ]
+      ],
+      "sun": [
+        [
+          11.5,
+          15
+        ],
+        [
+          17,
+          21.5
+        ]
+      ]
+    },
+    "address": "1300 Main St, Napa",
+    "note": "Family friendly. Dinner is the move.",
+    "lineWarning": false,
+    "closedDays": [],
+    "specialRule": null,
+    "cravingMatch": [
+      "asian"
+    ],
+    "photo": "",
+    "delivery": false,
+    "dineIn": true,
+    "familyFriendly": true,
+    "outdoorSeating": false,
+    "neighborhood": "Downtown",
+    "phone": "",
+    "website": "",
+    "lat": 0,
+    "lng": 0,
+    "priorityScore": 2,
+    "lastVerified": "2026-04-13",
+    "status": "active"
+  },
+  {
+    "id": "dragonvalley",
+    "name": "Dragon Valley",
+    "cuisine": "Chinese",
+    "type": [
+      "lunch",
+      "dinner"
+    ],
+    "price": 1,
+    "romeOk": true,
+    "takeout": true,
+    "speedRating": "Fast",
+    "hours": {
+      "mon": [
+        [
+          11,
+          15
+        ],
+        [
+          16,
+          21
+        ]
+      ],
+      "tue": [
+        [
+          11,
+          15
+        ],
+        [
+          16,
+          21
+        ]
+      ],
+      "wed": [
+        [
+          11,
+          15
+        ],
+        [
+          16,
+          21
+        ]
+      ],
+      "thu": [
+        [
+          11,
+          15
+        ],
+        [
+          16,
+          21
+        ]
+      ],
+      "fri": [
+        [
+          11,
+          15
+        ],
+        [
+          16,
+          21
+        ]
+      ],
+      "sat": [
+        [
+          11,
+          15
+        ],
+        [
+          16,
+          21
+        ]
+      ],
+      "sun": [
+        [
+          11,
+          15
+        ],
+        [
+          16,
+          21
+        ]
+      ]
+    },
+    "address": "1675 Trancas St, Napa",
+    "note": "Best Chinese in town. Gap 3–4pm daily.",
+    "lineWarning": false,
+    "closedDays": [],
+    "specialRule": null,
+    "cravingMatch": [
+      "asian"
+    ],
+    "photo": "dragonvalley.png",
+    "delivery": false,
+    "dineIn": true,
+    "familyFriendly": true,
+    "outdoorSeating": false,
+    "neighborhood": "North Napa",
+    "phone": "",
+    "website": "",
+    "lat": 0,
+    "lng": 0,
+    "priorityScore": 1,
+    "lastVerified": "2026-04-13",
+    "status": "active"
+  },
+  {
+    "id": "genova",
+    "name": "Genova's Deli",
+    "cuisine": "Italian Deli",
+    "type": [
+      "breakfast",
+      "lunch"
+    ],
+    "price": 1,
+    "romeOk": true,
+    "takeout": true,
+    "speedRating": "Medium",
+    "hours": {
+      "mon": [
+        9,
+        18
+      ],
+      "tue": [
+        9,
+        18
+      ],
+      "wed": [
+        9,
+        18
+      ],
+      "thu": [
+        9,
+        18
+      ],
+      "fri": [
+        9,
+        18
+      ],
+      "sat": [
+        9,
+        18
+      ],
+      "sun": [
+        9,
+        17
+      ]
+    },
+    "address": "1550 Trancas St, Napa",
+    "note": "Always a line. Worth it. Grab a number when you walk in.",
+    "lineWarning": true,
+    "closedDays": [],
+    "specialRule": null,
+    "cravingMatch": [
+      "sandwiches"
+    ],
+    "photo": "",
+    "delivery": false,
+    "dineIn": true,
+    "familyFriendly": true,
+    "outdoorSeating": false,
+    "neighborhood": "North Napa",
+    "phone": "",
+    "website": "",
+    "lat": 0,
+    "lng": 0,
+    "priorityScore": 1,
+    "lastVerified": "2026-04-13",
+    "status": "active"
+  },
+  {
+    "id": "modelbakery",
+    "name": "Model Bakery",
+    "cuisine": "Bakery / Breakfast",
+    "type": [
+      "breakfast",
+      "lunch"
+    ],
+    "price": 1,
+    "romeOk": true,
+    "takeout": true,
+    "speedRating": "Medium",
+    "hours": {
+      "mon": [
+        6.5,
+        16
+      ],
+      "tue": [
+        6.5,
+        16
+      ],
+      "wed": [
+        6.5,
+        16
+      ],
+      "thu": [
+        6.5,
+        16
+      ],
+      "fri": [
+        6.5,
+        16
+      ],
+      "sat": [
+        7,
+        16
+      ],
+      "sun": [
+        7,
+        16
+      ]
+    },
+    "address": "644 1st St, Napa · Oxbow",
+    "note": "Always a line. English muffin sandwich is the move.",
+    "lineWarning": true,
+    "closedDays": [],
+    "specialRule": null,
+    "cravingMatch": [
+      "breakfast"
+    ],
+    "photo": "",
+    "delivery": false,
+    "dineIn": true,
+    "familyFriendly": true,
+    "outdoorSeating": false,
+    "neighborhood": "Oxbow",
+    "phone": "",
+    "website": "",
+    "lat": 0,
+    "lng": 0,
+    "priorityScore": 1,
+    "lastVerified": "2026-04-13",
+    "status": "active"
+  },
+  {
+    "id": "moulin",
+    "name": "Moulin",
+    "cuisine": "French Bakery",
+    "type": [
+      "breakfast",
+      "lunch"
+    ],
+    "price": 2,
+    "romeOk": true,
+    "takeout": true,
+    "speedRating": "Medium",
+    "hours": {
+      "mon": [
+        7.5,
+        14.5
+      ],
+      "tue": null,
+      "wed": null,
+      "thu": [
+        7.5,
+        14.5
+      ],
+      "fri": [
+        7.5,
+        14.5
+      ],
+      "sat": [
+        7.5,
+        14.5
+      ],
+      "sun": [
+        7.5,
+        14.5
+      ]
+    },
+    "address": "1321 1st St, Napa",
+    "note": "Always a line. CLOSED Tue and Wed — easy to forget.",
+    "lineWarning": true,
+    "closedDays": [
+      "tue",
+      "wed"
+    ],
+    "specialRule": null,
+    "cravingMatch": [
+      "breakfast"
+    ],
+    "photo": "",
+    "delivery": false,
+    "dineIn": true,
+    "familyFriendly": true,
+    "outdoorSeating": false,
+    "neighborhood": "Downtown",
+    "phone": "",
+    "website": "",
+    "lat": 0,
+    "lng": 0,
+    "priorityScore": 0,
+    "lastVerified": "2026-04-13",
+    "status": "active"
+  },
+  {
+    "id": "earthsbounty",
+    "name": "Earth's Bounty",
+    "cuisine": "Burritos / Sandwiches",
+    "type": [
+      "breakfast",
+      "lunch"
+    ],
+    "price": 1,
+    "romeOk": true,
+    "takeout": true,
+    "speedRating": "Fast",
+    "hours": {
+      "mon": null,
+      "tue": null,
+      "wed": null,
+      "thu": null,
+      "fri": null,
+      "sat": [
+        8,
+        12
+      ],
+      "sun": null
+    },
+    "address": "1100 West St, Napa · Farmers Market",
+    "note": "Mom and son vendor. Saturday market only. Burritos and sandwiches made fresh.",
+    "lineWarning": false,
+    "closedDays": [],
+    "specialRule": "saturday_market_only",
+    "cravingMatch": [
+      "burritos",
+      "sandwiches"
+    ],
+    "photo": "earthsbounty.png",
+    "delivery": false,
+    "dineIn": true,
+    "familyFriendly": true,
+    "outdoorSeating": false,
+    "neighborhood": "Farmers Market",
+    "phone": "",
+    "website": "",
+    "lat": 0,
+    "lng": 0,
+    "priorityScore": 3,
+    "lastVerified": "2026-04-13",
+    "status": "active"
+  }
 ]

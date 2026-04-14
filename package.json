@@ -1,0 +1,7 @@
+{
+  "name": "napkin",
+  "private": true,
+  "scripts": {
+    "build:data": "node scripts/build-spots.js"
+  }
+}

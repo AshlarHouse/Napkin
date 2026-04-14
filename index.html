@@ -789,12 +789,6 @@ let deckIndex = 0;
 let deckIsNoMatchFallback = false; // true when deck is empty because nothing matched craving
 let selectedSpot = null;
 let selectedCraving = null;
-const PHOTO_SOURCES = {
-  dragonvalley: 'dragonvalley.png',
-  earthsbounty: 'earthsbounty.png',
-  papajoes: 'papajoe.png',
-  smallworld: 'smallworld.png'
-};
 
 // ════════════════════════════════════════════════════════
 //  UTILITIES
@@ -819,7 +813,7 @@ function shuffle(arr) {
 function priceStr(n) { return '$'.repeat(n); }
 
 function photoSrcForSpot(spot) {
-  return PHOTO_SOURCES[spot.id] || '';
+  return spot.photo || '';
 }
 
 async function checkAuth() {
