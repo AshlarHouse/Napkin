@@ -1034,5 +1034,200 @@
     "priorityScore": 4,
     "lastVerified": "2026-04-13",
     "status": "active"
+  },
+  {
+    "id": "motherstacos",
+    "name": "Mother's Tacos",
+    "cuisine": "Mexican / Tacos",
+    "type": [
+      "lunch",
+      "dinner"
+    ],
+    "price": 2,
+    "romeOk": true,
+    "takeout": true,
+    "speedRating": "Fast",
+    "hours": {
+      "mon": [
+        11,
+        20
+      ],
+      "tue": [
+        11,
+        20
+      ],
+      "wed": [
+        11,
+        20
+      ],
+      "thu": [
+        11,
+        20
+      ],
+      "fri": [
+        11,
+        21
+      ],
+      "sat": [
+        11,
+        21
+      ],
+      "sun": [
+        11,
+        20
+      ]
+    },
+    "address": "3150 Jefferson St, Napa",
+    "note": "A strong North Napa taco option with better local upside than chain takeout. Fish and al pastor are the move.",
+    "lineWarning": false,
+    "closedDays": [],
+    "specialRule": null,
+    "cravingMatch": [
+      "burritos",
+      "surprise"
+    ],
+    "photo": "",
+    "delivery": false,
+    "dineIn": true,
+    "familyFriendly": true,
+    "outdoorSeating": true,
+    "neighborhood": "North Napa",
+    "phone": "707-254-1710",
+    "website": "https://www.motherstacos.com",
+    "lat": null,
+    "lng": null,
+    "priorityScore": 3,
+    "lastVerified": "2026-04-13",
+    "status": "active"
+  },
+  {
+    "id": "laspalmas",
+    "name": "Las Palmas",
+    "cuisine": "Mexican / Seafood",
+    "type": [
+      "lunch",
+      "dinner"
+    ],
+    "price": 1,
+    "romeOk": true,
+    "takeout": true,
+    "speedRating": "Fast",
+    "hours": {
+      "mon": [
+        11,
+        20
+      ],
+      "tue": [
+        11,
+        20
+      ],
+      "wed": [
+        11,
+        20
+      ],
+      "thu": [
+        11,
+        20
+      ],
+      "fri": [
+        11,
+        20
+      ],
+      "sat": [
+        11,
+        20
+      ],
+      "sun": null
+    },
+    "address": "1730 Yajome St, Napa",
+    "note": "Neighborhood Mexican spot with stronger local-review signal than chain burrito places. Great fallback takeout choice up north.",
+    "lineWarning": false,
+    "closedDays": [
+      "sun"
+    ],
+    "specialRule": null,
+    "cravingMatch": [
+      "burritos",
+      "surprise"
+    ],
+    "photo": "",
+    "delivery": true,
+    "dineIn": true,
+    "familyFriendly": true,
+    "outdoorSeating": true,
+    "neighborhood": "North Napa",
+    "phone": "707-257-1514",
+    "website": "https://napalaspalmas.wordpress.com/",
+    "lat": null,
+    "lng": null,
+    "priorityScore": 3,
+    "lastVerified": "2026-04-13",
+    "status": "active"
+  },
+  {
+    "id": "northbar",
+    "name": "North Bar & Grill",
+    "cuisine": "American / Bar & Grill",
+    "type": [
+      "breakfast",
+      "dinner"
+    ],
+    "price": 2,
+    "romeOk": true,
+    "takeout": true,
+    "speedRating": "Medium",
+    "hours": {
+      "mon": [
+        15,
+        22
+      ],
+      "tue": [
+        15,
+        22
+      ],
+      "wed": [
+        15,
+        22
+      ],
+      "thu": [
+        15,
+        22
+      ],
+      "fri": [
+        15,
+        24
+      ],
+      "sat": [
+        15,
+        24
+      ],
+      "sun": [
+        10,
+        15
+      ]
+    },
+    "address": "1540 Trancas St, Napa",
+    "note": "A good locals-first north-side option for burgers and comfort food, especially when downtown feels like too much effort.",
+    "lineWarning": false,
+    "closedDays": [],
+    "specialRule": null,
+    "cravingMatch": [
+      "burgers",
+      "sandwiches",
+      "breakfast"
+    ],
+    "photo": "",
+    "delivery": true,
+    "dineIn": true,
+    "familyFriendly": true,
+    "outdoorSeating": false,
+    "neighborhood": "Trancas",
+    "phone": "707-226-1540",
+    "website": "https://northnapa.com",
+    "lat": null,
+    "lng": null,
+    "priorityScore": 2,
+    "lastVerified": "2026-04-13",
+    "status": "active"
   }
 ]
