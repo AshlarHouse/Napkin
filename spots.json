@@ -1229,5 +1229,137 @@
     "priorityScore": 2,
     "lastVerified": "2026-04-13",
     "status": "active"
+  },
+  {
+    "id": "hopcreek",
+    "name": "Hop Creek Pub",
+    "cuisine": "American / Gastropub",
+    "type": [
+      "lunch",
+      "dinner"
+    ],
+    "price": 2,
+    "romeOk": true,
+    "takeout": true,
+    "speedRating": "Medium",
+    "hours": {
+      "mon": [
+        11,
+        20
+      ],
+      "tue": [
+        11,
+        20
+      ],
+      "wed": [
+        11,
+        21
+      ],
+      "thu": [
+        11,
+        21
+      ],
+      "fri": [
+        11,
+        21
+      ],
+      "sat": [
+        11,
+        21
+      ],
+      "sun": null
+    },
+    "address": "3253 Browns Valley Rd, Napa",
+    "note": "A strong west-side locals pub with burgers, sandwiches, and better-than-average comfort food. Worth favoring over generic chain options.",
+    "lineWarning": false,
+    "closedDays": [
+      "sun"
+    ],
+    "specialRule": null,
+    "cravingMatch": [
+      "burgers",
+      "sandwiches",
+      "surprise"
+    ],
+    "photo": "",
+    "delivery": true,
+    "dineIn": true,
+    "familyFriendly": true,
+    "outdoorSeating": true,
+    "neighborhood": "Browns Valley",
+    "phone": "707-257-7708",
+    "website": "https://hopcreekpub.com",
+    "lat": null,
+    "lng": null,
+    "priorityScore": 3,
+    "lastVerified": "2026-04-13",
+    "status": "active"
+  },
+  {
+    "id": "brownsvalleydeli",
+    "name": "Browns Valley Market Deli",
+    "cuisine": "Deli / Prepared Foods",
+    "type": [
+      "breakfast",
+      "lunch",
+      "dinner"
+    ],
+    "price": 2,
+    "romeOk": true,
+    "takeout": true,
+    "speedRating": "Fast",
+    "hours": {
+      "mon": [
+        7,
+        19
+      ],
+      "tue": [
+        7,
+        19
+      ],
+      "wed": [
+        7,
+        19
+      ],
+      "thu": [
+        7,
+        19
+      ],
+      "fri": [
+        7,
+        19
+      ],
+      "sat": [
+        7,
+        19
+      ],
+      "sun": [
+        8,
+        19
+      ]
+    },
+    "address": "3263 Browns Valley Rd, Napa",
+    "note": "A genuinely useful local takeout option: paninis, hot case meals, grab-and-go salads, and family backup dinner food.",
+    "lineWarning": false,
+    "closedDays": [],
+    "specialRule": null,
+    "cravingMatch": [
+      "sandwiches",
+      "breakfast",
+      "surprise"
+    ],
+    "photo": "",
+    "delivery": false,
+    "dineIn": false,
+    "familyFriendly": true,
+    "outdoorSeating": false,
+    "neighborhood": "Browns Valley",
+    "phone": "707-253-2178",
+    "website": "https://www.brownsvalley.com/department/deli/",
+    "lat": null,
+    "lng": null,
+    "priorityScore": 3,
+    "lastVerified": "2026-04-13",
+    "status": "active"
   }
 ]
