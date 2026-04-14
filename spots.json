@@ -638,5 +638,401 @@
     "priorityScore": 3,
     "lastVerified": "2026-04-13",
     "status": "active"
+  },
+  {
+    "id": "oenotri",
+    "name": "Oenotri",
+    "cuisine": "Italian / Pizza",
+    "type": [
+      "lunch",
+      "dinner"
+    ],
+    "price": 3,
+    "romeOk": true,
+    "takeout": false,
+    "speedRating": "Sit-down",
+    "hours": {
+      "mon": [
+        17,
+        21
+      ],
+      "tue": [
+        17,
+        21
+      ],
+      "wed": [
+        17,
+        21
+      ],
+      "thu": [
+        17,
+        21
+      ],
+      "fri": [
+        [
+          11.5,
+          14.5
+        ],
+        [
+          17,
+          21.5
+        ]
+      ],
+      "sat": [
+        [
+          11.5,
+          14.5
+        ],
+        [
+          17,
+          21.5
+        ]
+      ],
+      "sun": [
+        16,
+        20.5
+      ]
+    },
+    "address": "1425 1st St, Napa",
+    "note": "Downtown date-night pizza and pasta choice with strong reviews. Better for sit-down than quick takeout.",
+    "lineWarning": false,
+    "closedDays": [],
+    "specialRule": null,
+    "cravingMatch": [
+      "pizza"
+    ],
+    "photo": "",
+    "delivery": false,
+    "dineIn": true,
+    "familyFriendly": true,
+    "outdoorSeating": true,
+    "neighborhood": "Downtown",
+    "phone": "707-252-1022",
+    "website": "https://www.oenotri.com",
+    "lat": null,
+    "lng": null,
+    "priorityScore": 3,
+    "lastVerified": "2026-04-13",
+    "status": "active"
+  },
+  {
+    "id": "bountyhunter",
+    "name": "Bounty Hunter Wine Bar & Smokin' BBQ",
+    "cuisine": "BBQ / American",
+    "type": [
+      "lunch",
+      "dinner"
+    ],
+    "price": 2,
+    "romeOk": true,
+    "takeout": true,
+    "speedRating": "Medium",
+    "hours": {
+      "mon": [
+        11,
+        20
+      ],
+      "tue": [
+        11,
+        20
+      ],
+      "wed": [
+        11,
+        20
+      ],
+      "thu": [
+        11,
+        20
+      ],
+      "fri": [
+        11,
+        21
+      ],
+      "sat": [
+        11,
+        21
+      ],
+      "sun": [
+        11,
+        20
+      ]
+    },
+    "address": "975 1st St, Napa",
+    "note": "A reliable downtown BBQ option when the family wants something hearty and easy to share.",
+    "lineWarning": false,
+    "closedDays": [],
+    "specialRule": null,
+    "cravingMatch": [
+      "sandwiches",
+      "burgers"
+    ],
+    "photo": "",
+    "delivery": false,
+    "dineIn": true,
+    "familyFriendly": true,
+    "outdoorSeating": false,
+    "neighborhood": "Downtown",
+    "phone": "707-226-3976",
+    "website": "https://www.bountyhunterwinebar.com",
+    "lat": null,
+    "lng": null,
+    "priorityScore": 2,
+    "lastVerified": "2026-04-13",
+    "status": "active"
+  },
+  {
+    "id": "kitchendoor",
+    "name": "Kitchen Door",
+    "cuisine": "American / Comfort Food",
+    "type": [
+      "breakfast",
+      "lunch",
+      "dinner"
+    ],
+    "price": 2,
+    "romeOk": true,
+    "takeout": true,
+    "speedRating": "Medium",
+    "hours": {
+      "mon": [
+        11.5,
+        20.5
+      ],
+      "tue": [
+        11.5,
+        20.5
+      ],
+      "wed": [
+        11.5,
+        20.5
+      ],
+      "thu": [
+        11.5,
+        20.5
+      ],
+      "fri": [
+        11.5,
+        21
+      ],
+      "sat": [
+        9,
+        21
+      ],
+      "sun": [
+        9,
+        20.5
+      ]
+    },
+    "address": "1300 1st St, Suite 272, Napa",
+    "note": "Good downtown all-rounder with brunch and takeout flexibility.",
+    "lineWarning": false,
+    "closedDays": [],
+    "specialRule": null,
+    "cravingMatch": [
+      "burgers",
+      "sandwiches",
+      "breakfast"
+    ],
+    "photo": "",
+    "delivery": false,
+    "dineIn": true,
+    "familyFriendly": true,
+    "outdoorSeating": true,
+    "neighborhood": "Downtown",
+    "phone": "707-226-1560",
+    "website": "",
+    "lat": null,
+    "lng": null,
+    "priorityScore": 2,
+    "lastVerified": "2026-04-13",
+    "status": "active"
+  },
+  {
+    "id": "contimo",
+    "name": "Contimo Provisions",
+    "cuisine": "Sandwiches / Breakfast",
+    "type": [
+      "breakfast",
+      "lunch"
+    ],
+    "price": 2,
+    "romeOk": true,
+    "takeout": true,
+    "speedRating": "Fast",
+    "hours": {
+      "mon": null,
+      "tue": [
+        8,
+        15
+      ],
+      "wed": [
+        8,
+        15
+      ],
+      "thu": [
+        8,
+        15
+      ],
+      "fri": [
+        8,
+        15
+      ],
+      "sat": [
+        8,
+        15
+      ],
+      "sun": null
+    },
+    "address": "950 Randolph St, Napa",
+    "note": "High-quality biscuit and sandwich stop near Copia. Strong local-lunch energy.",
+    "lineWarning": false,
+    "closedDays": [
+      "mon",
+      "sun"
+    ],
+    "specialRule": null,
+    "cravingMatch": [
+      "sandwiches",
+      "breakfast"
+    ],
+    "photo": "",
+    "delivery": false,
+    "dineIn": true,
+    "familyFriendly": true,
+    "outdoorSeating": true,
+    "neighborhood": "Copia",
+    "phone": "707-782-6424",
+    "website": "",
+    "lat": null,
+    "lng": null,
+    "priorityScore": 3,
+    "lastVerified": "2026-04-13",
+    "status": "active"
+  },
+  {
+    "id": "croccante",
+    "name": "Croccante Artisan Pizza",
+    "cuisine": "Detroit Style Pizza / Italian",
+    "type": [
+      "breakfast",
+      "lunch",
+      "dinner"
+    ],
+    "price": 2,
+    "romeOk": true,
+    "takeout": true,
+    "speedRating": "Medium",
+    "hours": {
+      "mon": [
+        11.5,
+        20
+      ],
+      "tue": null,
+      "wed": [
+        11.5,
+        20
+      ],
+      "thu": [
+        11.5,
+        20
+      ],
+      "fri": [
+        11,
+        21
+      ],
+      "sat": [
+        9,
+        21
+      ],
+      "sun": [
+        9,
+        20
+      ]
+    },
+    "address": "976 Pearl St, Napa",
+    "note": "A newer Napa pizza pick worth keeping in rotation. Weekend brunch is a bonus.",
+    "lineWarning": false,
+    "closedDays": [
+      "tue"
+    ],
+    "specialRule": null,
+    "cravingMatch": [
+      "pizza",
+      "breakfast"
+    ],
+    "photo": "",
+    "delivery": true,
+    "dineIn": true,
+    "familyFriendly": true,
+    "outdoorSeating": false,
+    "neighborhood": "Downtown",
+    "phone": "707-222-5017",
+    "website": "https://croccantepizza.com",
+    "lat": null,
+    "lng": null,
+    "priorityScore": 2,
+    "lastVerified": "2026-04-13",
+    "status": "active"
+  },
+  {
+    "id": "joellasdeli",
+    "name": "Joella's Deli",
+    "cuisine": "Fried Chicken / Food Truck",
+    "type": [
+      "lunch",
+      "dinner"
+    ],
+    "price": 2,
+    "romeOk": true,
+    "takeout": true,
+    "speedRating": "Fast",
+    "hours": {
+      "mon": null,
+      "tue": [
+        11,
+        18
+      ],
+      "wed": [
+        11,
+        18
+      ],
+      "thu": [
+        11,
+        18
+      ],
+      "fri": [
+        11,
+        18
+      ],
+      "sat": [
+        11,
+        18
+      ],
+      "sun": null
+    },
+    "address": "2410 2nd St, Napa",
+    "note": "Excellent local truck for fried chicken sandwiches. Exactly the kind of non-chain takeout spot Napkin should favor.",
+    "lineWarning": false,
+    "closedDays": [
+      "mon",
+      "sun"
+    ],
+    "specialRule": null,
+    "cravingMatch": [
+      "sandwiches"
+    ],
+    "photo": "",
+    "delivery": true,
+    "dineIn": false,
+    "familyFriendly": true,
+    "outdoorSeating": false,
+    "neighborhood": "Second Street",
+    "phone": "707-981-3965",
+    "website": "https://www.joellasdeli.com",
+    "lat": null,
+    "lng": null,
+    "priorityScore": 4,
+    "lastVerified": "2026-04-13",
+    "status": "active"
   }
 ]

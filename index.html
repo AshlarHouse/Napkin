@@ -938,7 +938,7 @@ function contextScore(spot) {
   const { day, hour } = nowParts();
   const weekdays = ['mon','tue','wed','thu','fri'];
   const recent = getRecent();
-  let score = 0;
+  let score = spot.priorityScore || 0;
 
   // Time of day
   if (hour >= 6  && hour < 10 && spot.type.includes('breakfast')) score += 3;
