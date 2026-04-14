@@ -789,6 +789,12 @@ let deckIndex = 0;
 let deckIsNoMatchFallback = false; // true when deck is empty because nothing matched craving
 let selectedSpot = null;
 let selectedCraving = null;
+const PHOTO_SOURCES = {
+  dragonvalley: 'dragonvalley.png',
+  earthsbounty: 'earthsbounty.png',
+  papajoes: 'papajoe.png',
+  smallworld: 'smallworld.png'
+};
 
 // ════════════════════════════════════════════════════════
 //  UTILITIES
@@ -811,6 +817,41 @@ function shuffle(arr) {
 }
 
 function priceStr(n) { return '$'.repeat(n); }
+
+function photoSrcForSpot(spot) {
+  return PHOTO_SOURCES[spot.id] || '';
+}
+
+async function checkAuth() {
+  try {
+    const res = await fetch('/.netlify/functions/auth', {
+      credentials: 'same-origin'
+    });
+    if (!res.ok) return false;
+    const data = await res.json();
+    return data.authenticated === true;
+  } catch (_) {
+    return false;
+  }
+}
+
+async function submitPassword(password) {
+  const res = await fetch('/.netlify/functions/auth', {
+    method: 'POST',
+    credentials: 'same-origin',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ password })
+  });
+
+  let data = {};
+  try {
+    data = await res.json();
+  } catch (_) {}
+
+  if (!res.ok || data.authenticated !== true) {
+    throw new Error(data.error || 'Invalid password');
+  }
+}
 
 // ════════════════════════════════════════════════════════
 //  OPEN-NOW LOGIC
@@ -1105,15 +1146,22 @@ async function fetchEvents() {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ messages: [{ role: 'user', content: prompt }] })
     });
+    if (!res.ok) return false;
+
     const data = await res.json();
-    if (data.text) {
-      try {
-        const parsed = JSON.parse(data.text);
-        localStorage.setItem('napkin_event_cache', JSON.stringify(parsed));
-      } catch (_) {}
+    if (!data.text) return false;
+
+    const parsed = JSON.parse(data.text);
+    if (!parsed || !Array.isArray(parsed.events) || typeof parsed.lastUpdated !== 'string') {
+      return false;
     }
+
+    localStorage.setItem('napkin_event_cache', JSON.stringify(parsed));
     localStorage.setItem('napkin_last_refresh', String(Date.now()));
-  } catch (_) {}
+    return true;
+  } catch (_) {
+    return false;
+  }
 }
 
 // ════════════════════════════════════════════════════════
@@ -1127,12 +1175,15 @@ function buildCardEl(spot) {
 
   const badgesHTML = badges.map(b => `<span class="${badgeClass(b)}">${b}</span>`).join('');
   const noteHTML   = spot.note ? `<div class="card-note">${spot.note}</div>` : '';
+  const photoSrc   = photoSrcForSpot(spot);
+  const imageHTML  = photoSrc
+    ? `<img src="${photoSrc}" alt="${spot.name}" onerror="this.style.display='none'">`
+    : '';
 
   card.innerHTML = `
     <div class="card-photo">
       <div class="card-photo-placeholder">${spot.cuisine}</div>
-      <img src="photos/${spot.id}.jpg" alt="${spot.name}"
-           onerror="this.style.display='none'">
+      ${imageHTML}
       ${badges.length ? `<div class="photo-badges">${badgesHTML}</div>` : ''}
     </div>
     <div class="card-info">
@@ -1380,15 +1431,16 @@ function openCommitScreen(spot) {
 // ════════════════════════════════════════════════════════
 
 // Password gate
-document.getElementById('gate-form').addEventListener('submit', e => {
+document.getElementById('gate-form').addEventListener('submit', async e => {
   e.preventDefault();
   const input = document.getElementById('gate-input');
-  if (input.value === 'napavalley') {
-    sessionStorage.setItem('napkin_auth', '1');
+  try {
+    await submitPassword(input.value);
     input.classList.remove('error');
+    input.value = '';
     showScreen('screen-home');
     setupHome();
-  } else {
+  } catch (_) {
     input.classList.add('error');
     input.classList.remove('shake');
     void input.offsetWidth;
@@ -1466,7 +1518,7 @@ async function boot() {
     spots = [];
   }
 
-  if (sessionStorage.getItem('napkin_auth') === '1') {
+  if (await checkAuth()) {
     showScreen('screen-home');
     setupHome();
   } else {

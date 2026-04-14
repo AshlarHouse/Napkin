@@ -20,6 +20,13 @@ exports.handler = async (event) => {
       })
     });
     const data = await response.json();
+    if (!response.ok) {
+      return {
+        statusCode: response.status,
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ error: data.error?.message || 'Anthropic request failed', raw: data })
+      };
+    }
     let text = '';
     if (data.content) {
       for (const block of data.content) {
