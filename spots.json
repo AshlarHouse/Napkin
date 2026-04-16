@@ -786,7 +786,6 @@
     "cuisine": "American / Comfort Food",
     "type": [
       "breakfast",
-      "lunch",
       "dinner"
     ],
     "price": 2,
@@ -795,36 +794,48 @@
     "speedRating": "Medium",
     "hours": {
       "mon": [
-        11.5,
-        20.5
+        17.5,
+        21
       ],
       "tue": [
-        11.5,
-        20.5
+        17.5,
+        21
       ],
       "wed": [
-        11.5,
-        20.5
+        17.5,
+        21
       ],
       "thu": [
-        11.5,
-        20.5
+        17.5,
+        21
       ],
       "fri": [
-        11.5,
-        21
+        17.5,
+        22
       ],
       "sat": [
-        9,
-        21
+        [
+          9,
+          12.5
+        ],
+        [
+          17.5,
+          22
+        ]
       ],
       "sun": [
-        9,
-        20.5
+        [
+          9,
+          12.5
+        ],
+        [
+          17.5,
+          21
+        ]
       ]
     },
     "address": "1300 1st St, Suite 272, Napa",
-    "note": "Good downtown all-rounder with brunch and takeout flexibility.",
+    "note": "Good downtown all-rounder with brunch on weekends and dinner the rest of the week. Better current fit than treating it like an all-day lunch spot.",
     "lineWarning": false,
     "closedDays": [],
     "specialRule": null,
@@ -840,11 +851,11 @@
     "outdoorSeating": true,
     "neighborhood": "Downtown",
     "phone": "707-226-1560",
-    "website": "",
+    "website": "https://www.kitchendoornapa.com/",
     "lat": null,
     "lng": null,
     "priorityScore": 2,
-    "lastVerified": "2026-04-13",
+    "lastVerified": "2026-04-15",
     "status": "active"
   },
   {
@@ -1572,19 +1583,19 @@
     "hours": {
       "mon": [
         11.5,
-        21
+        20
       ],
       "tue": [
         11.5,
-        21
+        20
       ],
       "wed": [
         11.5,
-        21
+        20
       ],
       "thu": [
         11.5,
-        21
+        20
       ],
       "fri": [
         11.5,
@@ -1596,11 +1607,11 @@
       ],
       "sun": [
         11.5,
-        21
+        20
       ]
     },
-    "address": "3900 Bel Aire Plz, Suite D, Napa",
-    "note": "Bel Aire BBQ with a solid review history and a good fit for family lunch or easy takeout dinner.",
+    "address": "1313 Main St, Napa",
+    "note": "Downtown BBQ and Southern comfort-food spot with a strong local following and solid family takeout utility.",
     "lineWarning": false,
     "closedDays": [],
     "specialRule": null,
@@ -1614,9 +1625,9 @@
     "dineIn": true,
     "familyFriendly": true,
     "outdoorSeating": true,
-    "neighborhood": "Bel Aire",
+    "neighborhood": "Downtown",
     "phone": "707-224-6600",
-    "website": "https://theqrandb.com",
+    "website": "https://www.theqrandb.com/",
     "lat": null,
     "lng": null,
     "priorityScore": 3,
