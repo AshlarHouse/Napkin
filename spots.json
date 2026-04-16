@@ -3333,9 +3333,9 @@
     "status": "active"
   },
   {
-    "id": "miminashi",
-    "name": "Miminashi",
-    "cuisine": "Japanese / Izakaya / Ramen",
+    "id": "a16",
+    "name": "A16 Napa",
+    "cuisine": "Southern Italian / Pizza",
     "type": [
       "lunch",
       "dinner"
@@ -3345,45 +3345,15 @@
     "takeout": true,
     "speedRating": "Medium",
     "hours": {
-      "mon": [
-        [
-          11.5,
-          14.5
-        ],
-        [
-          17.5,
-          22
-        ]
-      ],
-      "tue": [
-        [
-          11.5,
-          14.5
-        ],
-        [
-          17.5,
-          22
-        ]
-      ],
+      "mon": null,
+      "tue": null,
       "wed": [
-        [
-          11.5,
-          14.5
-        ],
-        [
-          17.5,
-          22
-        ]
+        17,
+        21
       ],
       "thu": [
-        [
-          11.5,
-          14.5
-        ],
-        [
-          17.5,
-          22
-        ]
+        17,
+        21
       ],
       "fri": [
         [
@@ -3391,26 +3361,41 @@
           14.5
         ],
         [
-          17.5,
-          23
+          17,
+          21
         ]
       ],
       "sat": [
-        17.5,
-        23
+        [
+          11.5,
+          14.5
+        ],
+        [
+          17,
+          21
+        ]
       ],
       "sun": [
-        17,
-        21.5
+        [
+          11.5,
+          14.5
+        ],
+        [
+          17,
+          21
+        ]
       ]
     },
     "address": "821 Coombs St, Napa",
-    "note": "A serious Napa Japanese option that fills a real gap in the app: ramen, yakitori, and an actually destination-worthy Asian dinner pick.",
+    "note": "A16 replaced Miminashi in this space and is the current Southern Italian anchor worth including.",
     "lineWarning": false,
-    "closedDays": [],
+    "closedDays": [
+      "mon",
+      "tue"
+    ],
     "specialRule": null,
     "cravingMatch": [
-      "asian",
+      "pizza",
       "surprise"
     ],
     "photo": "",
@@ -3419,8 +3404,8 @@
     "familyFriendly": false,
     "outdoorSeating": false,
     "neighborhood": "Downtown",
-    "phone": "707-254-9464",
-    "website": "http://miminashi.com/",
+    "phone": "",
+    "website": "https://www.a16pizza.com/",
     "lat": null,
     "lng": null,
     "priorityScore": 4,

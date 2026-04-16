@@ -150,8 +150,9 @@ function main() {
     }
   });
 
-  fs.writeFileSync(outputPath, JSON.stringify(records, null, 2) + '\n');
-  console.log(`Built ${records.length} restaurants into ${path.relative(repoRoot, outputPath)}.`);
+  const activeRecords = records.filter(record => record.status === 'active');
+  fs.writeFileSync(outputPath, JSON.stringify(activeRecords, null, 2) + '\n');
+  console.log(`Built ${activeRecords.length} active restaurants into ${path.relative(repoRoot, outputPath)} (${records.length - activeRecords.length} skipped).`);
 }
 
 main();
