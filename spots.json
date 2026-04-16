@@ -1361,5 +1361,200 @@
     "priorityScore": 3,
     "lastVerified": "2026-04-13",
     "status": "active"
+  },
+  {
+    "id": "southside",
+    "name": "Southside",
+    "cuisine": "California Cafe / Breakfast",
+    "type": [
+      "breakfast",
+      "lunch"
+    ],
+    "price": 2,
+    "romeOk": true,
+    "takeout": true,
+    "speedRating": "Fast",
+    "hours": {
+      "mon": [
+        8,
+        14
+      ],
+      "tue": [
+        8,
+        14
+      ],
+      "wed": [
+        8,
+        14
+      ],
+      "thu": [
+        8,
+        14
+      ],
+      "fri": [
+        8,
+        14
+      ],
+      "sat": [
+        8,
+        14
+      ],
+      "sun": [
+        8,
+        14
+      ]
+    },
+    "address": "135 Gasser Dr, Suite B, Napa",
+    "note": "Excellent South Napa breakfast and lunch choice with a strong local following. Fried Chicken Friday makes it more than just a cafe.",
+    "lineWarning": false,
+    "closedDays": [],
+    "specialRule": null,
+    "cravingMatch": [
+      "breakfast",
+      "sandwiches",
+      "surprise"
+    ],
+    "photo": "",
+    "delivery": true,
+    "dineIn": true,
+    "familyFriendly": true,
+    "outdoorSeating": true,
+    "neighborhood": "South Napa",
+    "phone": "707-819-2400",
+    "website": "https://www.southsidenapa.com/cafe",
+    "lat": null,
+    "lng": null,
+    "priorityScore": 4,
+    "lastVerified": "2026-04-15",
+    "status": "active"
+  },
+  {
+    "id": "taqueriamaria",
+    "name": "Taqueria Maria",
+    "cuisine": "Mexican",
+    "type": [
+      "breakfast",
+      "lunch",
+      "dinner"
+    ],
+    "price": 1,
+    "romeOk": true,
+    "takeout": true,
+    "speedRating": "Fast",
+    "hours": {
+      "mon": [
+        9,
+        21
+      ],
+      "tue": [
+        9,
+        21
+      ],
+      "wed": [
+        9,
+        21
+      ],
+      "thu": [
+        9,
+        21
+      ],
+      "fri": [
+        9,
+        21
+      ],
+      "sat": [
+        9,
+        21
+      ],
+      "sun": [
+        9,
+        19
+      ]
+    },
+    "address": "640 3rd St, Napa",
+    "note": "Solid local Mexican option near Soscol with breakfast hours and better all-around takeout utility than chain burrito spots.",
+    "lineWarning": false,
+    "closedDays": [],
+    "specialRule": null,
+    "cravingMatch": [
+      "burritos",
+      "breakfast"
+    ],
+    "photo": "",
+    "delivery": true,
+    "dineIn": true,
+    "familyFriendly": true,
+    "outdoorSeating": true,
+    "neighborhood": "Soscol",
+    "phone": "707-257-6925",
+    "website": "https://www.taqueriamaria.com/",
+    "lat": null,
+    "lng": null,
+    "priorityScore": 3,
+    "lastVerified": "2026-04-15",
+    "status": "active"
+  },
+  {
+    "id": "stateline",
+    "name": "Stateline Road Smokehouse",
+    "cuisine": "BBQ",
+    "type": [
+      "lunch",
+      "dinner"
+    ],
+    "price": 2,
+    "romeOk": true,
+    "takeout": true,
+    "speedRating": "Medium",
+    "hours": {
+      "mon": [
+        11,
+        19
+      ],
+      "tue": null,
+      "wed": null,
+      "thu": [
+        11,
+        19
+      ],
+      "fri": [
+        11,
+        19
+      ],
+      "sat": [
+        11,
+        19
+      ],
+      "sun": [
+        11,
+        19
+      ]
+    },
+    "address": "872 Vallejo St, Napa",
+    "note": "A standout local BBQ pickup for family meals, especially when you want something more memorable than standard fast food.",
+    "lineWarning": false,
+    "closedDays": [
+      "tue",
+      "wed"
+    ],
+    "specialRule": null,
+    "cravingMatch": [
+      "sandwiches",
+      "burgers",
+      "surprise"
+    ],
+    "photo": "",
+    "delivery": true,
+    "dineIn": true,
+    "familyFriendly": true,
+    "outdoorSeating": true,
+    "neighborhood": "Rail Arts District",
+    "phone": "707-699-2793",
+    "website": "https://www.stateline-road.com/",
+    "lat": null,
+    "lng": null,
+    "priorityScore": 4,
+    "lastVerified": "2026-04-15",
+    "status": "active"
   }
 ]
