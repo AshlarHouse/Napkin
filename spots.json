@@ -2553,5 +2553,372 @@
     "priorityScore": 3,
     "lastVerified": "2026-04-15",
     "status": "active"
+  },
+  {
+    "id": "gracestable",
+    "name": "Grace's Table",
+    "cuisine": "Global Bistro / Brunch",
+    "type": [
+      "breakfast",
+      "lunch",
+      "dinner"
+    ],
+    "price": 3,
+    "romeOk": true,
+    "takeout": true,
+    "speedRating": "Medium",
+    "hours": {
+      "mon": [
+        [
+          8.5,
+          15
+        ],
+        [
+          17,
+          21
+        ]
+      ],
+      "tue": [
+        [
+          8.5,
+          15
+        ],
+        [
+          17,
+          21
+        ]
+      ],
+      "wed": [
+        [
+          8.5,
+          15
+        ],
+        [
+          17,
+          21
+        ]
+      ],
+      "thu": [
+        [
+          8.5,
+          15
+        ],
+        [
+          17,
+          21
+        ]
+      ],
+      "fri": [
+        [
+          8.5,
+          15
+        ],
+        [
+          17,
+          22
+        ]
+      ],
+      "sat": [
+        [
+          9,
+          15
+        ],
+        [
+          17,
+          22
+        ]
+      ],
+      "sun": [
+        [
+          9,
+          15
+        ],
+        [
+          17,
+          21
+        ]
+      ]
+    },
+    "address": "1400 2nd St, Napa",
+    "note": "One of the strongest all-around local brunch and dinner picks in town, with the kind of quality bar that earns a permanent place in Napkin.",
+    "lineWarning": false,
+    "closedDays": [],
+    "specialRule": null,
+    "cravingMatch": [
+      "breakfast",
+      "surprise"
+    ],
+    "photo": "",
+    "delivery": true,
+    "dineIn": true,
+    "familyFriendly": true,
+    "outdoorSeating": true,
+    "neighborhood": "Downtown",
+    "phone": "707-226-6200",
+    "website": "https://www.gracestable.net/",
+    "lat": null,
+    "lng": null,
+    "priorityScore": 4,
+    "lastVerified": "2026-04-15",
+    "status": "active"
+  },
+  {
+    "id": "foodshed",
+    "name": "Foodshed Take Away",
+    "cuisine": "Italian / Prepared Foods / Pizza",
+    "type": [
+      "breakfast",
+      "lunch",
+      "dinner"
+    ],
+    "price": 2,
+    "romeOk": true,
+    "takeout": true,
+    "speedRating": "Fast",
+    "hours": {
+      "mon": null,
+      "tue": [
+        10,
+        19
+      ],
+      "wed": [
+        10,
+        19
+      ],
+      "thu": [
+        10,
+        19
+      ],
+      "fri": [
+        10,
+        19
+      ],
+      "sat": [
+        10,
+        19
+      ],
+      "sun": [
+        10,
+        19
+      ]
+    },
+    "address": "3385 Old California Way, Napa",
+    "note": "A hidden-gem takeout specialist with serious local-love energy. Great for pizza, prepared dinners, and family backup meals.",
+    "lineWarning": false,
+    "closedDays": [
+      "mon"
+    ],
+    "specialRule": null,
+    "cravingMatch": [
+      "pizza",
+      "sandwiches",
+      "surprise"
+    ],
+    "photo": "",
+    "delivery": true,
+    "dineIn": true,
+    "familyFriendly": true,
+    "outdoorSeating": true,
+    "neighborhood": "West Napa",
+    "phone": "707-255-3340",
+    "website": "https://www.foodshedtakeaway.com/",
+    "lat": null,
+    "lng": null,
+    "priorityScore": 4,
+    "lastVerified": "2026-04-15",
+    "status": "active"
+  },
+  {
+    "id": "mondaybakery",
+    "name": "Monday Bakery & Cafe",
+    "cuisine": "Bakery / Breakfast / Cafe",
+    "type": [
+      "breakfast",
+      "lunch"
+    ],
+    "price": 2,
+    "romeOk": true,
+    "takeout": true,
+    "speedRating": "Fast",
+    "hours": {
+      "mon": [
+        7.5,
+        14
+      ],
+      "tue": null,
+      "wed": null,
+      "thu": [
+        7.5,
+        14
+      ],
+      "fri": [
+        7.5,
+        14
+      ],
+      "sat": [
+        7.5,
+        14
+      ],
+      "sun": [
+        7.5,
+        14
+      ]
+    },
+    "address": "1412 2nd St, Napa",
+    "note": "A strong downtown pastry-and-breakfast stop with enough quality to deserve rotation beyond just coffee runs.",
+    "lineWarning": false,
+    "closedDays": [
+      "tue",
+      "wed"
+    ],
+    "specialRule": null,
+    "cravingMatch": [
+      "breakfast",
+      "surprise"
+    ],
+    "photo": "",
+    "delivery": true,
+    "dineIn": true,
+    "familyFriendly": true,
+    "outdoorSeating": false,
+    "neighborhood": "Downtown",
+    "phone": "707-699-2960",
+    "website": "",
+    "lat": null,
+    "lng": null,
+    "priorityScore": 3,
+    "lastVerified": "2026-04-15",
+    "status": "active"
+  },
+  {
+    "id": "tannyas",
+    "name": "Tannya's Taqueria",
+    "cuisine": "Mexican",
+    "type": [
+      "breakfast",
+      "lunch",
+      "dinner"
+    ],
+    "price": 1,
+    "romeOk": true,
+    "takeout": true,
+    "speedRating": "Fast",
+    "hours": {
+      "mon": [
+        10,
+        21
+      ],
+      "tue": [
+        10,
+        21
+      ],
+      "wed": [
+        10,
+        21
+      ],
+      "thu": [
+        10,
+        21
+      ],
+      "fri": [
+        10,
+        21
+      ],
+      "sat": [
+        10,
+        21
+      ],
+      "sun": [
+        10,
+        21
+      ]
+    },
+    "address": "1601 Jefferson St, Napa",
+    "note": "A well-reviewed local Mexican standby with strong taco and burrito utility. Much more on-brand than defaulting to chains.",
+    "lineWarning": false,
+    "closedDays": [],
+    "specialRule": null,
+    "cravingMatch": [
+      "burritos",
+      "breakfast",
+      "surprise"
+    ],
+    "photo": "",
+    "delivery": true,
+    "dineIn": true,
+    "familyFriendly": true,
+    "outdoorSeating": false,
+    "neighborhood": "Jefferson",
+    "phone": "707-224-9000",
+    "website": "https://www.tannyastaqueria.com/",
+    "lat": null,
+    "lng": null,
+    "priorityScore": 4,
+    "lastVerified": "2026-04-15",
+    "status": "active"
+  },
+  {
+    "id": "javahut",
+    "name": "Java Hut",
+    "cuisine": "Coffee / Breakfast / Drive-Thru",
+    "type": [
+      "breakfast",
+      "lunch"
+    ],
+    "price": 1,
+    "romeOk": true,
+    "takeout": true,
+    "speedRating": "Fast",
+    "hours": {
+      "mon": [
+        5,
+        18
+      ],
+      "tue": [
+        5,
+        18
+      ],
+      "wed": [
+        5,
+        18
+      ],
+      "thu": [
+        5,
+        18
+      ],
+      "fri": [
+        5,
+        18
+      ],
+      "sat": [
+        6,
+        18
+      ],
+      "sun": [
+        6,
+        18
+      ]
+    },
+    "address": "1037 Silverado Trail, Napa",
+    "note": "A very practical local drive-thru breakfast and drink stop for hectic mornings, especially when speed matters most.",
+    "lineWarning": false,
+    "closedDays": [],
+    "specialRule": null,
+    "cravingMatch": [
+      "breakfast"
+    ],
+    "photo": "",
+    "delivery": true,
+    "dineIn": false,
+    "familyFriendly": true,
+    "outdoorSeating": false,
+    "neighborhood": "Silverado",
+    "phone": "707-226-2276",
+    "website": "",
+    "lat": null,
+    "lng": null,
+    "priorityScore": 2,
+    "lastVerified": "2026-04-15",
+    "status": "active"
   }
 ]
