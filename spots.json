@@ -2920,5 +2920,416 @@
     "priorityScore": 2,
     "lastVerified": "2026-04-15",
     "status": "active"
+  },
+  {
+    "id": "yakandyeti",
+    "name": "Yak and Yeti",
+    "cuisine": "Indian / Nepalese / Tibetan",
+    "type": [
+      "lunch",
+      "dinner"
+    ],
+    "price": 2,
+    "romeOk": true,
+    "takeout": true,
+    "speedRating": "Medium",
+    "hours": {
+      "mon": [
+        [
+          11.5,
+          15
+        ],
+        [
+          17,
+          21
+        ]
+      ],
+      "tue": [
+        [
+          11.5,
+          15
+        ],
+        [
+          17,
+          21
+        ]
+      ],
+      "wed": [
+        [
+          11.5,
+          15
+        ],
+        [
+          17,
+          21
+        ]
+      ],
+      "thu": [
+        [
+          11.5,
+          15
+        ],
+        [
+          17,
+          21
+        ]
+      ],
+      "fri": [
+        [
+          11.5,
+          15
+        ],
+        [
+          17,
+          21
+        ]
+      ],
+      "sat": [
+        [
+          11.5,
+          15
+        ],
+        [
+          17,
+          21
+        ]
+      ],
+      "sun": [
+        [
+          11.5,
+          15
+        ],
+        [
+          17,
+          21
+        ]
+      ]
+    },
+    "address": "3150 Jefferson St, Suite B, Napa",
+    "note": "A highly rated Jefferson-area local for Indian and Himalayan food. Strong takeout choice when you want something outside the usual Napa rotation.",
+    "lineWarning": false,
+    "closedDays": [],
+    "specialRule": null,
+    "cravingMatch": [
+      "asian",
+      "surprise"
+    ],
+    "photo": "",
+    "delivery": true,
+    "dineIn": true,
+    "familyFriendly": true,
+    "outdoorSeating": false,
+    "neighborhood": "North Jefferson",
+    "phone": "707-666-2475",
+    "website": "",
+    "lat": null,
+    "lng": null,
+    "priorityScore": 4,
+    "lastVerified": "2026-04-15",
+    "status": "active"
+  },
+  {
+    "id": "thaikitchen",
+    "name": "Thai Kitchen",
+    "cuisine": "Thai",
+    "type": [
+      "lunch",
+      "dinner"
+    ],
+    "price": 2,
+    "romeOk": true,
+    "takeout": true,
+    "speedRating": "Fast",
+    "hours": {
+      "mon": [
+        11,
+        21
+      ],
+      "tue": [
+        11,
+        21
+      ],
+      "wed": [
+        11,
+        21
+      ],
+      "thu": [
+        11,
+        21
+      ],
+      "fri": [
+        11,
+        21
+      ],
+      "sat": [
+        11,
+        21
+      ],
+      "sun": [
+        11,
+        21
+      ]
+    },
+    "address": "1222 Trancas St, Napa",
+    "note": "Long-running local Thai option that gives Napkin a real Thai takeout lane instead of leaving that category empty.",
+    "lineWarning": false,
+    "closedDays": [],
+    "specialRule": null,
+    "cravingMatch": [
+      "asian",
+      "surprise"
+    ],
+    "photo": "",
+    "delivery": true,
+    "dineIn": true,
+    "familyFriendly": true,
+    "outdoorSeating": false,
+    "neighborhood": "Trancas",
+    "phone": "707-460-5536",
+    "website": "",
+    "lat": null,
+    "lng": null,
+    "priorityScore": 3,
+    "lastVerified": "2026-04-15",
+    "status": "active"
+  },
+  {
+    "id": "boonfly",
+    "name": "Boon Fly Cafe",
+    "cuisine": "American Cafe / Breakfast / Dinner",
+    "type": [
+      "breakfast",
+      "lunch",
+      "dinner"
+    ],
+    "price": 2,
+    "romeOk": true,
+    "takeout": true,
+    "speedRating": "Medium",
+    "hours": {
+      "mon": [
+        [
+          7,
+          16
+        ],
+        [
+          16,
+          21
+        ]
+      ],
+      "tue": [
+        [
+          7,
+          16
+        ],
+        [
+          16,
+          21
+        ]
+      ],
+      "wed": [
+        [
+          7,
+          16
+        ],
+        [
+          16,
+          21
+        ]
+      ],
+      "thu": [
+        [
+          7,
+          16
+        ],
+        [
+          16,
+          21
+        ]
+      ],
+      "fri": [
+        [
+          7,
+          16
+        ],
+        [
+          16,
+          21
+        ]
+      ],
+      "sat": [
+        [
+          7,
+          16
+        ],
+        [
+          16,
+          21
+        ]
+      ],
+      "sun": [
+        [
+          7,
+          16
+        ],
+        [
+          16,
+          21
+        ]
+      ]
+    },
+    "address": "4048 Sonoma Hwy, Napa",
+    "note": "An award-winning brunch and comfort-food anchor in Carneros that deserves to be in the real Napa mix, not just hotel dining.",
+    "lineWarning": false,
+    "closedDays": [],
+    "specialRule": null,
+    "cravingMatch": [
+      "breakfast",
+      "burgers",
+      "surprise"
+    ],
+    "photo": "",
+    "delivery": false,
+    "dineIn": true,
+    "familyFriendly": true,
+    "outdoorSeating": true,
+    "neighborhood": "Carneros",
+    "phone": "707-299-4870",
+    "website": "https://www.boonflycafe.com/",
+    "lat": null,
+    "lng": null,
+    "priorityScore": 4,
+    "lastVerified": "2026-04-15",
+    "status": "active"
+  },
+  {
+    "id": "bistrodongiovanni",
+    "name": "Bistro Don Giovanni",
+    "cuisine": "Italian Bistro",
+    "type": [
+      "lunch",
+      "dinner"
+    ],
+    "price": 3,
+    "romeOk": true,
+    "takeout": true,
+    "speedRating": "Medium",
+    "hours": {
+      "mon": [
+        11.5,
+        21
+      ],
+      "tue": [
+        11.5,
+        21
+      ],
+      "wed": [
+        11.5,
+        21
+      ],
+      "thu": [
+        11.5,
+        21
+      ],
+      "fri": [
+        11.5,
+        21
+      ],
+      "sat": [
+        11.5,
+        21
+      ],
+      "sun": [
+        11.5,
+        21
+      ]
+    },
+    "address": "4110 Howard Ln, Napa",
+    "note": "A major Napa local favorite for Italian with lasting quality and broad appeal. Important to include even if it is more sit-down than quick takeout.",
+    "lineWarning": false,
+    "closedDays": [],
+    "specialRule": null,
+    "cravingMatch": [
+      "pizza",
+      "surprise"
+    ],
+    "photo": "",
+    "delivery": true,
+    "dineIn": true,
+    "familyFriendly": true,
+    "outdoorSeating": true,
+    "neighborhood": "Hwy 29 North",
+    "phone": "707-224-3300",
+    "website": "https://www.bistrodongiovanni.com/",
+    "lat": null,
+    "lng": null,
+    "priorityScore": 4,
+    "lastVerified": "2026-04-15",
+    "status": "active"
+  },
+  {
+    "id": "scala",
+    "name": "Scala Osteria",
+    "cuisine": "Southern Italian / Pizza / Seafood",
+    "type": [
+      "lunch",
+      "dinner"
+    ],
+    "price": 3,
+    "romeOk": true,
+    "takeout": true,
+    "speedRating": "Medium",
+    "hours": {
+      "mon": [
+        11.5,
+        23
+      ],
+      "tue": [
+        11.5,
+        23
+      ],
+      "wed": [
+        11.5,
+        23
+      ],
+      "thu": [
+        11.5,
+        23
+      ],
+      "fri": [
+        11.5,
+        23
+      ],
+      "sat": [
+        11.5,
+        23
+      ],
+      "sun": [
+        11.5,
+        23
+      ]
+    },
+    "address": "1141 1st St, Napa",
+    "note": "A polished but still useful downtown Italian option with pizza counter flexibility and consistently strong reviews.",
+    "lineWarning": false,
+    "closedDays": [],
+    "specialRule": null,
+    "cravingMatch": [
+      "pizza",
+      "surprise"
+    ],
+    "photo": "",
+    "delivery": true,
+    "dineIn": true,
+    "familyFriendly": false,
+    "outdoorSeating": true,
+    "neighborhood": "Downtown",
+    "phone": "707-637-4380",
+    "website": "https://www.scalaosteria.com/",
+    "lat": null,
+    "lng": null,
+    "priorityScore": 3,
+    "lastVerified": "2026-04-15",
+    "status": "active"
   }
 ]
