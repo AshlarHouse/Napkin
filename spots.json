@@ -1556,5 +1556,340 @@
     "priorityScore": 4,
     "lastVerified": "2026-04-15",
     "status": "active"
+  },
+  {
+    "id": "theq",
+    "name": "The Q Restaurant & Bar",
+    "cuisine": "BBQ / American",
+    "type": [
+      "lunch",
+      "dinner"
+    ],
+    "price": 2,
+    "romeOk": true,
+    "takeout": true,
+    "speedRating": "Medium",
+    "hours": {
+      "mon": [
+        11.5,
+        21
+      ],
+      "tue": [
+        11.5,
+        21
+      ],
+      "wed": [
+        11.5,
+        21
+      ],
+      "thu": [
+        11.5,
+        21
+      ],
+      "fri": [
+        11.5,
+        21
+      ],
+      "sat": [
+        11.5,
+        21
+      ],
+      "sun": [
+        11.5,
+        21
+      ]
+    },
+    "address": "3900 Bel Aire Plz, Suite D, Napa",
+    "note": "Bel Aire BBQ with a solid review history and a good fit for family lunch or easy takeout dinner.",
+    "lineWarning": false,
+    "closedDays": [],
+    "specialRule": null,
+    "cravingMatch": [
+      "sandwiches",
+      "burgers",
+      "surprise"
+    ],
+    "photo": "",
+    "delivery": true,
+    "dineIn": true,
+    "familyFriendly": true,
+    "outdoorSeating": true,
+    "neighborhood": "Bel Aire",
+    "phone": "707-224-6600",
+    "website": "https://theqrandb.com",
+    "lat": null,
+    "lng": null,
+    "priorityScore": 3,
+    "lastVerified": "2026-04-15",
+    "status": "active"
+  },
+  {
+    "id": "villacorona",
+    "name": "Villa Corona",
+    "cuisine": "Mexican",
+    "type": [
+      "breakfast",
+      "lunch",
+      "dinner"
+    ],
+    "price": 1,
+    "romeOk": true,
+    "takeout": true,
+    "speedRating": "Fast",
+    "hours": {
+      "mon": [
+        8,
+        21
+      ],
+      "tue": [
+        8,
+        21
+      ],
+      "wed": [
+        8,
+        21
+      ],
+      "thu": [
+        8,
+        21
+      ],
+      "fri": [
+        8,
+        21
+      ],
+      "sat": [
+        8,
+        21
+      ],
+      "sun": [
+        8,
+        21
+      ]
+    },
+    "address": "3614 Bel Aire Plz, Napa",
+    "note": "A dependable local Bel Aire Mexican standby with breakfast burrito utility and better value than chain alternatives.",
+    "lineWarning": false,
+    "closedDays": [],
+    "specialRule": null,
+    "cravingMatch": [
+      "burritos",
+      "breakfast"
+    ],
+    "photo": "",
+    "delivery": true,
+    "dineIn": true,
+    "familyFriendly": true,
+    "outdoorSeating": false,
+    "neighborhood": "Bel Aire",
+    "phone": "707-257-8685",
+    "website": "",
+    "lat": null,
+    "lng": 3,
+    "priorityScore": 0,
+    "lastVerified": "active",
+    "status": "active"
+  },
+  {
+    "id": "georgeandkins",
+    "name": "George + Kin's",
+    "cuisine": "American Diner",
+    "type": [
+      "breakfast",
+      "lunch",
+      "dinner"
+    ],
+    "price": 2,
+    "romeOk": true,
+    "takeout": true,
+    "speedRating": "Medium",
+    "hours": {
+      "mon": [
+        8,
+        20
+      ],
+      "tue": [
+        8,
+        20
+      ],
+      "wed": [
+        8,
+        20
+      ],
+      "thu": [
+        8,
+        20
+      ],
+      "fri": [
+        8,
+        20
+      ],
+      "sat": [
+        8,
+        20
+      ],
+      "sun": [
+        8,
+        20
+      ]
+    },
+    "address": "3824 Bel Aire Plaza, Napa",
+    "note": "New Bel Aire diner with strong local-family intent and a playful menu. Worth featuring early while it is fresh and community-focused.",
+    "lineWarning": false,
+    "closedDays": [],
+    "specialRule": null,
+    "cravingMatch": [
+      "breakfast",
+      "burgers",
+      "surprise"
+    ],
+    "photo": "",
+    "delivery": false,
+    "dineIn": true,
+    "familyFriendly": true,
+    "outdoorSeating": false,
+    "neighborhood": "Bel Aire",
+    "phone": "",
+    "website": "",
+    "lat": null,
+    "lng": 4,
+    "priorityScore": 0,
+    "lastVerified": "active",
+    "status": "active"
+  },
+  {
+    "id": "winstons",
+    "name": "Winston's Cafe & Bakery",
+    "cuisine": "Breakfast / Cafe",
+    "type": [
+      "breakfast",
+      "lunch"
+    ],
+    "price": 2,
+    "romeOk": true,
+    "takeout": true,
+    "speedRating": "Fast",
+    "hours": {
+      "mon": [
+        7,
+        14
+      ],
+      "tue": [
+        7,
+        14
+      ],
+      "wed": [
+        7,
+        14
+      ],
+      "thu": [
+        7,
+        14
+      ],
+      "fri": [
+        [
+          7,
+          14
+        ],
+        [
+          17,
+          20
+        ]
+      ],
+      "sat": [
+        8,
+        14
+      ],
+      "sun": [
+        8,
+        14
+      ]
+    },
+    "address": "1517 3rd St, Napa",
+    "note": "One of the strongest breakfast and bakery picks in town. Great for kid-friendly brunch or a reliable lunch sandwich stop.",
+    "lineWarning": false,
+    "closedDays": [],
+    "specialRule": null,
+    "cravingMatch": [
+      "breakfast",
+      "sandwiches"
+    ],
+    "photo": "",
+    "delivery": true,
+    "dineIn": true,
+    "familyFriendly": true,
+    "outdoorSeating": false,
+    "neighborhood": "Fuller Park",
+    "phone": "707-666-2904",
+    "website": "https://www.winstonsnapa.com/",
+    "lat": null,
+    "lng": null,
+    "priorityScore": 4,
+    "lastVerified": "2026-04-15",
+    "status": "active"
+  },
+  {
+    "id": "naysayer",
+    "name": "Naysayer Coffee Roasters",
+    "cuisine": "Cafe / Coffee / Breakfast",
+    "type": [
+      "breakfast",
+      "lunch"
+    ],
+    "price": 2,
+    "romeOk": true,
+    "takeout": true,
+    "speedRating": "Fast",
+    "hours": {
+      "mon": [
+        6,
+        15
+      ],
+      "tue": [
+        6,
+        15
+      ],
+      "wed": [
+        6,
+        15
+      ],
+      "thu": [
+        6,
+        15
+      ],
+      "fri": [
+        6,
+        15
+      ],
+      "sat": [
+        7,
+        15
+      ],
+      "sun": [
+        7,
+        15
+      ]
+    },
+    "address": "1813 Old Sonoma Rd, Napa",
+    "note": "A high-quality local cafe with stronger food-and-coffee credibility than a generic coffee run. Good for breakfast and lighter lunch.",
+    "lineWarning": false,
+    "closedDays": [],
+    "specialRule": null,
+    "cravingMatch": [
+      "breakfast",
+      "surprise"
+    ],
+    "photo": "",
+    "delivery": false,
+    "dineIn": true,
+    "familyFriendly": true,
+    "outdoorSeating": false,
+    "neighborhood": "Fuller Park",
+    "phone": "707-294-2752",
+    "website": "https://naysayercoffee.com/",
+    "lat": null,
+    "lng": null,
+    "priorityScore": 3,
+    "lastVerified": "2026-04-15",
+    "status": "active"
   }
 ]
