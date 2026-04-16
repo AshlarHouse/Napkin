@@ -2230,5 +2230,328 @@
     "priorityScore": 4,
     "lastVerified": "2026-04-15",
     "status": "active"
+  },
+  {
+    "id": "jeffersoncafe",
+    "name": "Jefferson Cafe",
+    "cuisine": "Cafe / Breakfast / Diner",
+    "type": [
+      "breakfast",
+      "lunch"
+    ],
+    "price": 1,
+    "romeOk": true,
+    "takeout": true,
+    "speedRating": "Fast",
+    "hours": {
+      "mon": [
+        6,
+        15
+      ],
+      "tue": [
+        6,
+        15
+      ],
+      "wed": [
+        6,
+        15
+      ],
+      "thu": [
+        6,
+        15
+      ],
+      "fri": [
+        6,
+        15
+      ],
+      "sat": [
+        6,
+        15
+      ],
+      "sun": [
+        6,
+        15
+      ]
+    },
+    "address": "3070 Jefferson St, Napa",
+    "note": "A dependable Jefferson breakfast workhorse with huge portions and real local utility for mornings and casual lunches.",
+    "lineWarning": false,
+    "closedDays": [],
+    "specialRule": null,
+    "cravingMatch": [
+      "breakfast",
+      "sandwiches"
+    ],
+    "photo": "",
+    "delivery": false,
+    "dineIn": true,
+    "familyFriendly": true,
+    "outdoorSeating": false,
+    "neighborhood": "North Jefferson",
+    "phone": "707-927-5647",
+    "website": "",
+    "lat": null,
+    "lng": null,
+    "priorityScore": 3,
+    "lastVerified": "2026-04-15",
+    "status": "active"
+  },
+  {
+    "id": "lawlers",
+    "name": "Lawler's Liquors",
+    "cuisine": "Italian Takeout / Ravioli",
+    "type": [
+      "lunch",
+      "dinner"
+    ],
+    "price": 1,
+    "romeOk": true,
+    "takeout": true,
+    "speedRating": "Fast",
+    "hours": {
+      "mon": [
+        9,
+        22
+      ],
+      "tue": [
+        9,
+        22
+      ],
+      "wed": [
+        9,
+        22
+      ],
+      "thu": [
+        9,
+        22
+      ],
+      "fri": [
+        9,
+        22
+      ],
+      "sat": [
+        9,
+        22
+      ],
+      "sun": [
+        9,
+        20
+      ]
+    },
+    "address": "2232 Jefferson St, Napa",
+    "note": "A true old-school Napa local takeout institution. Exactly the kind of non-chain comfort-food stop that makes this app special.",
+    "lineWarning": false,
+    "closedDays": [],
+    "specialRule": null,
+    "cravingMatch": [
+      "pizza",
+      "surprise"
+    ],
+    "photo": "",
+    "delivery": false,
+    "dineIn": false,
+    "familyFriendly": true,
+    "outdoorSeating": false,
+    "neighborhood": "North Jefferson",
+    "phone": "707-226-9311",
+    "website": "",
+    "lat": null,
+    "lng": null,
+    "priorityScore": 4,
+    "lastVerified": "2026-04-15",
+    "status": "active"
+  },
+  {
+    "id": "azzurro",
+    "name": "Azzurro Pizzeria e Enoteca",
+    "cuisine": "Italian / Pizza",
+    "type": [
+      "lunch",
+      "dinner"
+    ],
+    "price": 2,
+    "romeOk": true,
+    "takeout": true,
+    "speedRating": "Medium",
+    "hours": {
+      "mon": [
+        11.5,
+        20.5
+      ],
+      "tue": [
+        11.5,
+        20.5
+      ],
+      "wed": [
+        11.5,
+        20.5
+      ],
+      "thu": [
+        11.5,
+        20.5
+      ],
+      "fri": [
+        11.5,
+        21
+      ],
+      "sat": [
+        11.5,
+        21
+      ],
+      "sun": null
+    },
+    "address": "1260 Main St, Napa",
+    "note": "A long-running local pizza favorite with a strong review base and easy group-order value.",
+    "lineWarning": false,
+    "closedDays": [
+      "sun"
+    ],
+    "specialRule": null,
+    "cravingMatch": [
+      "pizza"
+    ],
+    "photo": "",
+    "delivery": true,
+    "dineIn": true,
+    "familyFriendly": true,
+    "outdoorSeating": false,
+    "neighborhood": "Downtown",
+    "phone": "707-255-5552",
+    "website": "https://www.azzurropizzeria.com/",
+    "lat": null,
+    "lng": null,
+    "priorityScore": 4,
+    "lastVerified": "2026-04-15",
+    "status": "active"
+  },
+  {
+    "id": "taqueriarosita",
+    "name": "Taqueria Rosita",
+    "cuisine": "Mexican",
+    "type": [
+      "lunch",
+      "dinner"
+    ],
+    "price": 1,
+    "romeOk": true,
+    "takeout": true,
+    "speedRating": "Fast",
+    "hours": {
+      "mon": [
+        10.5,
+        21
+      ],
+      "tue": [
+        10.5,
+        21
+      ],
+      "wed": [
+        10.5,
+        21
+      ],
+      "thu": [
+        10.5,
+        21
+      ],
+      "fri": [
+        10.5,
+        21
+      ],
+      "sat": [
+        10.5,
+        21
+      ],
+      "sun": [
+        10.5,
+        21
+      ]
+    },
+    "address": "1214 Main St, Napa",
+    "note": "A downtown Napa classic since 1982 with strong local loyalty and reliable burrito/taco takeout utility.",
+    "lineWarning": false,
+    "closedDays": [],
+    "specialRule": null,
+    "cravingMatch": [
+      "burritos",
+      "surprise"
+    ],
+    "photo": "",
+    "delivery": true,
+    "dineIn": true,
+    "familyFriendly": true,
+    "outdoorSeating": false,
+    "neighborhood": "Downtown",
+    "phone": "707-253-9208",
+    "website": "https://www.taqueriarosita.com/",
+    "lat": null,
+    "lng": null,
+    "priorityScore": 3,
+    "lastVerified": "2026-04-15",
+    "status": "active"
+  },
+  {
+    "id": "ilposto",
+    "name": "Il Posto Trattoria",
+    "cuisine": "Italian",
+    "type": [
+      "lunch",
+      "dinner"
+    ],
+    "price": 3,
+    "romeOk": true,
+    "takeout": true,
+    "speedRating": "Medium",
+    "hours": {
+      "mon": [
+        11.5,
+        21
+      ],
+      "tue": [
+        11.5,
+        21
+      ],
+      "wed": [
+        11.5,
+        21
+      ],
+      "thu": [
+        11.5,
+        21
+      ],
+      "fri": [
+        11.5,
+        21
+      ],
+      "sat": [
+        11.5,
+        21
+      ],
+      "sun": [
+        11.5,
+        21
+      ]
+    },
+    "address": "4211 Solano Ave, Napa",
+    "note": "A polished north-side Italian option with a strong review history and broader appeal than chain Italian spots.",
+    "lineWarning": false,
+    "closedDays": [],
+    "specialRule": null,
+    "cravingMatch": [
+      "pizza",
+      "surprise"
+    ],
+    "photo": "",
+    "delivery": true,
+    "dineIn": true,
+    "familyFriendly": true,
+    "outdoorSeating": true,
+    "neighborhood": "Vintage",
+    "phone": "707-251-8600",
+    "website": "",
+    "lat": null,
+    "lng": null,
+    "priorityScore": 3,
+    "lastVerified": "2026-04-15",
+    "status": "active"
   }
 ]
