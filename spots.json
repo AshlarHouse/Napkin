@@ -57,10 +57,10 @@
     "neighborhood": "Oxbow",
     "phone": "",
     "website": "",
-    "lat": 0,
-    "lng": 0,
-    "priorityScore": 0,
-    "lastVerified": "2026-04-13",
+    "lat": null,
+    "lng": null,
+    "priorityScore": 1,
+    "lastVerified": "2026-04-20",
     "status": "active"
   },
   {
@@ -121,10 +121,10 @@
     "neighborhood": "Downtown",
     "phone": "",
     "website": "",
-    "lat": 0,
-    "lng": 0,
-    "priorityScore": 0,
-    "lastVerified": "2026-04-13",
+    "lat": null,
+    "lng": null,
+    "priorityScore": 4,
+    "lastVerified": "2026-04-20",
     "status": "active"
   },
   {
@@ -185,10 +185,10 @@
     "neighborhood": "Downtown",
     "phone": "",
     "website": "",
-    "lat": 0,
-    "lng": 0,
-    "priorityScore": 0,
-    "lastVerified": "2026-04-13",
+    "lat": null,
+    "lng": null,
+    "priorityScore": 2,
+    "lastVerified": "2026-04-20",
     "status": "active"
   },
   {
@@ -291,10 +291,10 @@
     "neighborhood": "Downtown",
     "phone": "",
     "website": "",
-    "lat": 0,
-    "lng": 0,
-    "priorityScore": 2,
-    "lastVerified": "2026-04-13",
+    "lat": null,
+    "lng": null,
+    "priorityScore": 3,
+    "lastVerified": "2026-04-20",
     "status": "active"
   },
   {
@@ -397,10 +397,10 @@
     "neighborhood": "North Napa",
     "phone": "",
     "website": "",
-    "lat": 0,
-    "lng": 0,
-    "priorityScore": 1,
-    "lastVerified": "2026-04-13",
+    "lat": null,
+    "lng": null,
+    "priorityScore": 2,
+    "lastVerified": "2026-04-20",
     "status": "active"
   },
   {
@@ -461,10 +461,10 @@
     "neighborhood": "North Napa",
     "phone": "",
     "website": "",
-    "lat": 0,
-    "lng": 0,
-    "priorityScore": 1,
-    "lastVerified": "2026-04-13",
+    "lat": null,
+    "lng": null,
+    "priorityScore": 4,
+    "lastVerified": "2026-04-20",
     "status": "active"
   },
   {
@@ -525,10 +525,10 @@
     "neighborhood": "Oxbow",
     "phone": "",
     "website": "",
-    "lat": 0,
-    "lng": 0,
-    "priorityScore": 1,
-    "lastVerified": "2026-04-13",
+    "lat": null,
+    "lng": null,
+    "priorityScore": 3,
+    "lastVerified": "2026-04-20",
     "status": "active"
   },
   {
@@ -568,7 +568,7 @@
       ]
     },
     "address": "1321 1st St, Napa",
-    "note": "Always a line. CLOSED Tue and Wed — easy to forget.",
+    "note": "Always a line. CLOSED Tue and Wed - easy to forget.",
     "lineWarning": true,
     "closedDays": [
       "tue",
@@ -586,10 +586,10 @@
     "neighborhood": "Downtown",
     "phone": "",
     "website": "",
-    "lat": 0,
-    "lng": 0,
-    "priorityScore": 0,
-    "lastVerified": "2026-04-13",
+    "lat": null,
+    "lng": null,
+    "priorityScore": 3,
+    "lastVerified": "2026-04-20",
     "status": "active"
   },
   {
@@ -633,10 +633,10 @@
     "neighborhood": "Farmers Market",
     "phone": "",
     "website": "",
-    "lat": 0,
-    "lng": 0,
-    "priorityScore": 3,
-    "lastVerified": "2026-04-13",
+    "lat": null,
+    "lng": null,
+    "priorityScore": 4,
+    "lastVerified": "2026-04-20",
     "status": "active"
   },
   {
@@ -1695,9 +1695,9 @@
     "phone": "707-257-8685",
     "website": "",
     "lat": null,
-    "lng": 3,
-    "priorityScore": 0,
-    "lastVerified": "active",
+    "lng": null,
+    "priorityScore": 3,
+    "lastVerified": "2026-04-15",
     "status": "active"
   },
   {
@@ -1762,9 +1762,9 @@
     "phone": "",
     "website": "",
     "lat": null,
-    "lng": 4,
-    "priorityScore": 0,
-    "lastVerified": "active",
+    "lng": null,
+    "priorityScore": 4,
+    "lastVerified": "2026-04-15",
     "status": "active"
   },
   {
@@ -3714,6 +3714,413 @@
     "lng": null,
     "priorityScore": 2,
     "lastVerified": "2026-04-15",
+    "status": "active"
+  },
+  {
+    "id": "lacheve",
+    "name": "La Cheve Bakery and Brews",
+    "cuisine": "Mexican / Bakery / Brunch",
+    "type": [
+      "breakfast",
+      "lunch"
+    ],
+    "price": 2,
+    "romeOk": true,
+    "takeout": true,
+    "speedRating": "Fast",
+    "hours": {
+      "mon": [
+        7.5,
+        15
+      ],
+      "tue": null,
+      "wed": null,
+      "thu": [
+        7.5,
+        15
+      ],
+      "fri": [
+        7.5,
+        15
+      ],
+      "sat": [
+        7.5,
+        15
+      ],
+      "sun": [
+        7.5,
+        15
+      ]
+    },
+    "address": "376 Soscol Ave, Napa",
+    "note": "A beloved Napa brunch-and-pan-dulce destination with real local affection and much more personality than generic breakfast spots.",
+    "lineWarning": false,
+    "closedDays": [
+      "tue",
+      "wed"
+    ],
+    "specialRule": null,
+    "cravingMatch": [
+      "breakfast",
+      "burritos",
+      "surprise"
+    ],
+    "photo": "",
+    "delivery": true,
+    "dineIn": true,
+    "familyFriendly": true,
+    "outdoorSeating": true,
+    "neighborhood": "Soscol",
+    "phone": "707-294-2142",
+    "website": "https://www.ilovelacheve.com/",
+    "lat": null,
+    "lng": null,
+    "priorityScore": 4,
+    "lastVerified": "2026-04-20",
+    "status": "active"
+  },
+  {
+    "id": "conamor",
+    "name": "Con Amor Botanas y Tequila",
+    "cuisine": "Mexican / Tequila Bar",
+    "type": [
+      "lunch",
+      "dinner"
+    ],
+    "price": 2,
+    "romeOk": true,
+    "takeout": true,
+    "speedRating": "Medium",
+    "hours": {
+      "mon": null,
+      "tue": null,
+      "wed": [
+        17,
+        24
+      ],
+      "thu": [
+        17,
+        24
+      ],
+      "fri": [
+        17,
+        24
+      ],
+      "sat": [
+        17,
+        24
+      ],
+      "sun": [
+        11,
+        18
+      ]
+    },
+    "address": "815 Main St, Napa",
+    "note": "La Cheve's newer downtown sibling gives Napkin a current nightlife-leaning Mexican option with more personality than a generic bar stop.",
+    "lineWarning": false,
+    "closedDays": [
+      "mon",
+      "tue"
+    ],
+    "specialRule": null,
+    "cravingMatch": [
+      "burritos",
+      "surprise"
+    ],
+    "photo": "",
+    "delivery": true,
+    "dineIn": true,
+    "familyFriendly": false,
+    "outdoorSeating": false,
+    "neighborhood": "Downtown",
+    "phone": "",
+    "website": "https://www.toasttab.com/local/order/con-amor-815-main-street",
+    "lat": null,
+    "lng": null,
+    "priorityScore": 3,
+    "lastVerified": "2026-04-20",
+    "status": "active"
+  },
+  {
+    "id": "hestan",
+    "name": "Hestan Napa",
+    "cuisine": "California / Fine Dining / Wine Bar",
+    "type": [
+      "lunch",
+      "dinner"
+    ],
+    "price": 3,
+    "romeOk": true,
+    "takeout": false,
+    "speedRating": "Sit-down",
+    "hours": {
+      "mon": [
+        11.5,
+        21
+      ],
+      "tue": null,
+      "wed": null,
+      "thu": [
+        11.5,
+        21
+      ],
+      "fri": [
+        11.5,
+        21
+      ],
+      "sat": [
+        11.5,
+        21
+      ],
+      "sun": [
+        11.5,
+        21
+      ]
+    },
+    "address": "1300 1st St, Suite 291, Napa",
+    "note": "A very current downtown Napa opening from chef Mark Dommen. Not everyday takeout, but clearly relevant for the serious version of the app.",
+    "lineWarning": false,
+    "closedDays": [
+      "tue",
+      "wed"
+    ],
+    "specialRule": null,
+    "cravingMatch": [
+      "surprise"
+    ],
+    "photo": "",
+    "delivery": false,
+    "dineIn": true,
+    "familyFriendly": false,
+    "outdoorSeating": false,
+    "neighborhood": "Downtown",
+    "phone": "707-320-6835",
+    "website": "https://hestannapa.com/",
+    "lat": null,
+    "lng": null,
+    "priorityScore": 3,
+    "lastVerified": "2026-04-20",
+    "status": "active"
+  },
+  {
+    "id": "littlesummer",
+    "name": "Little Summer",
+    "cuisine": "Mediterranean / Hotel Restaurant",
+    "type": [
+      "breakfast",
+      "lunch",
+      "dinner"
+    ],
+    "price": 2,
+    "romeOk": true,
+    "takeout": true,
+    "speedRating": "Medium",
+    "hours": {
+      "mon": [
+        7,
+        22
+      ],
+      "tue": [
+        7,
+        22
+      ],
+      "wed": [
+        7,
+        22
+      ],
+      "thu": [
+        7,
+        22
+      ],
+      "fri": [
+        7,
+        23
+      ],
+      "sat": [
+        7,
+        23
+      ],
+      "sun": [
+        7,
+        22
+      ]
+    },
+    "address": "3425 Solano Ave, Napa",
+    "note": "A polished all-day Mediterranean option with broad utility in north Napa, especially when you want something a little lighter or more modern.",
+    "lineWarning": false,
+    "closedDays": [],
+    "specialRule": null,
+    "cravingMatch": [
+      "breakfast",
+      "mediterranean",
+      "surprise"
+    ],
+    "photo": "",
+    "delivery": true,
+    "dineIn": true,
+    "familyFriendly": true,
+    "outdoorSeating": true,
+    "neighborhood": "Solano",
+    "phone": "707-254-3343",
+    "website": "https://www.littlesummernapa.com/",
+    "lat": null,
+    "lng": null,
+    "priorityScore": 3,
+    "lastVerified": "2026-04-20",
+    "status": "active"
+  },
+  {
+    "id": "thegrove",
+    "name": "The Grove at CIA Copia",
+    "cuisine": "Mediterranean / Comfort Food",
+    "type": [
+      "breakfast",
+      "lunch",
+      "dinner"
+    ],
+    "price": 3,
+    "romeOk": true,
+    "takeout": true,
+    "speedRating": "Medium",
+    "hours": {
+      "mon": null,
+      "tue": null,
+      "wed": [
+        17,
+        21
+      ],
+      "thu": [
+        17,
+        21
+      ],
+      "fri": [
+        17,
+        21
+      ],
+      "sat": [
+        [
+          10.5,
+          14.5
+        ],
+        [
+          17,
+          21
+        ]
+      ],
+      "sun": [
+        [
+          10.5,
+          14.5
+        ],
+        [
+          17,
+          20
+        ]
+      ]
+    },
+    "address": "500 1st St, Napa",
+    "note": "A strong Copia-side destination with credible food pedigree and a good mix of brunch and dinner utility.",
+    "lineWarning": false,
+    "closedDays": [
+      "mon",
+      "tue"
+    ],
+    "specialRule": null,
+    "cravingMatch": [
+      "breakfast",
+      "surprise"
+    ],
+    "photo": "",
+    "delivery": false,
+    "dineIn": true,
+    "familyFriendly": true,
+    "outdoorSeating": true,
+    "neighborhood": "Copia",
+    "phone": "707-967-2500",
+    "website": "https://www.ciaatcopia.com/the-grove-at-copia-reservations/",
+    "lat": null,
+    "lng": null,
+    "priorityScore": 3,
+    "lastVerified": "2026-04-20",
+    "status": "active"
+  },
+  {
+    "id": "slanteddoor",
+    "name": "The Slanted Door Napa",
+    "cuisine": "Vietnamese",
+    "type": [
+      "breakfast",
+      "lunch",
+      "dinner"
+    ],
+    "price": 3,
+    "romeOk": true,
+    "takeout": true,
+    "speedRating": "Medium",
+    "hours": {
+      "mon": [
+        16,
+        20
+      ],
+      "tue": [
+        16,
+        20
+      ],
+      "wed": [
+        16,
+        20
+      ],
+      "thu": [
+        16,
+        20
+      ],
+      "fri": [
+        16,
+        21
+      ],
+      "sat": [
+        [
+          11.5,
+          15
+        ],
+        [
+          16,
+          21
+        ]
+      ],
+      "sun": [
+        [
+          11.5,
+          15
+        ],
+        [
+          16,
+          20
+        ]
+      ]
+    },
+    "address": "1650 Soscol Ave, Napa",
+    "note": "A still-relevant Napa destination with strong design, real name recognition, and enough brunch-plus-dinner utility to matter in the serious version of the app.",
+    "lineWarning": false,
+    "closedDays": [],
+    "specialRule": null,
+    "cravingMatch": [
+      "asian",
+      "breakfast",
+      "surprise"
+    ],
+    "photo": "",
+    "delivery": false,
+    "dineIn": true,
+    "familyFriendly": true,
+    "outdoorSeating": true,
+    "neighborhood": "Soscol",
+    "phone": "707-287-1197",
+    "website": "https://slanteddoor.com/napa/",
+    "lat": null,
+    "lng": null,
+    "priorityScore": 3,
+    "lastVerified": "2026-04-20",
     "status": "active"
   }
 ]

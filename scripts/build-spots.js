@@ -73,6 +73,28 @@ function parseNumber(value, fallback = 0) {
   return Number.isFinite(parsed) ? parsed : fallback;
 }
 
+function parseCoordinatePair(record, restaurantName) {
+  const rawLat = String(record.lat || '').trim();
+  const rawLng = String(record.lng || '').trim();
+
+  if (!rawLat && !rawLng) {
+    return { lat: null, lng: null };
+  }
+
+  const lat = parseNumber(rawLat, null);
+  const lng = parseNumber(rawLng, null);
+
+  if (lat === null || lng === null) {
+    throw new Error(`Incomplete coordinates for "${restaurantName}". Provide both lat and lng or leave both blank.`);
+  }
+
+  if (lat === 0 && lng === 0) {
+    throw new Error(`Invalid 0,0 coordinates for "${restaurantName}". Leave Napa coordinates blank until verified.`);
+  }
+
+  return { lat, lng };
+}
+
 function parseJsonField(value, fallback, label, restaurantName) {
   const trimmed = String(value || '').trim();
   if (!trimmed) return fallback;
@@ -96,6 +118,7 @@ function normalizeRestaurant(record) {
   const specialRule = (record.specialRule || '').trim() || null;
   const photo = (record.photo || '').trim();
   const price = Math.max(1, Math.min(4, parseNumber(record.price, 1)));
+  const { lat, lng } = parseCoordinatePair(record, name);
 
   return {
     id,
@@ -121,8 +144,8 @@ function normalizeRestaurant(record) {
     neighborhood: (record.neighborhood || '').trim(),
     phone: (record.phone || '').trim(),
     website: (record.website || '').trim(),
-    lat: parseNumber(record.lat, null),
-    lng: parseNumber(record.lng, null),
+    lat,
+    lng,
     priorityScore: parseNumber(record.priorityScore, 0),
     lastVerified: (record.lastVerified || '').trim(),
     status: (record.status || 'active').trim()

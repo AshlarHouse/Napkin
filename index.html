@@ -820,6 +820,15 @@ function isAvailableSpot(spot) {
   return !spot.status || spot.status === 'active';
 }
 
+function isCuratedSpot(spot) {
+  return (spot.priorityScore || 0) >= 2;
+}
+
+function preferCuratedSpots(arr) {
+  const curated = arr.filter(isCuratedSpot);
+  return curated.length ? curated : arr;
+}
+
 async function checkAuth() {
   try {
     const res = await fetch('/.netlify/functions/auth', {
@@ -972,9 +981,9 @@ function sortByScore(arr) {
 // ════════════════════════════════════════════════════════
 function filterByCraving(craving) {
   const eligible = spots.filter(s => isAvailableSpot(s) && !isHardSuppressed(s) && isOpenNow(s));
-  if (craving === 'surprise') return sortByScore(eligible);
+  if (craving === 'surprise') return sortByScore(preferCuratedSpots(eligible));
   // Return only exact craving matches — no silent fallback
-  return sortByScore(eligible.filter(s => s.cravingMatch.includes(craving)));
+  return sortByScore(preferCuratedSpots(eligible.filter(s => s.cravingMatch.includes(craving))));
 }
 
 // ════════════════════════════════════════════════════════
@@ -1474,7 +1483,7 @@ document.getElementById('btn-empty-action').addEventListener('click', () => {
   const mode = document.getElementById('btn-empty-action').dataset.mode;
   if (mode === 'show-all') {
     // Show all currently open spots regardless of craving
-    deck = shuffle(spots.filter(s => isAvailableSpot(s) && isOpenNow(s)));
+    deck = shuffle(preferCuratedSpots(spots.filter(s => isAvailableSpot(s) && isOpenNow(s))));
     deckIsNoMatchFallback = false;
     deckIndex = 0;
     renderDeck();
