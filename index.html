@@ -1519,7 +1519,7 @@ document.getElementById('btn-not-this').addEventListener('click', () => {
 // ════════════════════════════════════════════════════════
 async function boot() {
   try {
-    const res = await fetch('/spots.json');
+    const res = await fetch(`/spots.json?v=${Date.now()}`, { cache: 'no-store' });
     spots = await res.json();
   } catch (_) {
     spots = [];
