@@ -2,6 +2,7 @@
   "name": "napkin",
   "private": true,
   "scripts": {
-    "build:data": "node scripts/build-spots.js"
+    "build:data": "node scripts/build-spots.js",
+    "check:events": "node -e \"require('./netlify/functions/events.js').handler({}).then(r=>{console.log(r.statusCode); console.log(r.body);})\""
   }
 }

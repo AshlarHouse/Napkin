@@ -1,0 +1,53 @@
+{
+  "sources": [
+    {
+      "id": "donapa-upcoming",
+      "name": "DoNapa Upcoming Events",
+      "url": "https://donapa.com/upcoming-events/",
+      "trust": 0.86,
+      "kind": "calendar"
+    },
+    {
+      "id": "donapa-local",
+      "name": "DoNapa Our Napa",
+      "url": "https://donapa.com/our-napa/",
+      "trust": 0.82,
+      "kind": "local_feature"
+    },
+    {
+      "id": "napa-farmers-market",
+      "name": "Napa Farmers Market",
+      "url": "https://napafarmersmarket.org/",
+      "trust": 0.94,
+      "kind": "official_recurring"
+    }
+  ],
+  "recurring": [
+    {
+      "id": "napa-farmers-market-saturday",
+      "title": "Napa Farmers Market",
+      "sourceId": "napa-farmers-market",
+      "placeLabel": "1100 West Street",
+      "weekday": 6,
+      "startTime": "08:00",
+      "endTime": "12:00",
+      "months": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      "tags": ["farmers_market", "family", "food", "morning", "local_tradition"],
+      "whyItMatters": "Produce, pastries, flowers, coffee, and an easy local morning wander.",
+      "sourceUrl": "https://napafarmersmarket.org/"
+    },
+    {
+      "id": "napa-farmers-market-tuesday",
+      "title": "Napa Farmers Market",
+      "sourceId": "napa-farmers-market",
+      "placeLabel": "1100 West Street",
+      "weekday": 2,
+      "startTime": "08:00",
+      "endTime": "12:00",
+      "months": [4, 5, 6, 7, 8, 9, 10, 11, 12],
+      "tags": ["farmers_market", "family", "food", "morning", "local_tradition"],
+      "whyItMatters": "A reliable weekday market stop for fresh food and a low-stress local outing.",
+      "sourceUrl": "https://napafarmersmarket.org/"
+    }
+  ]
+}

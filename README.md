@@ -29,3 +29,11 @@ Napkin is a Napa-specific restaurant randomizer. The app itself runs from `spots
 ## Next content goal
 
 Fill this file out until every Napa restaurant and takeout option has a row, then refine the Napkin-specific fields over time.
+
+## Local event radar
+
+Napkin also has a small Napa event pipeline. The source list lives in `data/event-sources.json`, and the Netlify function at `netlify/functions/events.js` scrapes and normalizes local signals from sources like DoNapa and Napa Farmers Market.
+
+The event function does not try to be a full calendar. It filters for quintessential Napa usefulness: farmers markets, family-friendly community events, food, outdoor local traditions, and school-night-friendly happenings.
+
+Run `npm run check:events` to inspect the current event digest before deploying.

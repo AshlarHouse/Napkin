@@ -146,7 +146,7 @@
     .home-inner {
       max-width: 480px;
       margin: 0 auto;
-      padding: 56px 20px 80px; /* 80px bottom = footer height + gap */
+      padding: 56px 20px 112px; /* bottom room for event pills */
     }
     .home-topbar .wordmark { display: block; }
     .home-greeting {
@@ -208,13 +208,14 @@
     .home-footer {
       position: absolute;
       bottom: 0; left: 0; right: 0;
-      height: 48px;
+      min-height: 74px;
       background: var(--bg);
       border-top: 1px solid var(--border);
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 0 20px;
+      gap: 10px;
+      padding: 10px 16px;
       z-index: 10;
     }
     .home-footer.centered {
@@ -223,6 +224,59 @@
     .footer-text {
       font-size: 13px;
       color: var(--text-muted);
+    }
+    .event-pills {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      scrollbar-width: none;
+      flex: 1;
+      min-width: 0;
+      padding-bottom: 2px;
+    }
+    .event-pills::-webkit-scrollbar { display: none; }
+    .event-pill {
+      appearance: none;
+      background: #f8f3ea;
+      border: 1px solid #dfd5c5;
+      border-radius: 999px;
+      color: var(--text);
+      cursor: pointer;
+      display: inline-flex;
+      flex-direction: column;
+      gap: 2px;
+      font: inherit;
+      min-width: 210px;
+      max-width: 260px;
+      padding: 9px 12px;
+      text-align: left;
+      transition: border-color 150ms, transform 150ms;
+    }
+    .event-pill:hover {
+      border-color: var(--text);
+      transform: translateY(-1px);
+    }
+    .event-pill-meta {
+      color: var(--text-muted);
+      font-size: 11px;
+      line-height: 1.2;
+      white-space: nowrap;
+    }
+    .event-pill-title {
+      font-size: 13px;
+      font-weight: 700;
+      line-height: 1.2;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .event-pill-reason {
+      color: var(--text-dim);
+      font-size: 11px;
+      line-height: 1.25;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
     }
     .btn-refresh {
       background: none;
@@ -698,7 +752,9 @@
   </div>
   <!-- Footer fixed to bottom of this screen -->
   <div class="home-footer centered" id="home-footer">
-    <span class="footer-text" id="footer-text">Tap to refresh local events</span>
+    <div class="event-pills" id="event-pills">
+      <span class="footer-text" id="footer-text">Tap to refresh local events</span>
+    </div>
     <button class="btn-refresh" id="btn-refresh" aria-label="Refresh local events" style="display:none">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
         <polyline points="23 4 23 10 17 10"></polyline>
@@ -1092,9 +1148,9 @@ let footerListenerAdded = false;
 async function setupFooter() {
   const lastRefresh = localStorage.getItem('napkin_last_refresh');
   const now = Date.now();
-  const threeDays = 3 * 24 * 60 * 60 * 1000;
+  const sixHours = 6 * 60 * 60 * 1000;
 
-  if (!lastRefresh || (now - parseInt(lastRefresh, 10)) > threeDays) {
+  if (!lastRefresh || (now - parseInt(lastRefresh, 10)) > sixHours) {
     await fetchEvents();
   }
 
@@ -1103,63 +1159,83 @@ async function setupFooter() {
   if (!footerListenerAdded) {
     footerListenerAdded = true;
     document.getElementById('btn-refresh').addEventListener('click', async () => {
-      document.getElementById('footer-text').textContent = 'Updating...';
+      renderEventLoading();
       await fetchEvents();
       updateFooterDisplay();
     });
-    // Also make the footer text clickable when no cache
-    document.getElementById('footer-text').addEventListener('click', async () => {
-      const ft = document.getElementById('footer-text');
-      if (ft.textContent === 'Tap to refresh local events') {
-        ft.textContent = 'Updating...';
+    document.getElementById('event-pills').addEventListener('click', async e => {
+      const action = e.target.closest('[data-event-action]');
+      if (action) {
+        renderEventLoading();
         await fetchEvents();
         updateFooterDisplay();
+        return;
+      }
+
+      const eventLink = e.target.closest('[data-event-url]');
+      if (eventLink) {
+        window.open(eventLink.dataset.eventUrl, '_blank', 'noopener');
       }
     });
   }
 }
 
+function readEventCache() {
+  try {
+    const parsed = JSON.parse(localStorage.getItem('napkin_event_cache') || 'null');
+    if (!parsed || !Array.isArray(parsed.items)) return null;
+    return parsed;
+  } catch (_) {
+    return null;
+  }
+}
+
+function renderEventLoading() {
+  const footer = document.getElementById('home-footer');
+  const eventPills = document.getElementById('event-pills');
+  const btnRefresh = document.getElementById('btn-refresh');
+  footer.classList.add('centered');
+  eventPills.innerHTML = '<span class="footer-text">Checking Napa...</span>';
+  btnRefresh.style.display = 'none';
+}
+
 function updateFooterDisplay() {
   const footer    = document.getElementById('home-footer');
-  const footerText= document.getElementById('footer-text');
+  const eventPills= document.getElementById('event-pills');
   const btnRefresh= document.getElementById('btn-refresh');
-  const lastRefresh = localStorage.getItem('napkin_last_refresh');
+  const cache = readEventCache();
 
-  if (!lastRefresh) {
+  if (!cache) {
     footer.classList.add('centered');
-    footerText.textContent = 'Tap to refresh local events';
-    footerText.style.cursor = 'pointer';
+    eventPills.innerHTML = '<button class="event-pill" data-event-action="refresh"><span class="event-pill-meta">Local Napa Radar</span><span class="event-pill-title">Tap to refresh events</span><span class="event-pill-reason">Markets, family events, food trucks, and weekend local stuff.</span></button>';
     btnRefresh.style.display = 'none';
     return;
   }
 
   footer.classList.remove('centered');
-  footerText.style.cursor = '';
   btnRefresh.style.display = 'flex';
 
-  const diffMs   = Date.now() - parseInt(lastRefresh, 10);
-  const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
-  if (diffDays === 0)      footerText.textContent = 'Updated today';
-  else if (diffDays === 1) footerText.textContent = 'Updated 1 day ago';
-  else                     footerText.textContent = `Updated ${diffDays} days ago`;
+  if (cache.quietDay || cache.items.length === 0) {
+    eventPills.innerHTML = '<button class="event-pill" data-event-action="refresh"><span class="event-pill-meta">Quiet local day</span><span class="event-pill-title">No strong Napa family event found</span><span class="event-pill-reason">Napkin is filtering out tourist filler and late-night noise.</span></button>';
+    return;
+  }
+
+  eventPills.innerHTML = cache.items.slice(0, 3).map(event => `
+    <button class="event-pill" data-event-url="${escapeHtml(event.sourceUrl)}" aria-label="${escapeHtml(event.title)}">
+      <span class="event-pill-meta">${escapeHtml(event.dayLabel)} · ${escapeHtml(event.timeLabel)} · ${escapeHtml(event.placeLabel)}</span>
+      <span class="event-pill-title">${escapeHtml(event.title)}</span>
+      <span class="event-pill-reason">${escapeHtml(event.whyItMatters)}</span>
+    </button>
+  `).join('');
 }
 
 async function fetchEvents() {
-  const today = new Date().toISOString().slice(0, 10);
-  const prompt = `What is happening in Napa, CA food and event scene this week that would affect where a local family eats? Check for: current farmers market schedule, any major downtown events, notable restaurant happy hours or weekly specials. Today is ${today}. Return ONLY valid JSON with no markdown formatting and no explanation: { "events": [{"title": string, "relevance": string, "badge": string, "dayMatch": string}], "lastUpdated": string }`;
   try {
-    const res = await fetch('/.netlify/functions/claude', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ messages: [{ role: 'user', content: prompt }] })
-    });
+    const res = await fetch('/.netlify/functions/events');
     if (!res.ok) return false;
 
-    const data = await res.json();
-    if (!data.text) return false;
-
-    const parsed = JSON.parse(data.text);
-    if (!parsed || !Array.isArray(parsed.events) || typeof parsed.lastUpdated !== 'string') {
+    const parsed = await res.json();
+    if (!parsed || !Array.isArray(parsed.items) || typeof parsed.lastUpdated !== 'string') {
       return false;
     }
 
@@ -1169,6 +1245,16 @@ async function fetchEvents() {
   } catch (_) {
     return false;
   }
+}
+
+function escapeHtml(value) {
+  return String(value || '').replace(/[&<>"']/g, char => ({
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#39;'
+  }[char]));
 }
 
 // ════════════════════════════════════════════════════════
