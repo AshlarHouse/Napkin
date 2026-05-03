@@ -72,6 +72,9 @@ function stripHtml(html) {
     .replace(/&#8217;|&rsquo;/g, "'")
     .replace(/&#8220;|&ldquo;/g, '"')
     .replace(/&#8221;|&rdquo;/g, '"')
+    .replace(/&#038;/g, '&')
+    .replace(/&#8211;|&ndash;/g, '-')
+    .replace(/&#8212;|&mdash;/g, '-')
     .replace(/\s+/g, ' ')
     .trim();
 }
@@ -95,6 +98,10 @@ function addDays(date, days) {
   return next;
 }
 
+function weekOfMonth(date) {
+  return Math.ceil(date.getDate() / 7);
+}
+
 function toIsoLocalDate(date, time) {
   const year = date.getFullYear();
   const month = String(date.getMonth() + 1).padStart(2, '0');
@@ -113,10 +120,12 @@ function inferTags(title, description) {
   const text = `${title} ${description}`.toLowerCase();
   const tags = new Set();
 
-  if (/farmers?|market|vendor|produce|food truck|food trucks|bites|culinary|pizza|brunch|breakfast/.test(text)) tags.add('food');
-  if (/family|kid|kids|children|all ages|bikefest|earth day|festival|walk|art|outdoor/.test(text)) tags.add('family');
-  if (/market|bikefest|earth day|festival|pride|table|lighted art|community|river/.test(text)) tags.add('local_tradition');
+  if (/farmers?|market|vendor|produce|food truck|food trucks|bites|culinary|pizza|brunch|breakfast|dish|dishes|purveyors|spice|coffee|taco|popcorn/.test(text)) tags.add('food');
+  if (/family|kid|kids|children|all ages|bikefest|earth day|festival|walk|art|outdoor|movie|lawn games|paint-out|scavenger/.test(text)) tags.add('family');
+  if (/market|bikefest|earth day|festival|pride|table|lighted art|community|river|oxbow|napa yard|first thursday|paint-out|taste of oxbow/.test(text)) tags.add('local_tradition');
   if (/music|band|concert|dj|performance/.test(text)) tags.add('music');
+  if (/art|artist|paint|sculpt|gallery|maker|makers/.test(text)) tags.add('art');
+  if (/movie|film|screening/.test(text)) tags.add('movie');
   if (/wine|tasting|release|sparkling|cabernet|vineyard|winery/.test(text)) tags.add('wine');
   if (/karaoke|bar|late|9-1|8-12|nightlife/.test(text)) tags.add('nightlife');
 
@@ -129,7 +138,7 @@ function scoreEvent(event, baseDate) {
   const tags = new Set(event.tags);
   let score = 0;
 
-  score += Math.max(0, 5 - daysAway);
+  score += Math.max(0, 8 - (daysAway * 2));
   if (tags.has('local_tradition')) score += 5;
   if (tags.has('family')) score += 4;
   if (tags.has('food')) score += 3;
@@ -139,7 +148,7 @@ function scoreEvent(event, baseDate) {
   if (tags.has('nightlife')) score -= 5;
   if (/hotel|resort|meritage|release party|wine tasting/i.test(event.title)) score -= 3;
   if (/boot camp|cabernet|grand tasting|winery/i.test(event.title)) score -= 3;
-  if (/bikefest|first thursday|taste of oxbow|earth day|lighted art|farmers market/i.test(event.title)) score += 3;
+  if (/bikefest|first thursday|taste of oxbow|earth day|lighted art|farmers market|community market|movie night|paint-out/i.test(event.title)) score += 4;
 
   if (event.recurring === false) score += 3;
   if (event.recurring && daysAway > 1) score -= 4;
@@ -251,8 +260,48 @@ function parseDoNapaCards(html, source, baseDate) {
   return events;
 }
 
+function parseOxbowEvents(html, source, baseDate) {
+  const year = baseDate.getFullYear();
+  const events = [];
+  const blocks = html.match(/<div class="et_pb_text_inner"><h1>[\s\S]*?<\/div><\/div>/gi) || [];
+
+  for (const block of blocks) {
+    const title = normalizeTitle(extractFirst(block, /<h1>([\s\S]*?)<\/h1>/i));
+    if (!title || /upcoming events/i.test(title)) continue;
+
+    const dateLine = extractFirst(block, /<p><strong>([\s\S]*?)<\/strong>/i);
+    const dateMatch = dateLine.match(/\b(Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday),\s+([A-Za-z]{3,9})\s+(\d{1,2})(?:,\s*(\d{4}))?;?\s*([^<]*)/i);
+    if (!dateMatch) continue;
+
+    const [, , monthName, dayText, explicitYear, timeText] = dateMatch;
+    const date = dateFromMonthDay(monthName, dayText, explicitYear ? Number(explicitYear) : year);
+    if (!date) continue;
+
+    const description = stripHtml(block).slice(0, 420);
+    const tags = inferTags(title, description);
+
+    events.push({
+      id: `${source.id}-${slugify(`${monthName}-${dayText}-${title}`)}`,
+      title,
+      sourceId: source.id,
+      sourceName: source.name,
+      sourceUrl: source.url,
+      placeLabel: 'Oxbow Public Market',
+      startsAt: toIsoLocalDate(date, inferStartTime(title, timeText || description)),
+      endsAt: toIsoLocalDate(date, inferEndTime(title, timeText || description)),
+      tags,
+      whyItMatters: eventReason(title, tags),
+      sourceTrust: source.trust,
+      recurring: false
+    });
+  }
+
+  return events;
+}
+
 function inferPlace(title, description) {
   const text = `${title} ${description}`.toLowerCase();
+  if (text.includes('napa yard')) return 'Napa Yard';
   if (text.includes('oxbow')) return 'Oxbow Commons';
   if (text.includes('copia')) return 'CIA at Copia';
   if (text.includes('riverfront')) return 'Napa Riverfront';
@@ -264,6 +313,16 @@ function inferPlace(title, description) {
 
 function inferStartTime(title, description) {
   const text = `${title} ${description}`;
+  const rangeMatch = text.match(/\b(\d{1,2})(?::(\d{2}))?\s*(?:am|pm)?\s*[-–]\s*(\d{1,2})(?::(\d{2}))?\s*(AM|PM)\b/i);
+  if (rangeMatch) {
+    let hour = Number(rangeMatch[1]);
+    const minute = rangeMatch[2] || '00';
+    const meridiem = rangeMatch[5].toLowerCase();
+    if (meridiem === 'pm' && hour !== 12) hour += 12;
+    if (meridiem === 'am' && hour === 12) hour = 0;
+    return `${String(hour).padStart(2, '0')}:${minute}`;
+  }
+
   const match = text.match(/\b(\d{1,2})(?::(\d{2}))?\s*(AM|PM)\b/i);
   if (!match) return /market|bikefest|earth day|walk/i.test(text) ? '10:00' : '17:00';
   let hour = Number(match[1]);
@@ -276,6 +335,15 @@ function inferStartTime(title, description) {
 
 function inferEndTime(title, description) {
   const text = `${title} ${description}`;
+  const rangeMatch = text.match(/\b(\d{1,2})(?::(\d{2}))?\s*(?:am|pm)?\s*[-–]\s*(\d{1,2})(?::(\d{2}))?\s*(AM|PM)\b/i);
+  if (rangeMatch) {
+    let hour = Number(rangeMatch[3]);
+    const minute = rangeMatch[4] || '00';
+    const meridiem = rangeMatch[5].toLowerCase();
+    if (meridiem === 'pm' && hour !== 12) hour += 12;
+    if (meridiem === 'am' && hour === 12) hour = 0;
+    return `${String(hour).padStart(2, '0')}:${minute}`;
+  }
   if (/5\s*-\s*9\s*pm/i.test(text)) return '21:00';
   if (/8\s*a\.?m\.?\s*to\s*12|8:00\s*am\s*-\s*12/i.test(text)) return '12:00';
   return /market|bikefest|earth day|walk/i.test(text) ? '14:00' : '20:00';
@@ -285,6 +353,11 @@ function eventReason(title, tags) {
   const set = new Set(tags);
   if (/farmers market/i.test(title)) return 'Fresh food, coffee, pastries, and an easy local wander.';
   if (/bikefest/i.test(title)) return 'A free family-friendly Napa outing with music, bike activities, and Oxbow energy.';
+  if (/first thursday/i.test(title)) return 'Food trucks, farmers, music, and kid-friendly lawn games at Oxbow Commons.';
+  if (/taste of oxbow/i.test(title)) return 'A locals-friendly Oxbow food night with small bites and live music.';
+  if (/movie night/i.test(title)) return 'A low-lift family evening with food nearby and a simple plan built in.';
+  if (/community market/i.test(title)) return 'Local farmers and makers in an easy after-work wander near Oxbow.';
+  if (/paint-out/i.test(title)) return 'A relaxed art-and-market wander with artists working live around Oxbow.';
   if (set.has('food') && set.has('family')) return 'Food plus family-friendly local energy, which is the Napkin sweet spot.';
   if (set.has('local_tradition')) return 'A real Napa community happening worth knowing about.';
   return 'A current Napa event that may make today feel a little more alive.';
@@ -296,6 +369,7 @@ function buildRecurringEvents(config, baseDate) {
     const date = addDays(baseDate, offset);
     for (const event of config.recurring) {
       if (event.weekday !== date.getDay()) continue;
+      if (event.weeksOfMonth && !event.weeksOfMonth.includes(weekOfMonth(date))) continue;
       if (!event.months.includes(date.getMonth() + 1)) continue;
       const source = config.sources.find(item => item.id === event.sourceId);
       events.push({
@@ -319,7 +393,7 @@ function buildRecurringEvents(config, baseDate) {
 
 async function scrapeSources(config, baseDate) {
   const scraped = [];
-  const calendarSources = config.sources.filter(source => source.kind === 'calendar' || source.kind === 'local_feature');
+  const calendarSources = config.sources.filter(source => ['calendar', 'local_feature', 'oxbow_events'].includes(source.kind));
 
   await Promise.all(calendarSources.map(async source => {
     try {
@@ -328,8 +402,12 @@ async function scrapeSources(config, baseDate) {
       });
       if (!response.ok) return;
       const html = await response.text();
-      scraped.push(...parseDoNapaCards(html, source, baseDate));
-      scraped.push(...parseDoNapaText(stripHtml(html), source, baseDate));
+      if (source.kind === 'oxbow_events') {
+        scraped.push(...parseOxbowEvents(html, source, baseDate));
+      } else {
+        scraped.push(...parseDoNapaCards(html, source, baseDate));
+        scraped.push(...parseDoNapaText(stripHtml(html), source, baseDate));
+      }
     } catch (_) {
       // Network failures should make the digest quieter, not broken.
     }
@@ -355,6 +433,9 @@ function canonicalEventKey(event) {
   if (text.includes('farmers market')) return 'napa-farmers-market';
   if (text.includes('first thursday')) return 'first-thursday';
   if (text.includes('taste of oxbow')) return 'taste-of-oxbow';
+  if (text.includes('community market')) return 'napa-yard-community-market';
+  if (text.includes('movie night')) return 'napa-yard-movie-night';
+  if (text.includes('paint-out')) return 'oxbow-paint-out';
   return slugify(event.title);
 }
 
@@ -368,9 +449,21 @@ function toDigestItem(event, baseDate) {
     timeLabel: displayTime(event.startsAt, event.endsAt),
     placeLabel: event.placeLabel,
     whyItMatters: event.whyItMatters,
+    experienceLabel: experienceLabel(event, tags),
     tags,
     sourceUrl: event.sourceUrl
   };
+}
+
+function experienceLabel(event, tags) {
+  const text = `${event.title} ${tags.join(' ')}`.toLowerCase();
+  if (text.includes('farmers_market') || text.includes('farmers market')) return 'Market Morning';
+  if (text.includes('bikefest')) return 'Family Outing';
+  if (text.includes('first thursday') || text.includes('community market')) return 'Local Night';
+  if (text.includes('taste of oxbow')) return 'Food Night';
+  if (text.includes('movie')) return 'Easy Evening';
+  if (text.includes('art') || text.includes('paint')) return 'Art Wander';
+  return 'Worth Knowing';
 }
 
 function selectDigestEvents(scoredEvents) {

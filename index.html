@@ -262,6 +262,15 @@
       line-height: 1.2;
       white-space: nowrap;
     }
+    .event-pill-kicker {
+      color: var(--text);
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 0;
+      line-height: 1;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
     .event-pill-title {
       font-size: 13px;
       font-weight: 700;
@@ -1207,7 +1216,7 @@ function updateFooterDisplay() {
 
   if (!cache) {
     footer.classList.add('centered');
-    eventPills.innerHTML = '<button class="event-pill" data-event-action="refresh"><span class="event-pill-meta">Local Napa Radar</span><span class="event-pill-title">Tap to refresh events</span><span class="event-pill-reason">Markets, family events, food trucks, and weekend local stuff.</span></button>';
+    eventPills.innerHTML = '<button class="event-pill" data-event-action="refresh"><span class="event-pill-kicker">Local Napa Radar</span><span class="event-pill-title">Tap to refresh events</span><span class="event-pill-reason">Markets, family events, food trucks, and weekend local stuff.</span></button>';
     btnRefresh.style.display = 'none';
     return;
   }
@@ -1216,12 +1225,13 @@ function updateFooterDisplay() {
   btnRefresh.style.display = 'flex';
 
   if (cache.quietDay || cache.items.length === 0) {
-    eventPills.innerHTML = '<button class="event-pill" data-event-action="refresh"><span class="event-pill-meta">Quiet local day</span><span class="event-pill-title">No strong Napa family event found</span><span class="event-pill-reason">Napkin is filtering out tourist filler and late-night noise.</span></button>';
+    eventPills.innerHTML = '<button class="event-pill" data-event-action="refresh"><span class="event-pill-kicker">Quiet local day</span><span class="event-pill-title">No strong Napa family event found</span><span class="event-pill-reason">Napkin is filtering out tourist filler and late-night noise.</span></button>';
     return;
   }
 
   eventPills.innerHTML = cache.items.slice(0, 3).map(event => `
     <button class="event-pill" data-event-url="${escapeHtml(event.sourceUrl)}" aria-label="${escapeHtml(event.title)}">
+      <span class="event-pill-kicker">${escapeHtml(event.experienceLabel || 'Worth Knowing')}</span>
       <span class="event-pill-meta">${escapeHtml(event.dayLabel)} · ${escapeHtml(event.timeLabel)} · ${escapeHtml(event.placeLabel)}</span>
       <span class="event-pill-title">${escapeHtml(event.title)}</span>
       <span class="event-pill-reason">${escapeHtml(event.whyItMatters)}</span>

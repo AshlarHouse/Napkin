@@ -20,6 +20,20 @@
       "url": "https://napafarmersmarket.org/",
       "trust": 0.94,
       "kind": "official_recurring"
+    },
+    {
+      "id": "oxbow-events",
+      "name": "Oxbow Public Market Events",
+      "url": "https://oxbowpublicmarket.com/events/",
+      "trust": 0.9,
+      "kind": "oxbow_events"
+    },
+    {
+      "id": "napa-yard",
+      "name": "Napa Yard",
+      "url": "https://donapa.com/things-to-do/napa-yard/",
+      "trust": 0.78,
+      "kind": "official_recurring"
     }
   ],
   "recurring": [
@@ -48,6 +62,47 @@
       "tags": ["farmers_market", "family", "food", "morning", "local_tradition"],
       "whyItMatters": "A reliable weekday market stop for fresh food and a low-stress local outing.",
       "sourceUrl": "https://napafarmersmarket.org/"
+    },
+    {
+      "id": "first-thursday-oxbow",
+      "title": "First Thursdays at Oxbow Commons",
+      "sourceId": "donapa-upcoming",
+      "placeLabel": "Oxbow Commons",
+      "weekday": 4,
+      "weeksOfMonth": [1],
+      "startTime": "17:00",
+      "endTime": "21:00",
+      "months": [5, 6, 7, 8, 9, 10],
+      "tags": ["food", "family", "music", "local_tradition", "outdoor"],
+      "whyItMatters": "Food trucks, farmers, music, lawn games, and a locals-first evening outside.",
+      "sourceUrl": "https://donapa.com/event/first-thursdays/"
+    },
+    {
+      "id": "napa-yard-friday-movie",
+      "title": "Napa Yard Friday Movie Night",
+      "sourceId": "napa-yard",
+      "placeLabel": "Napa Yard",
+      "weekday": 5,
+      "startTime": "19:00",
+      "endTime": "21:00",
+      "months": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      "tags": ["family", "food", "movie", "local_tradition"],
+      "whyItMatters": "A casual outdoor-ish family night with food nearby and free popcorn.",
+      "sourceUrl": "https://donapa.com/things-to-do/napa-yard/"
+    },
+    {
+      "id": "napa-yard-community-market",
+      "title": "Napa Valley Community Market at Napa Yard",
+      "sourceId": "napa-yard",
+      "placeLabel": "Napa Yard",
+      "weekday": 4,
+      "weeksOfMonth": [2, 4],
+      "startTime": "17:00",
+      "endTime": "20:00",
+      "months": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      "tags": ["market", "family", "food", "makers", "local_tradition"],
+      "whyItMatters": "Local farmers and makers in an easy food-and-wander setup near Oxbow.",
+      "sourceUrl": "https://donapa.com/things-to-do/napa-yard/"
     }
   ]
 }
